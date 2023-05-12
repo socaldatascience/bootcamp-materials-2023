@@ -1,0 +1,72 @@
+---
+title: "SoCal Data Science Bootcamp"
+subtitle: "Summer 2023 Schedule"
+format: 
+  html:
+    toc: true
+    html-math-method: katex
+    css: style.css
+---
+
+```{r}
+#| echo: false
+library(fontawesome)
+```
+
+## Before the Bootcamp
+
+- **Sign up for GitHub** [`r fontawesome::fa(name = "link")`](https://github.com) Sign up for a free GitHub account if you don't already have one. Make sure to pick a username that you feel comfortable sharing on your CV. You will most likely use your GitHub username for many years in your data science career. Fill out [this survey]() to let us know what your username is. 
+
+- **Install R** [`r fontawesome::fa(name = "link")`](https://mirror.las.iastate.edu/CRAN/) Yes, you do need to download and install R even if you have downloaded before. There is a newer version.
+
+- **Install RStudio** [`r fontawesome::fa(name = "link")`](https://www.rstudio.com/products/rstudio/download/) Yes, you do need to download and install RStudio even if you have downloaded before. There is a newer version. Download the free Desktop version.
+
+
+- **Install and setup git** [`r fontawesome::fa(name = "video")`]() [`r fontawesome::fa(name = "chalkboard-teacher")`]()
+
+- **Test your installations**  [`r fontawesome::fa(name = "video")`]()
+
+
+## Day 1 - Introduction to the Toolkit
+
+| Topic                         | Materials |
+|-------------------------------|-----------|
+| Introduction to Toolkit       |[`r fontawesome::fa(name = "desktop")`]()           |
+| Summarizing Data with Numbers |[`r fontawesome::fa(name = "desktop")`]()                    |
+| Visualizing Data              |[`r fontawesome::fa(name = "desktop")`]()           |
+
+## Day 2 - Linear Regression and Model Evaluation
+
+<!--
+
+| Topic                         | Materials |
+|-------------------------------|-----------|
+| Changing Variables       |[`r fontawesome::fa(name = "desktop")`](slides/day02-wrangle-data/02a-changing-variables.html)           |
+| Subsetting Data |[`r fontawesome::fa(name = "desktop")`](slides/day02-wrangle-data/02b-subsetting-data.html)                    |
+| Joining Data              |[`r fontawesome::fa(name = "desktop")`](slides/day02-wrangle-data/02c-joining-data.html)           |
+
+
+-->
+
+## Day 3 - Categorical Data Analysis
+
+<!--
+
+| Topic                         | Material |
+|-------------------------------|-----------|
+| Simple Linear Regression       |[`r fontawesome::fa(name = "desktop")`](slides/day03-regression/03a-simple-linreg.html)           |
+| Multiple Linear Regression |[`r fontawesome::fa(name = "desktop")`](slides/day03-regression/03b-multiple-linreg.html)                   |
+
+-->
+
+## Day 4 - Generalized Linear Models
+
+<!--
+
+| Topic                         | Material |
+|-------------------------------|-----------|
+| Reproducible Workflow       |[`r fontawesome::fa(name = "desktop")`](slides/day04-workflow/04a-reproducible-workflow.html)           |
+
+-->
+
+## Day 5 - Dependent Data Models
