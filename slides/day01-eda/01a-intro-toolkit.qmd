@@ -1,0 +1,261 @@
+---
+title: "Introduction to the Toolkit"
+author: "Dr. Mine Dogucu"
+format: 
+  revealjs:
+    slide-number: true
+    logo: "https://socaldatascience.github.io/bootcamp-materials-2022/img/socalds-logo.png"
+    theme: ["slide-style.scss"]
+    css: "slide-style.css"
+    incremental: false
+---
+
+## 
+
+::: {style="text-align: center;"}
+
+<img src="https://www.minedogucu.com/img/headshot.jpg"
+        alt="A headshot of a woman with curly, short, ear-length hair with green eyes and red lipstick."
+        style="width:165px; margin-top:20px; border: 3px solid whitesmoke; padding: 10px;">
+        
+
+`r fontawesome::fa(name = "link")`
+<a href = "http://minedogucu.com">minedogucu.com</a>  
+`r fontawesome::fa(name = "github")` <a href = "http://github.com/mdogucu">mdogucu</a>   
+`r fontawesome::fa(name = "twitter")` <a href = "http://twitter.com/MineDogucu">MineDogucu</a>  
+`r fontawesome::fa(name = "mastodon")` <a href = "https://mastodon.social/@MineDogucu">mastodon.social/@MineDogucu</a>  
+`r fontawesome::fa(name = "linkedin")` <a href = "https://www.linkedin.com/in/minedogucu/">minedogucu</a> 
+
+:::
+
+## RStudio Setup
+
+
+
+<video width="80%" height="45%%" align = "center" controls>
+  <source src="screencast/01a-rstudio-setup.mp4" type="video/mp4">
+</video>
+
+
+## tidyverse_style_guide
+
+>canyoureadthissentence?
+
+
+## tidyverse_style_guide
+    
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```{r}
+#| echo: true
+#| eval: false
+age <- c(6, 9, 15)
+
+data.frame(age_kid = age)
+```
+
+
+:::
+
+
+::: {.column width="50%"}
+
+After function names do not leave any spaces.
+
+Before and after operators (e.g. <-, =) leave spaces. 
+
+Put a space after a comma, **not** before. 
+
+Object names are all lower case, with words separated by an underscore.
+
+:::
+
+::::
+
+## Say Goodbye to R Markdown and Say Hello to Quarto 
+
+::: r-fit-text
+Demo 
+:::
+
+## Slides for this bootcamp
+
+Slides that you are currently looking at are also written in R Markdown. You can take a look at them on [GitHub repo](https://github.com/socaldatascience/bootcamp-materials-2023/tree/main/slides) for the bootcamp website.
+
+
+## 
+
+::: r-fit-text
+Introduction to Git and GitHub 
+:::
+
+##
+
+::: r-fit-text
+version control
+:::
+
+##
+
+::: {.incremental}
+
+Does this look familiar?
+
+- hw1
+
+- hw1_final
+
+- hw1_final2
+
+- hw1_final3
+
+- hw1_finalwithfinalimages
+
+- hw1_finalestfinal
+
+:::
+
+
+##
+
+::: {.incremental}
+
+What if we tracked our file with a better names for each version and have only 1 file **hw1**?
+
+
+- hw1 **added questions 1 through 5**
+
+- hw1 **changed question 1 image**
+
+- hw1 **fixed typos**
+
+
+We will call the descriptions in bold **commit** messages.
+
+:::
+
+
+## git vs. GitHub
+
+- git allows us to keep track of different versions of a file(s).
+
+- GitHub is a website where we can store (and share) different versions of the files. 
+
+##
+
+```{r}
+#| out.width: '40%'
+#| fig.align: 'center' 
+knitr::include_graphics('img/github-illustration.002.jpeg')
+```
+
+##
+
+```{r}
+#| out.width: '55%'
+#| fig.align: 'center'
+knitr::include_graphics('img/github-illustration.003.jpeg')
+```
+
+##
+
+```{r}
+#| out.width: '55%'
+#| fig.align: 'center'
+knitr::include_graphics('img/github-illustration.004.jpeg')
+```
+
+##
+
+```{r}
+#| out.width: '55%'
+#| fig.align: 'center'
+knitr::include_graphics('img/github-illustration.005.jpeg')
+```
+
+##
+
+```{r}
+#| out.width: '55%'
+#| fig.align: 'center'
+knitr::include_graphics('img/github-illustration.006.jpeg')
+```
+
+##
+
+```{r}
+#| out.width: '55%'
+#| fig.align: 'center'
+knitr::include_graphics('img/github-illustration.007.jpeg')
+```
+
+## 
+
+We need a video 
+
+## 
+
+
+::: {.font75}
+
+Always use .Rproj file to open projects. Then open the appropriate .Rmd file from the Files pane.
+
+:::
+
+## Cloning a repo
+
+**repo** is a short form of repository. Repositories contain all of your project's files as well as each file's revision history.
+
+For this bootcamp our daily repos (lecture code, activity etc.) are hosted on Github. 
+
+To **clone** a GitHub repo to our computer, we first copy the cloning link as shown in screencast then start an RStudio project using that link.  
+
+**Cloning** a repo pulls (downloads) all the elements of a repo available at that specific time. 
+
+
+
+## Commits
+
+Once you make changes to your repo (e.g. take notes during lecture, answer an activity question). you can take a snapshot of your changes with a commit.
+
+This way if you ever have to go back in version history you have your older commits to get back to. 
+
+This is especially useful, for instance, if you want to go back to an earlier solution you have committed.
+
+
+
+## Push
+
+All the commits you make will initially be local (i.e. on your own computer). 
+
+In order for me to see your commits and your final submission on any file, you have to **push** your commits. In other words upload your files at the stage in that specific time.
+
+
+
+
+## (An incomplete) Git/GitHub glossary
+
+**Git:** is software for tracking changes in any set of files
+
+**GitHub:** is an internet host for Git projects.
+
+**repo:** is a short form of repository. Repositories contain all of your project's files as well as each file's revision history.
+
+**clone:** Cloning a repo **pulls** (downloads) all the elements of a repo available at that specific time. 
+
+**commit:** A snapshot of your repo at a specific point in time. We distinguish each commit with a **commit message**. 
+
+**push:** Uploads the latest "committed" state of your repo to GitHub.
+
+##
+
+::: {.font75} 
+
+Do you git it?
+
+::: 
+
+

@@ -9,7 +9,7 @@ format:
 ---
 
 ```{r}
-#| echo: false
+
 library(fontawesome)
 ```
 
