@@ -39,23 +39,15 @@ library(fontawesome)
 
 | Topic                         | Materials |
 |-------------------------------|-----------|
-| Simple Linear Regression      |[`r fontawesome::fa(name = "desktop")`]()           |
+| Simple Linear Regression   |[`r fontawesome::fa(name = "desktop")`]()           |
 | Multiple Linear Regression |[`r fontawesome::fa(name = "desktop")`]()                    |
 
-
-<!--
-| Topic                         | Materials |
-|-------------------------------|-----------|
-| Changing Variables       |[`r fontawesome::fa(name = "desktop")`](slides/day02-wrangle-data/02a-changing-variables.html)           |
-| Subsetting Data |[`r fontawesome::fa(name = "desktop")`](slides/day02-wrangle-data/02b-subsetting-data.html)                    |
-| Joining Data              |[`r fontawesome::fa(name = "desktop")`](slides/day02-wrangle-data/02c-joining-data.html)           |
--->
 
 ## Day 3 - Categorical Data Analysis
 
 | Topic                         | Materials |
 |-------------------------------|-----------|
-| CDA Placeholder 1      |[`r fontawesome::fa(name = "desktop")`]()           |
+| CDA Placeholder 1 |[`r fontawesome::fa(name = "desktop")`]()           |
 | CDA Placeholder 2 |[`r fontawesome::fa(name = "desktop")`]()                    |
 
 <!--
