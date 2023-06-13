@@ -45,10 +45,12 @@ library(fontawesome)
 
 ## Day 3 - Categorical Data Analysis
 
+<!--
 | Topic                         | Materials |
 |-------------------------------|-----------|
 | CDA Placeholder 1 |[`r fontawesome::fa(name = "desktop")`]()           |
 | CDA Placeholder 2 |[`r fontawesome::fa(name = "desktop")`]()                    |
+-->
 
 <!--
 | Topic                         | Material |
