@@ -1,0 +1,75 @@
+---
+title: "Introduction"
+author: "Dr. Mine Dogucu"
+format: 
+  revealjs:
+    slide-number: true
+    logo: "https://socaldatascience.github.io/bootcamp-materials-2022/img/socalds-logo.png"
+    theme: ["slide-style.scss"]
+    incremental: false
+---
+
+::: r-fit-text
+Hello 
+:::
+
+
+## Quarto
+Hi Quarto!
+Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+
+## Bullets
+
+When you click the **Render** button a document will be generated that includes:
+
+-   Content authored with markdown
+-   Output from executable code
+
+## Code
+
+When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+## Some code
+
+```{r}
+#| echo: true
+library(magrittr)
+lm(mpg ~ am, data = mtcars) %>% 
+  broom::tidy()
+```
+
+## Code Annotation
+
+```{r}
+#| echo: true
+library(beepr)
+beep() # <1>
+# a comment # <2>
+```
+
+1. Here we can exlain what that line of code is doing.
+2. Here we can explain that the second line is just a comment.
+
+## Math
+
+$$x+7\beta$$
+
+Even more math:
+
+$x+7 +\mu$
+
+---
+
+## Figure
+
+```{r}
+#| echo: false
+#| out.width: '40%'
+#| fig.align: 'center'
+knitr::include_graphics('img/socalds-logo.png')
+```
+
