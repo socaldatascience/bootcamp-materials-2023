@@ -37,11 +37,12 @@ library(fontawesome)
 
 ## Day 2 - Linear Regression and Model Evaluation
 
+<!--
 | Topic                         | Materials |
 |-------------------------------|-----------|
-| Simple Linear Regression   |[`r fontawesome::fa(name = "desktop")`]()           |
+| Simple Linear Regression   |[`r fontawesome::fa(name = "desktop")`](slides/day02-regression/02a-linear-regression.html)           |
 | Multiple Linear Regression |[`r fontawesome::fa(name = "desktop")`]()                    |
-
+-->
 
 ## Day 3 - Categorical Data Analysis
 
