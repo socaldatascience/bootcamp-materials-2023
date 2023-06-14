@@ -1,6 +1,6 @@
 ---
-title: "Introduction"
-author: "Dr. Mine Dogucu"
+title: "Linear Regression"
+author: "Created Dr. Mine Dogucu and Presented by Dr. Jaynes"
 format: 
   revealjs:
     slide-number: true
@@ -9,67 +9,52 @@ format:
     incremental: false
 ---
 
-::: r-fit-text
-Hello 
+
+## Goals
+- Linear Regression with Numeric Predictors
+- Conditions for Linear Regression
+
+```{r echo = FALSE, message = FALSE}
+library(tidyverse)
+library(openintro)
+library(broom)
+theme_set(theme_gray(base_size = 18))
+```
+
+## Data `babies` in `openintro` package
+
+```{r echo = FALSE}
+
+
+glimpse(babies)
+
+```
+
+##  Baby Weights
+::: {.column width="40%"}
+```{r eval = FALSE, fig.align='center', message = FALSE, warning = FALSE}
+ggplot(babies, 
+       aes(x = gestation, y = bwt)) +
+  geom_point()
+
+```
 :::
 
+::: {.column width="60%"}
+```{r echo = FALSE, fig.align='center', message = FALSE, fig.height= 6,warning = FALSE}
 
-## Quarto
-Hi Quarto!
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
 
-## Bullets
+ggplot(babies, 
+       aes(x = gestation, y = bwt)) +
+  geom_point()
 
-When you click the **Render** button a document will be generated that includes:
-
--   Content authored with markdown
--   Output from executable code
-
-## Code
-
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
 ```
+:::
 
-## Some code
+## Response and Explanatory Variables
 
-```{r}
-#| echo: true
-library(magrittr)
-lm(mpg ~ am, data = mtcars) %>% 
-  broom::tidy()
-```
-
-## Code Annotation
-
-```{r}
-#| echo: true
-library(beepr)
-beep() # <1>
-# a comment # <2>
-```
-
-1. Here we can exlain what that line of code is doing.
-2. Here we can explain that the second line is just a comment.
-
-## Math
-
-$$x+7\beta$$
-
-Even more math:
-
-$x+7 +\mu$
-
----
-
-## Figure
-
-```{r}
-#| echo: false
-#| out.width: '40%'
-#| fig.align: 'center'
-knitr::include_graphics('img/socalds-logo.png')
-```
+| Variable    | Variable Name | Type of Variable |
+|-------------|-----------------|---------|
+| Response (y)    | Birth weight | Numeric |
+| Explanatory (x) | Gestation           | Numeric |
 
