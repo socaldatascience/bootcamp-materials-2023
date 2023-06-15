@@ -9,12 +9,59 @@ format:
     incremental: false
 ---
 
+## Overview (To be removed)
+- 2 hours of lecture (1 hour each)
+- 50 minutes of activity (25 mins each)
+- 2 5 min breaks
 
 ## Goals
 - Review Linear Regression Concepts from your Data Science Courses 
 - Conditions for Least Squares Regression and Diagnostics
 - Multiple Linear Regression
 - Model Evaluation 
+
+## Linear Regression Activity
+- Simple Linear Regression: 1) Numerical predictor, 2) categorical predictor
+- Scatterplot
+- Fit model in R
+- Model output
+- Model equation
+- Interpretation of estimates
+- Prediction
+<!--
+https://mdsr-book.github.io/mdsr2e/ch-foundations.html#sec:gooddesign
+-->
+
+## Linear Regression Review
+- Scatterplot
+- Response and explanatory variables
+- Linear equation: Math vs stats class
+- Using R to fit a linear model
+- Equation of linear model
+- Interpretation of estimates
+- Extrapolation
+- Prediction
+- Residuals
+- Least squares regression
+<!--
+https://r4ds.had.co.nz/model-basics.html#model-basics
+-->
+
+## Conditions for Least Squares Regression
+<!--
+https://openintro-ims.netlify.app/inf-model-slr.html#tech-cond-linmod
+-->
+
+## Multiple Linear Regression
+- Numerical and categorical predictor (binary and multi-category)
+- Interpretation
+- Prediction
+
+## Model Evaluation
+- R2
+- RMSE
+- Overfitting
+- Splitting the data
 
 
 ```{r echo = FALSE, message = FALSE}
