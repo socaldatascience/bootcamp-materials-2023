@@ -10,7 +10,7 @@
 <link href="02a-regression_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.3.353">
 
-  <meta name="author" content="Created Dr.&nbsp;Mine Dogucu and Presented by Dr.&nbsp;Jaynes">
+  <meta name="author" content="Dr.&nbsp;Jaynes">
   <title>Linear Regression</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -330,7 +330,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Created Dr.&nbsp;Mine Dogucu and Presented by Dr.&nbsp;Jaynes 
+Dr.&nbsp;Jaynes 
 </div>
 </div>
 </div>
@@ -384,11 +384,55 @@ https://r4ds.had.co.nz/model-basics.html#model-basics
 --></li>
 </ul>
 </section>
-<section id="conditions-for-least-squares-regression" class="slide level2">
-<h2>Conditions for Least Squares Regression</h2>
+<section id="conditions-for-least-squares-regression-line" class="slide level2">
+<h2>Conditions for Least Squares Regression: LINE</h2>
 <!--
 https://openintro-ims.netlify.app/inf-model-slr.html#tech-cond-linmod
 -->
+<ul>
+<li>L: Linear model</li>
+<li>I: Independent observation</li>
+<li>N: Normality of residuals</li>
+<li>E: Equal/constant variability around the line for all values of the explanatory variable</li>
+</ul>
+</section>
+<section id="linearity" class="slide level2">
+<h2>Linearity</h2>
+<ul>
+<li>Probably the most important condition</li>
+<li>The data should have a linear trend</li>
+<li>If the data illustrate a non-linear trend, then more advanced regression methods could be considered</li>
+</ul>
+</section>
+<section id="independent-observations" class="slide level2">
+<h2>Independent Observations</h2>
+<ul>
+<li>Be aware of data that come from sequential observations in time as they come with an underlying structure that needs to be considered when modeling</li>
+<li>Dependent data can bias results</li>
+<li>For example, stock prices</li>
+</ul>
+</section>
+<section id="nearly-normal-residuals" class="slide level2">
+<h2>Nearly Normal Residuals</h2>
+<ul>
+<li>Residuals should be nearly normal</li>
+<li>This condition can often be influenced by outliers</li>
+<li>While important, this condition can often be avoided through considering bootstrap procedures</li>
+</ul>
+</section>
+<section id="equal-or-constant-variability" class="slide level2">
+<h2>Equal or Constant Variability</h2>
+<ul>
+<li>The variability of points are the least squares line should remain roughly constant</li>
+<li>Data that do not satisfy this condition will potentially influence and mis-estimate the variability of the slope, impacting the inference</li>
+</ul>
+</section>
+<section id="when-all-technical-conditions-are-met" class="slide level2">
+<h2>When all technical conditions are met:</h2>
+<ul>
+<li>The least squares regression model (and related inference) has important extensions (which are not trivial to implement with bootstrapping and randomization tests).</li>
+<li>In particular, random effects models, repeated measures, and interaction are all linear model extensions which require the above technical conditions.</li>
+</ul>
 </section>
 <section id="multiple-linear-regression" class="slide level2">
 <h2>Multiple Linear Regression</h2>
@@ -406,6 +450,36 @@ https://openintro-ims.netlify.app/inf-model-slr.html#tech-cond-linmod
 <li>Overfitting</li>
 <li>Splitting the data</li>
 </ul>
+</section>
+<section id="evaluating-models-how-do-you-know-if-your-model-is-a-good-one" class="slide level2">
+<h2>Evaluating Models: How do you know if your model is a good one?</h2>
+<!--
+https://mdsr-book.github.io/mdsr2e/ch-modeling.html#evaluating-models
+-->
+<ul>
+<li>Bias-variance trade-off</li>
+<li>Cross-validation</li>
+<li>Measuring prediction error for quantitative responses: RMSE, correlation, coefficienct of determination</li>
+</ul>
+</section>
+<section id="bias-variance-trade-off" class="slide level2">
+<h2>Bias-variance Trade-off</h2>
+<ul>
+<li>Goals: models that minimize both bias and variance</li>
+<li>However, these are essentially mutually exclusive goals</li>
+<li>Complicated model: will have less bias, but will in general have higher variance</li>
+<li>Simple model: can reduce variance but at the cost of increased bias</li>
+<li>Optimal balance between bias and variance depends on the purpose for which the model is constructed (e.g., prediction vs.&nbsp;description of causal relationships)</li>
+</ul>
+</section>
+<section id="modeling-overfitting-cross-validation" class="slide level2">
+<h2>Modeling Overfitting: Cross-validation</h2>
+<p>Data sets are often divided into two sets:</p>
+<ul>
+<li>Training: Set of data on which you build your model</li>
+<li>Testing: After your model is built, this set of data is used to test it by evaluating it against data that it has not previously seen.</li>
+</ul>
+<p>“Perhaps the most elementary mistake in predictive analytics is to overfit your model to the training data, only to see it later perform miserably on the testing set.”</p>
 <!--
 
 ## Data `babies` in `openintro` package

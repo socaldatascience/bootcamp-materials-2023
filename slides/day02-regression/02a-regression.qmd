@@ -1,6 +1,6 @@
 ---
 title: "Linear Regression"
-author: "Created Dr. Mine Dogucu and Presented by Dr. Jaynes"
+author: "Dr. Jaynes"
 format: 
   revealjs:
     slide-number: true
@@ -47,10 +47,38 @@ https://mdsr-book.github.io/mdsr2e/ch-foundations.html#sec:gooddesign
 https://r4ds.had.co.nz/model-basics.html#model-basics
 -->
 
-## Conditions for Least Squares Regression
+## Conditions for Least Squares Regression: LINE
 <!--
 https://openintro-ims.netlify.app/inf-model-slr.html#tech-cond-linmod
 -->
+- L: Linear model
+- I: Independent observation
+- N: Normality of residuals
+- E: Equal/constant variability around the line for all values of the explanatory variable
+
+## Linearity
+- Probably the most important condition
+- The data should have a linear trend
+- If the data illustrate a non-linear trend, then more advanced regression methods could be considered
+
+## Independent Observations
+- Be aware of data that come from sequential observations in time as they come with an underlying structure that needs to be considered when modeling 
+- Dependent data can bias results 
+- For example, stock prices
+
+## Nearly Normal Residuals
+- Residuals should be nearly normal 
+- This condition can often be influenced by outliers
+- While important, this condition can often be avoided through considering bootstrap procedures
+
+## Equal or Constant Variability
+- The variability of points are the least squares line should remain roughly constant
+- Data that do not satisfy this condition will potentially influence and mis-estimate the variability of the slope, impacting the inference
+
+## When all technical conditions are met:
+- The least squares regression model (and related inference)  has important extensions (which are not trivial to implement with bootstrapping and randomization tests). 
+- In particular, random effects models, repeated measures, and interaction are all linear model extensions which require the above technical conditions.
+
 
 ## Multiple Linear Regression
 - Numerical and categorical predictor (binary and multi-category)
@@ -63,6 +91,29 @@ https://openintro-ims.netlify.app/inf-model-slr.html#tech-cond-linmod
 - Overfitting
 - Splitting the data
 
+## Evaluating Models: How do you know if your model is a good one?
+<!--
+https://mdsr-book.github.io/mdsr2e/ch-modeling.html#evaluating-models
+-->
+- Bias-variance trade-off
+- Cross-validation
+- Measuring prediction error for quantitative responses: RMSE, correlation, coefficienct of determination
+
+## Bias-variance Trade-off
+- Goals: models that minimize both bias and variance 
+- However, these are essentially mutually exclusive goals 
+- Complicated model: will have less bias, but will in general have higher variance
+- Simple model: can reduce variance but at the cost of increased bias
+- Optimal balance between bias and variance depends on the purpose for which the model is constructed (e.g., prediction vs. description of causal relationships) 
+
+## Modeling Overfitting: Cross-validation
+
+Data sets are often divided into two sets:
+
+- Training: Set of data on which you build your model
+- Testing: After your model is built, this set of data is used to test it by evaluating it against data that it has not previously seen.
+
+"Perhaps the most elementary mistake in predictive analytics is to overfit your model to the training data, only to see it later perform miserably on the testing set."
 
 ```{r echo = FALSE, message = FALSE}
 library(tidyverse)
