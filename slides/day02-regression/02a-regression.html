@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="02a-linear-regression_files/libs/clipboard/clipboard.min.js"></script>
-<script src="02a-linear-regression_files/libs/quarto-html/tabby.min.js"></script>
-<script src="02a-linear-regression_files/libs/quarto-html/popper.min.js"></script>
-<script src="02a-linear-regression_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="02a-linear-regression_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="02a-linear-regression_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="02a-linear-regression_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="02a-linear-regression_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="02a-regression_files/libs/clipboard/clipboard.min.js"></script>
+<script src="02a-regression_files/libs/quarto-html/tabby.min.js"></script>
+<script src="02a-regression_files/libs/quarto-html/popper.min.js"></script>
+<script src="02a-regression_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="02a-regression_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="02a-regression_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="02a-regression_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="02a-regression_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.3.353">
 
   <meta name="author" content="Created Dr.&nbsp;Mine Dogucu and Presented by Dr.&nbsp;Jaynes">
@@ -15,8 +15,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="02a-linear-regression_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="02a-linear-regression_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="02a-regression_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="02a-regression_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -30,11 +30,11 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="02a-linear-regression_files/libs/revealjs/dist/theme/quarto.css">
-  <link href="02a-linear-regression_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="02a-linear-regression_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="02a-linear-regression_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="02a-linear-regression_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="02a-regression_files/libs/revealjs/dist/theme/quarto.css">
+  <link href="02a-regression_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="02a-regression_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="02a-regression_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="02a-regression_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
 
   .callout {
@@ -339,74 +339,67 @@ Created Dr.&nbsp;Mine Dogucu and Presented by Dr.&nbsp;Jaynes
 <section id="goals" class="slide level2">
 <h2>Goals</h2>
 <ul>
-<li>Linear Regression with Numeric Predictors</li>
-<li>Conditions for Linear Regression</li>
-<li>Ethics</li>
+<li>Review Linear Regression Concepts from your Data Science Courses</li>
+<li>Conditions for Least Squares Regression and Diagnostics</li>
+<li>Multiple Linear Regression</li>
+<li>Model Evaluation</li>
 </ul>
-</section>
-<section id="data-babies-in-openintro-package" class="slide level2">
-<h2>Data <code>babies</code> in <code>openintro</code> package</h2>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 1,236
-Columns: 8
-$ case      &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…
-$ bwt       &lt;int&gt; 120, 113, 128, 123, 108, 136, 138, 132, 120, 143, 140, 144, …
-$ gestation &lt;int&gt; 284, 282, 279, NA, 282, 286, 244, 245, 289, 299, 351, 282, 2…
-$ parity    &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-$ age       &lt;int&gt; 27, 33, 28, 36, 23, 25, 33, 23, 25, 30, 27, 32, 23, 36, 30, …
-$ height    &lt;int&gt; 62, 64, 64, 69, 67, 62, 62, 65, 62, 66, 68, 64, 63, 61, 63, …
-$ weight    &lt;int&gt; 100, 135, 115, 190, 125, 93, 178, 140, 125, 136, 120, 124, 1…
-$ smoke     &lt;int&gt; 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, …</code></pre>
-</div>
-</div>
-</section>
-<section id="baby-weights" class="slide level2">
-<h2>Baby Weights</h2>
-<div class="column" style="width:40%;">
+<!--
 
-</div>
-<div class="column" style="width:60%;">
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="02a-linear-regression_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="response-and-explanatory-variables" class="slide level2">
-<h2>Response and Explanatory Variables</h2>
-<table>
-<thead>
-<tr class="header">
-<th>Variable</th>
-<th>Variable Name</th>
-<th>Type of Variable</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Response (y)</td>
-<td>Birth weight</td>
-<td>Numeric</td>
-</tr>
-<tr class="even">
-<td>Explanatory (x)</td>
-<td>Gestation</td>
-<td>Numeric</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="insert-mines-uci-ics-80-sampling-and-study-design-i.e.-regression-slides" class="slide level2">
-<h2>Insert Mine’s UCI ICS 80 Sampling and Study Design (i.e.&nbsp;regression slides)</h2>
-</section>
-<section id="insert-mines-uci-stats-115-evaluating-regression-models" class="slide level2">
-<h2>Insert Mine’s UCI STATS 115 Evaluating Regression Models</h2>
+## Data `babies` in `openintro` package
+
+
+::: {.cell}
+::: {.cell-output .cell-output-stdout}
+```
+Rows: 1,236
+Columns: 8
+$ case      <int> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…
+$ bwt       <int> 120, 113, 128, 123, 108, 136, 138, 132, 120, 143, 140, 144, …
+$ gestation <int> 284, 282, 279, NA, 282, 286, 244, 245, 289, 299, 351, 282, 2…
+$ parity    <int> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+$ age       <int> 27, 33, 28, 36, 23, 25, 33, 23, 25, 30, 27, 32, 23, 36, 30, …
+$ height    <int> 62, 64, 64, 69, 67, 62, 62, 65, 62, 66, 68, 64, 63, 61, 63, …
+$ weight    <int> 100, 135, 115, 190, 125, 93, 178, 140, 125, 136, 120, 124, 1…
+$ smoke     <int> 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, …
+```
+:::
+:::
+
+
+##  Baby Weights
+:::: {.columns}
+::: {.column width="40%"}
+
+::: {.cell layout-align="center"}
+
+:::
+
+:::
+
+::: {.column width="60%"}
+
+::: {.cell layout-align="center"}
+::: {.cell-output-display}
+![](02a-regression_files/figure-revealjs/unnamed-chunk-4-1.png){fig-align='center' width=960}
+:::
+:::
+
+:::
+::::
+
+## Response and Explanatory Variables
+
+| Variable    | Variable Name | Type of Variable |
+|-------------|-----------------|---------|
+| Response (y)    | Birth weight | Numeric |
+| Explanatory (x) | Gestation           | Numeric |
+
+
+## Insert Mine's UCI ICS 80 Sampling and Study Design (i.e. regression slides)
+
+## Insert Mine's UCI STATS 115 Evaluating Regression Models
+-->
 
 <img src="https://socaldatascience.github.io/bootcamp-materials-2022/img/socalds-logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
 
@@ -416,19 +409,19 @@ $ smoke     &lt;int&gt; 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0,
   </div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="02a-linear-regression_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="02a-regression_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="02a-linear-regression_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="02a-linear-regression_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="02a-linear-regression_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="02a-linear-regression_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="02a-linear-regression_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="02a-regression_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="02a-regression_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="02a-regression_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="02a-regression_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="02a-regression_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="02a-linear-regression_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="02a-linear-regression_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="02a-linear-regression_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="02a-linear-regression_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="02a-regression_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="02a-regression_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="02a-regression_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="02a-regression_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

@@ -11,11 +11,10 @@ format:
 
 
 ## Goals
-- Linear Regression with Numeric Predictors
-- Conditions for Linear Regression
-- Ethics
-
-
+- Review Linear Regression Concepts from your Data Science Courses 
+- Conditions for Least Squares Regression and Diagnostics
+- Multiple Linear Regression
+- Model Evaluation 
 
 
 ```{r echo = FALSE, message = FALSE}
@@ -24,6 +23,12 @@ library(openintro)
 library(broom)
 theme_set(theme_gray(base_size = 18))
 ```
+
+
+
+
+
+<!--
 
 ## Data `babies` in `openintro` package
 
@@ -35,6 +40,7 @@ glimpse(babies)
 ```
 
 ##  Baby Weights
+:::: {.columns}
 ::: {.column width="40%"}
 ```{r eval = FALSE, fig.align='center', message = FALSE, warning = FALSE}
 ggplot(babies, 
@@ -54,6 +60,7 @@ ggplot(babies,
 
 ```
 :::
+::::
 
 ## Response and Explanatory Variables
 
@@ -66,4 +73,4 @@ ggplot(babies,
 ## Insert Mine's UCI ICS 80 Sampling and Study Design (i.e. regression slides)
 
 ## Insert Mine's UCI STATS 115 Evaluating Regression Models
-
+-->
