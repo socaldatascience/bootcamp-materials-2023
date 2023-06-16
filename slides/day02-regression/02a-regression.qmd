@@ -10,27 +10,27 @@ format:
 ---
 
 <!--
-ISLR: https://www.statlearning.com/resources-second-edition
--->
-
 ## Overview (To be removed)
+ISLR: https://www.statlearning.com/resources-second-edition
 - 2 hours of lecture (1 hour each)
 - 50 minutes of activity (2 25-mins each)
 - The first activity will be done right at the beginning
 - The second activity will be done through the lecture portion 
 - 2 5-min breaks
+-->
 
-## Data (To be removed)
-- Penguin data
-- Bayes Rules Data: Section 11.3
+## Overview (To be removed)
+- Regression Activity based on Penguin data
+- Regression Lecture based on Babies data
 
-## Goals
-- Review Linear Regression Concepts from your Data Science Courses 
-- Conditions for Least Squares Regression and Diagnostics
-- Multiple Linear Regression
-- Model Evaluation 
+<!--
+## Linear Regression Activity: Penguin Data (see Markdown file)
+https://mdsr-book.github.io/mdsr2e/ch-foundations.html#sec:gooddesign
 
-## Linear Regression Activity
+- We have used the penguins data to model the length of penguin flippers in mm (Y) by the length of their bills in mm (X). Fit this model again and call it model_bill_length.
+- Fit another model with and call it model_bill_length_depth. The explanatory variables in this model should be bill_length_mm and bill_depth_mm.
+- Which model has a better fit model_bill_length or model_bill_length_depth? Compare relevant model evaluation criteria.
+
 - Simple Linear Regression: 1) Numerical predictor, 2) categorical predictor
 - Scatterplot
 - Fit model in R
@@ -38,9 +38,15 @@ ISLR: https://www.statlearning.com/resources-second-edition
 - Model equation
 - Interpretation of estimates
 - Prediction
-<!--
-https://mdsr-book.github.io/mdsr2e/ch-foundations.html#sec:gooddesign
 -->
+
+## Goals
+- Review Linear Regression Concepts from your Data Science Courses 
+- Conditions for Least Squares Regression and Diagnostics
+- Multiple Linear Regression
+- Model Evaluation 
+
+
 
 ## Linear Regression Review: Babies Data
 <!--
@@ -119,7 +125,7 @@ ggplot(babies,
 :::
 ::::
 
-## Response and Explanatory Variables
+## Numerical Response and Numerical Explanatory Variable
 
 | Variable    | Variable Name | Type of Variable |
 |-------------|-----------------|---------|
@@ -159,7 +165,7 @@ Notice anything different between baby weights plot and this one?
 
 ## Equations
 :::: {.columns}
-::: {.column width="40%"}
+::: {.column width="50%"}
 **Math** class
 
 $y = b + mx$
@@ -168,7 +174,7 @@ $b$ is y-intercept
 $m$ is slope  
 :::
 
-::: {.column width="60%"}
+::: {.column width="50%"}
 **Stats** class
 
 $y_i = \beta_0 +\beta_1x_i + \epsilon_i$
@@ -215,7 +221,7 @@ For a baby with 300 days of gestation the expected birth weight is `r -10.1 + 0.
 ## Interpretation of estimates
 
 :::: {.columns}
-::: {.column width="40%"}
+::: {.column width="50%"}
 ```{r}
 #| echo: false
 babies %>% 
@@ -229,7 +235,7 @@ babies %>%
 $b_1 = 0.464$ which means for one unit(day) increase in gestation period the expected increase in birth weight is 0.464 ounces.
 :::
 
-::: {.column width="40%"}
+::: {.column width="50%"}
 ```{r}
 babies %>% 
   ggplot() +
@@ -255,7 +261,7 @@ $b_0 = -10.1$ which means for gestation period of 0 days the expected birth weig
 
 ## Baby number 148
 :::: {.columns}
-::: {.column width="40%"}
+::: {.column width="50%"}
 ```{r}
 #| echo: true
 babies %>% 
@@ -265,7 +271,7 @@ babies %>%
 ```
 :::
 
-::: {.column width="40%"}
+::: {.column width="50%"}
 ```{r echo = FALSE, message = FALSE, fig.height=5, warning = FALSE}
 
 baby_148 <- subset(babies, case == 148)
@@ -282,7 +288,7 @@ babies %>%
 
 ## Baby #148
 :::: {.columns}
-::: {.column width="40%"}
+::: {.column width="50%"}
 **Expected**
 $\hat y_{148} = b_0 +b_1x_{148}$
 
@@ -291,7 +297,7 @@ $\hat y_{148} = -10.1 + 0.464\times300$
 $\hat y_{148} = `r -10.1 + 0.464*300`$
 :::
 
-::: {.column width="60%"}
+::: {.column width="50%"}
 **Observed**
 $y_{148} = 160 $
 :::
@@ -340,6 +346,63 @@ confint(model_g)
 ```
 
 Note that the 95% confidence interval for the slope does not contain zero and all the values in the interval are positive indicating a significant positive relationship between gestation and birth weight.
+
+## Numerical Response and Categorical Explanatory Variable
+
+| Variable    | Variable Name | Type of Variable |
+|-------------|-----------------|---------|
+| Response (y)    | Birth weight | Numeric |
+| Explanatory (x) | Smoke           | Categorical |
+
+## Notation
+
+$y_i = \beta_0 +\beta_1x_i + \epsilon_i$
+
+$\beta_0$ is y-intercept  
+$\beta_1$ is slope  
+$\epsilon_i$ is error/residual  
+$i = 1, 2, ...n$ identifier for each point
+
+## Fitting the model in R
+```{r}
+#| echo: true
+model_s <- lm(bwt ~ smoke, data = babies)
+tidy(model_s)
+```
+$\hat {y}_i = b_0 + b_1 x_i$
+
+$\hat {\text{bwt}_i} = b_0 + b_1 \text{ smoke}_i$
+
+$\hat {\text{bwt}_i} = 123 + (-8.94\text{ smoke}_i)$
+
+
+## Interpretation
+:::: {.columns}
+::: {.column width="50%"}
+#### Expected bwt for a baby with a non-smoker mother
+
+$\hat {\text{bwt}_i} = 123 + (-8.94\text{ smoke}_i)$
+
+$\hat {\text{bwt}_i} = 123 + (-8.94\times 0)$
+
+$\hat {\text{bwt}_i} = 123$
+
+$E[bwt_i | smoke_i = 0] = b_0$
+:::
+
+::: {.column width="50%"}
+#### Expected bwt for a baby with a smoker mother
+
+$\hat {\text{bwt}_i} = 123 + (-8.94\text{ smoke}_i)$
+
+$\hat {\text{bwt}_i} = 123 + (-8.94\times 1)$
+
+$\hat {\text{bwt}_i} = 114.06$
+
+$E[bwt_i | smoke_i = 1] = b_0 + b_1$
+:::
+::::
+
 
 
 ## Evaluating Regression Models
@@ -407,18 +470,14 @@ https://www.introdata.science/slides/week07/07b-multiple-regression.html#1
 - Interpretation
 - Prediction
 
+
+
+
 ## Multiple Linear Regression: Interaction terms
 <!--
 https://www.bayesrulesbook.com/chapter-11.html#optional-utilizing-interaction-terms
 -->
 
-<!--
-## Model Evaluation
-- R2
-- RMSE
-- Overfitting
-- Splitting the data
--->
 ## Evaluating Models: How do you know if your model is a good one?
 <!--
 https://mdsr-book.github.io/mdsr2e/ch-modeling.html#evaluating-models
@@ -446,6 +505,7 @@ Data sets are often divided into two sets:
 <!--
 RMSE, correlation, coefficienct of determination
 -->
+<!--
 
 
 

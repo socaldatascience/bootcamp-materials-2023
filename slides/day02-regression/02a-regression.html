@@ -399,25 +399,37 @@
 <section class="slide level2">
 
 <!--
+## Overview (To be removed)
 ISLR: https://www.statlearning.com/resources-second-edition
+- 2 hours of lecture (1 hour each)
+- 50 minutes of activity (2 25-mins each)
+- The first activity will be done right at the beginning
+- The second activity will be done through the lecture portion 
+- 2 5-min breaks
 -->
 </section>
 <section id="overview-to-be-removed" class="slide level2">
 <h2>Overview (To be removed)</h2>
 <ul>
-<li>2 hours of lecture (1 hour each)</li>
-<li>50 minutes of activity (2 25-mins each)</li>
-<li>The first activity will be done right at the beginning</li>
-<li>The second activity will be done through the lecture portion</li>
-<li>2 5-min breaks</li>
+<li>Regression Activity based on Penguin data</li>
+<li>Regression Lecture based on Babies data</li>
 </ul>
-</section>
-<section id="data-to-be-removed" class="slide level2">
-<h2>Data (To be removed)</h2>
-<ul>
-<li>Penguin data</li>
-<li>Bayes Rules Data: Section 11.3</li>
-</ul>
+<!--
+## Linear Regression Activity: Penguin Data (see Markdown file)
+https://mdsr-book.github.io/mdsr2e/ch-foundations.html#sec:gooddesign
+
+- We have used the penguins data to model the length of penguin flippers in mm (Y) by the length of their bills in mm (X). Fit this model again and call it model_bill_length.
+- Fit another model with and call it model_bill_length_depth. The explanatory variables in this model should be bill_length_mm and bill_depth_mm.
+- Which model has a better fit model_bill_length or model_bill_length_depth? Compare relevant model evaluation criteria.
+
+- Simple Linear Regression: 1) Numerical predictor, 2) categorical predictor
+- Scatterplot
+- Fit model in R
+- Model output
+- Model equation
+- Interpretation of estimates
+- Prediction
+-->
 </section>
 <section id="goals" class="slide level2">
 <h2>Goals</h2>
@@ -426,20 +438,6 @@ ISLR: https://www.statlearning.com/resources-second-edition
 <li>Conditions for Least Squares Regression and Diagnostics</li>
 <li>Multiple Linear Regression</li>
 <li>Model Evaluation</li>
-</ul>
-</section>
-<section id="linear-regression-activity" class="slide level2">
-<h2>Linear Regression Activity</h2>
-<ul>
-<li>Simple Linear Regression: 1) Numerical predictor, 2) categorical predictor</li>
-<li>Scatterplot</li>
-<li>Fit model in R</li>
-<li>Model output</li>
-<li>Model equation</li>
-<li>Interpretation of estimates</li>
-<li>Prediction <!--
-https://mdsr-book.github.io/mdsr2e/ch-foundations.html#sec:gooddesign
---></li>
 </ul>
 </section>
 <section id="linear-regression-review-babies-data" class="slide level2">
@@ -526,8 +524,8 @@ $ smoke     &lt;int&gt; 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0,
 </div>
 </div>
 </section>
-<section id="response-and-explanatory-variables" class="slide level2">
-<h2>Response and Explanatory Variables</h2>
+<section id="numerical-response-and-numerical-explanatory-variable" class="slide level2">
+<h2>Numerical Response and Numerical Explanatory Variable</h2>
 <table>
 <thead>
 <tr class="header">
@@ -571,12 +569,12 @@ $ smoke     &lt;int&gt; 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0,
 <section id="equations" class="slide level2">
 <h2>Equations</h2>
 <div class="columns">
-<div class="column" style="width:40%;">
+<div class="column" style="width:50%;">
 <p><strong>Math</strong> class</p>
 <p><span class="math inline">\(y = b + mx\)</span></p>
 <p><span class="math inline">\(b\)</span> is y-intercept<br>
 <span class="math inline">\(m\)</span> is slope</p>
-</div><div class="column" style="width:60%;">
+</div><div class="column" style="width:50%;">
 <p><strong>Stats</strong> class</p>
 <p><span class="math inline">\(y_i = \beta_0 +\beta_1x_i + \epsilon_i\)</span></p>
 <p><span class="math inline">\(\beta_0\)</span> is y-intercept<br>
@@ -619,14 +617,14 @@ $ smoke     &lt;int&gt; 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0,
 <section id="interpretation-of-estimates" class="slide level2">
 <h2>Interpretation of estimates</h2>
 <div class="columns">
-<div class="column" style="width:40%;">
+<div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
 <p><img data-src="02a-regression_files/figure-revealjs/unnamed-chunk-10-1.png" width="960"></p>
 </div>
 </div>
 <p><span class="math inline">\(b_1 = 0.464\)</span> which means for one unit(day) increase in gestation period the expected increase in birth weight is 0.464 ounces.</p>
-</div><div class="column" style="width:40%;">
+</div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
 <p><img data-src="02a-regression_files/figure-revealjs/unnamed-chunk-11-1.png" width="960"></p>
@@ -647,7 +645,7 @@ $ smoke     &lt;int&gt; 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0,
 <section id="baby-number-148" class="slide level2">
 <h2>Baby number 148</h2>
 <div class="columns">
-<div class="column" style="width:40%;">
+<div class="column" style="width:50%;">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>babies <span class="sc">%&gt;%</span> </span>
 <span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">filter</span>(case <span class="sc">==</span> <span class="dv">148</span>) <span class="sc">%&gt;%</span> </span>
@@ -659,7 +657,7 @@ $ smoke     &lt;int&gt; 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0,
 1   160       300</code></pre>
 </div>
 </div>
-</div><div class="column" style="width:40%;">
+</div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
 <p><img data-src="02a-regression_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
@@ -671,11 +669,11 @@ $ smoke     &lt;int&gt; 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0,
 <section id="baby-148" class="slide level2">
 <h2>Baby #148</h2>
 <div class="columns">
-<div class="column" style="width:40%;">
+<div class="column" style="width:50%;">
 <p><strong>Expected</strong> <span class="math inline">\(\hat y_{148} = b_0 +b_1x_{148}\)</span></p>
 <p><span class="math inline">\(\hat y_{148} = -10.1 + 0.464\times300\)</span></p>
 <p><span class="math inline">\(\hat y_{148} = 129.1\)</span></p>
-</div><div class="column" style="width:60%;">
+</div><div class="column" style="width:50%;">
 <p><strong>Observed</strong> $y_{148} = 160 $</p>
 </div>
 </div>
@@ -719,6 +717,73 @@ gestation     0.4059083 0.5226169</code></pre>
 </div>
 </div>
 <p>Note that the 95% confidence interval for the slope does not contain zero and all the values in the interval are positive indicating a significant positive relationship between gestation and birth weight.</p>
+</section>
+<section id="numerical-response-and-categorical-explanatory-variable" class="slide level2">
+<h2>Numerical Response and Categorical Explanatory Variable</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Variable Name</th>
+<th>Type of Variable</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Response (y)</td>
+<td>Birth weight</td>
+<td>Numeric</td>
+</tr>
+<tr class="even">
+<td>Explanatory (x)</td>
+<td>Smoke</td>
+<td>Categorical</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="notation" class="slide level2">
+<h2>Notation</h2>
+<p><span class="math inline">\(y_i = \beta_0 +\beta_1x_i + \epsilon_i\)</span></p>
+<p><span class="math inline">\(\beta_0\)</span> is y-intercept<br>
+<span class="math inline">\(\beta_1\)</span> is slope<br>
+<span class="math inline">\(\epsilon_i\)</span> is error/residual<br>
+<span class="math inline">\(i = 1, 2, ...n\)</span> identifier for each point</p>
+</section>
+<section id="fitting-the-model-in-r" class="slide level2">
+<h2>Fitting the model in R</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>model_s <span class="ot">&lt;-</span> <span class="fu">lm</span>(bwt <span class="sc">~</span> smoke, <span class="at">data =</span> babies)</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">tidy</span>(model_s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)   123.       0.649    190.   0       
+2 smoke          -8.94     1.03      -8.65 1.55e-17</code></pre>
+</div>
+</div>
+<p><span class="math inline">\(\hat {y}_i = b_0 + b_1 x_i\)</span></p>
+<p><span class="math inline">\(\hat {\text{bwt}_i} = b_0 + b_1 \text{ smoke}_i\)</span></p>
+<p><span class="math inline">\(\hat {\text{bwt}_i} = 123 + (-8.94\text{ smoke}_i)\)</span></p>
+</section>
+<section id="interpretation" class="slide level2">
+<h2>Interpretation</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="expected-bwt-for-a-baby-with-a-non-smoker-mother">Expected bwt for a baby with a non-smoker mother</h4>
+<p><span class="math inline">\(\hat {\text{bwt}_i} = 123 + (-8.94\text{ smoke}_i)\)</span></p>
+<p><span class="math inline">\(\hat {\text{bwt}_i} = 123 + (-8.94\times 0)\)</span></p>
+<p><span class="math inline">\(\hat {\text{bwt}_i} = 123\)</span></p>
+<p><span class="math inline">\(E[bwt_i | smoke_i = 0] = b_0\)</span></p>
+</div><div class="column" style="width:50%;">
+<h4 id="expected-bwt-for-a-baby-with-a-smoker-mother">Expected bwt for a baby with a smoker mother</h4>
+<p><span class="math inline">\(\hat {\text{bwt}_i} = 123 + (-8.94\text{ smoke}_i)\)</span></p>
+<p><span class="math inline">\(\hat {\text{bwt}_i} = 123 + (-8.94\times 1)\)</span></p>
+<p><span class="math inline">\(\hat {\text{bwt}_i} = 114.06\)</span></p>
+<p><span class="math inline">\(E[bwt_i | smoke_i = 1] = b_0 + b_1\)</span></p>
+</div>
+</div>
 </section>
 <section id="evaluating-regression-models" class="slide level2">
 <h2>Evaluating Regression Models</h2>
@@ -824,13 +889,6 @@ https://www.introdata.science/slides/week07/07b-multiple-regression.html#1
 <!--
 https://www.bayesrulesbook.com/chapter-11.html#optional-utilizing-interaction-terms
 -->
-<!--
-## Model Evaluation
-- R2
-- RMSE
-- Overfitting
-- Splitting the data
--->
 </section>
 <section id="evaluating-models-how-do-you-know-if-your-model-is-a-good-one" class="slide level2">
 <h2>Evaluating Models: How do you know if your model is a good one?</h2>
@@ -867,6 +925,7 @@ https://mdsr-book.github.io/mdsr2e/ch-modeling.html#evaluating-models
 <!--
 RMSE, correlation, coefficienct of determination
 -->
+<p>&lt;!–</p>
 
 <img src="https://socaldatascience.github.io/bootcamp-materials-2022/img/socalds-logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
 
