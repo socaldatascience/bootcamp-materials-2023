@@ -11,8 +11,14 @@ format:
 
 ## Overview (To be removed)
 - 2 hours of lecture (1 hour each)
-- 50 minutes of activity (25 mins each)
-- 2 5 min breaks
+- 50 minutes of activity (2 25-mins each)
+- The first activity will be done right at the beginning
+- The second activity will be done through the lecture portion 
+- 2 5-min breaks
+
+## Data (To be removed)
+- Penguin data
+- Bayes Rules Data: Section 11.3
 
 ## Goals
 - Review Linear Regression Concepts from your Data Science Courses 
@@ -81,7 +87,7 @@ https://openintro-ims.netlify.app/inf-model-slr.html#tech-cond-linmod
 
 
 ## Multiple Linear Regression
-- Numerical and categorical predictor (binary and multi-category)
+- Numerical and categorical predictor (binary and multi-category); interaction between numerical and categorical
 - Interpretation
 - Prediction
 
