@@ -1,6 +1,6 @@
 ---
 title: "Linear Regression"
-author: "Dr. Jaynes"
+author: ""
 format: 
   revealjs:
     slide-number: true
@@ -8,6 +8,10 @@ format:
     theme: ["slide-style.scss"]
     incremental: false
 ---
+
+<!--
+ISLR: https://www.statlearning.com/resources-second-edition
+-->
 
 ## Overview (To be removed)
 - 2 hours of lecture (1 hour each)
@@ -38,7 +42,10 @@ format:
 https://mdsr-book.github.io/mdsr2e/ch-foundations.html#sec:gooddesign
 -->
 
-## Linear Regression Review
+## Linear Regression Review: Babies Data
+<!--
+https://www.introdata.science/slides/week07/07a-linear-regression.html#1
+-->
 - Scatterplot
 - Response and explanatory variables
 - Linear equation: Math vs stats class
@@ -52,6 +59,312 @@ https://mdsr-book.github.io/mdsr2e/ch-foundations.html#sec:gooddesign
 <!--
 https://r4ds.had.co.nz/model-basics.html#model-basics
 -->
+
+```{r echo = FALSE, message = FALSE}
+library(tidyverse)
+library(openintro)
+library(broom)
+theme_set(theme_gray(base_size = 18))
+```
+
+
+## Data `babies` in `openintro` package
+
+```{r echo = FALSE}
+glimpse(babies)
+```
+
+##  Baby Weights
+:::: {.columns}
+::: {.column width="40%"}
+```{r eval = FALSE}
+#| echo: true
+ggplot(babies, 
+       aes(x = gestation, y = bwt)) +
+  geom_point()
+
+```
+:::
+
+::: {.column width="60%"}
+```{r echo = FALSE, fig.align='center', message = FALSE, fig.height= 6,warning = FALSE}
+ggplot(babies, 
+       aes(x = gestation, y = bwt)) +
+  geom_point()
+```
+:::
+::::
+
+##  Baby Weights
+:::: {.columns}
+::: {.column width="40%"}
+```{r eval = FALSE}
+#| echo: true
+ggplot(babies,
+         aes(x = gestation, y = bwt)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) 
+
+```
+`lm` stands for linear model  
+`se` stands for standard error
+:::
+
+::: {.column width="60%"}
+```{r echo = FALSE, fig.align='center', message = FALSE, fig.height= 6,warning = FALSE}
+ggplot(babies, 
+       aes(x = gestation, y = bwt)) +
+  geom_point()
+```
+:::
+::::
+
+## Response and Explanatory Variables
+
+| Variable    | Variable Name | Type of Variable |
+|-------------|-----------------|---------|
+| Response (y)    | Birth weight | Numeric |
+| Explanatory (x) | Gestation           | Numeric |
+
+
+## Linear Equations Review
+:::: {.columns}
+::: {.column width="40%"}
+Recall from your previous math classes
+
+$y = mx + b$
+
+where $m$ is the slope and $b$ is the y-intercept
+
+e.g. $y = 2x -1$
+:::
+
+::: {.column width="60%"}
+```{r echo = FALSE, fig.height = 5, message = FALSE}
+x <- c(0, 1, 2, 3, 4, 5)
+y <- c(-1, 1, 3, 5, 7, 9)
+
+as.data.frame(x = x, y = y) %>% 
+  ggplot() +
+  aes(x = x, y = y) +
+  geom_point() +
+  scale_y_continuous(breaks = c(-1, 1, 3, 5, 7, 9)) +
+  scale_x_continuous(breaks = c(0, 1, 2, 3, 4, 5)) +
+  geom_smooth(method = "lm", se = FALSE)
+
+```
+Notice anything different between baby weights plot and this one?
+:::
+::::
+
+## Equations
+:::: {.columns}
+::: {.column width="40%"}
+**Math** class
+
+$y = b + mx$
+
+$b$ is y-intercept  
+$m$ is slope  
+:::
+
+::: {.column width="60%"}
+**Stats** class
+
+$y_i = \beta_0 +\beta_1x_i + \epsilon_i$
+
+$\beta_0$ is y-intercept  
+$\beta_1$ is slope  
+$\epsilon_i$ is error/residual  
+$i = 1, 2, ...n$ identifier for each point
+:::
+::::
+
+## Fitting a Linear Model in R
+```{r}
+#| echo: true
+model_g <- lm(bwt ~ gestation, data = babies)
+```
+`lm` stands for linear model. We are fitting a linear regression model. Note that the variables are entered in y ~ x order.
+
+## Fitting a Linear Model in R
+
+```{r}
+#| echo: true
+broom::tidy(model_g)
+```
+
+$\hat {y}_i = b_0 + b_1 x_i$
+
+$\hat {\text{bwt}_i} = b_0 + b_1 \text{ gestation}_i$
+
+$\hat {\text{bwt}_i} = -10.1 + 0.464\text{ gestation}_i$
+
+
+## Expected bwt for a baby with 300 days of gestation
+
+$\hat {\text{bwt}_i} = -10.1 + 0.464\text{ gestation}_i$
+
+$\hat {\text{bwt}} = -10.1 + 0.464 \times 300$
+
+$\hat {\text{bwt}} = `r -10.1 + 0.464*300`$
+
+
+For a baby with 300 days of gestation the expected birth weight is `r -10.1 + 0.464*300` ounces.
+
+## Interpretation of estimates
+
+:::: {.columns}
+::: {.column width="40%"}
+```{r}
+#| echo: false
+babies %>% 
+  ggplot() +
+  aes(x = gestation, y = bwt) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) 
+    
+```
+
+$b_1 = 0.464$ which means for one unit(day) increase in gestation period the expected increase in birth weight is 0.464 ounces.
+:::
+
+::: {.column width="40%"}
+```{r}
+babies %>% 
+  ggplot() +
+  aes(x = gestation, y = bwt) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  xlim(0, 360) +
+  ylim(-10, 180) +
+  geom_abline(slope = 0.459, intercept = -8.76)
+  
+  
+```
+
+$b_0 = -10.1$ which means for gestation period of 0 days the expected birth weight is -10.1 ounces!!!!!!!!
+(does NOT make sense)
+:::
+::::
+
+## Extrapolation
+- There is no such thing as 0 days of gestation.
+- Birth weight cannot possibly be -10.1 ounces.
+- Extrapolation happens when we use a model outside the range of the x-values that are observed. After all, we cannot really know how the model behaves (e.g. may be non-linear) outside of the scope of what we have observed. 
+
+## Baby number 148
+:::: {.columns}
+::: {.column width="40%"}
+```{r}
+#| echo: true
+babies %>% 
+  filter(case == 148) %>% 
+  select(bwt, gestation)
+
+```
+:::
+
+::: {.column width="40%"}
+```{r echo = FALSE, message = FALSE, fig.height=5, warning = FALSE}
+
+baby_148 <- subset(babies, case == 148)
+
+babies %>% 
+  ggplot() +
+  aes(x = gestation, y = bwt) +
+  geom_point(alpha = 0.1) +
+  geom_smooth(method = "lm", se = FALSE) +
+  geom_point(data = baby_148, color = "red")
+```
+:::
+::::
+
+## Baby #148
+:::: {.columns}
+::: {.column width="40%"}
+**Expected**
+$\hat y_{148} = b_0 +b_1x_{148}$
+
+$\hat y_{148} = -10.1 + 0.464\times300$
+
+$\hat y_{148} = `r -10.1 + 0.464*300`$
+:::
+
+::: {.column width="60%"}
+**Observed**
+$y_{148} = 160 $
+:::
+::::
+
+## Residual for `i = 148`
+:::: {.columns}
+::: {.column width="40%"}
+```{r echo = FALSE, fig.align='center', message=FALSE, warning = FALSE, fig.height = 4}
+babies %>% 
+  ggplot() +
+  aes(x = gestation, y = bwt) +
+  geom_point(alpha = 0.1) +
+  geom_smooth(method = "lm", se = FALSE) +
+  geom_point(data = baby_148, color = "red") +
+  geom_segment(x = 300, xend = 300, y = 128.94, yend = 160, color = "red")
+```
+:::
+
+
+::: {.column width="60%"}
+$y_{148} = 160$
+
+$\hat y_{148}$ = `r -10.1 + 0.464*300`
+
+$e_{148} = y_{148} - \hat y_{148}$
+
+$e_{148} =$ `r 160 -(-10.1 + 0.464*300)`
+:::
+::::
+
+## Least Squares Regression 
+The goal is to minimize 
+
+$$e_1^2 + e_2^2 + ... + e_n^2$$
+
+which can be rewritten as 
+
+$$\sum_{i = 1}^n e_i^2$$
+
+## Inference: Confidence Interval (theoretical)
+
+```{r}
+#| echo: true
+confint(model_g)
+```
+
+Note that the 95% confidence interval for the slope does not contain zero and all the values in the interval are positive indicating a significant positive relationship between gestation and birth weight.
+
+
+## Evaluating Regression Models
+<!--
+https://www.bayesrulesbook.com/chapter-10.html
+-->
+- How fair is the model? How was the data collected? By whom and for what purpose? How might the results of the analysis, or the data collection itself, impact individuals and society? What biases or power structures might be baked into this analysis?
+- How wrong is the model? George Box famously said: “All models are wrong, but some are useful.” What’s important to know then is, how wrong is our model? Are our model assumptions reasonable?
+
+## Is the model fair?
+- How was the data collected?
+- By whom and for what purpose was the data collected?
+- How might the results of the analysis, or the data collection itself, impact individuals and society?
+- What biases might be baked into this analysis?
+
+## Models are not always fair!
+- Unfair models are unfortunately abundant:
+  - As recently as 2015, a major corporation reportedly utilized a model to evaluate applicants’ résumés for technical posts. They scrapped this model upon discovering that, by building this model using résumé data from its current technical employees (mostly men), it reinforced a preference for male job applicants (Dastin 2018).
+  - Facial recognition models, increasingly used in police surveillance, are often built using image data of researchers that do not represent the whole of society. Thus, when applied in practice, misidentification is more common among people that are underrepresented in the research process. Given the severe consequences of misidentification, including false arrest, citizens are pushing back on the use of this technology in their communities (Harmon 2019).
+  
+## How wrong is the model? 
+- All models are wrong - Mainly, statistical models are idealistic representations of more complex realities. 
+- Even so, good statistical models can still be useful and inform our understanding of the world’s complexities.
+- The next question to ask in evaluating our model is not, is the model wrong, but how wrong is the model? 
+- Specifically, to what extent do the assumptions behind our linear regression model match reality?
 
 ## Conditions for Least Squares Regression: LINE
 <!--
@@ -87,6 +400,9 @@ https://openintro-ims.netlify.app/inf-model-slr.html#tech-cond-linmod
 
 
 ## Multiple Linear Regression
+<!--
+https://www.introdata.science/slides/week07/07b-multiple-regression.html#1
+-->
 - Numerical and categorical predictor (binary and multi-category); interaction between numerical and categorical
 - Interpretation
 - Prediction
@@ -96,13 +412,13 @@ https://openintro-ims.netlify.app/inf-model-slr.html#tech-cond-linmod
 https://www.bayesrulesbook.com/chapter-11.html#optional-utilizing-interaction-terms
 -->
 
-
+<!--
 ## Model Evaluation
 - R2
 - RMSE
 - Overfitting
 - Splitting the data
-
+-->
 ## Evaluating Models: How do you know if your model is a good one?
 <!--
 https://mdsr-book.github.io/mdsr2e/ch-modeling.html#evaluating-models
@@ -119,7 +435,6 @@ https://mdsr-book.github.io/mdsr2e/ch-modeling.html#evaluating-models
 - Optimal balance between bias and variance depends on the purpose for which the model is constructed (e.g., prediction vs. description of causal relationships) 
 
 ## Modeling Overfitting: Cross-validation
-
 Data sets are often divided into two sets:
 
 - Training: Set of data on which you build your model
@@ -127,60 +442,11 @@ Data sets are often divided into two sets:
 
 "Perhaps the most elementary mistake in predictive analytics is to overfit your model to the training data, only to see it later perform miserably on the testing set."
 
-```{r echo = FALSE, message = FALSE}
-library(tidyverse)
-library(openintro)
-library(broom)
-theme_set(theme_gray(base_size = 18))
-```
-
-
-
-
-
+## Measuring Prediction Error for Quantitative Responses 
 <!--
-
-## Data `babies` in `openintro` package
-
-```{r echo = FALSE}
-
-
-glimpse(babies)
-
-```
-
-##  Baby Weights
-:::: {.columns}
-::: {.column width="40%"}
-```{r eval = FALSE, fig.align='center', message = FALSE, warning = FALSE}
-ggplot(babies, 
-       aes(x = gestation, y = bwt)) +
-  geom_point()
-
-```
-:::
-
-::: {.column width="60%"}
-```{r echo = FALSE, fig.align='center', message = FALSE, fig.height= 6,warning = FALSE}
-
-
-ggplot(babies, 
-       aes(x = gestation, y = bwt)) +
-  geom_point()
-
-```
-:::
-::::
-
-## Response and Explanatory Variables
-
-| Variable    | Variable Name | Type of Variable |
-|-------------|-----------------|---------|
-| Response (y)    | Birth weight | Numeric |
-| Explanatory (x) | Gestation           | Numeric |
-
-
-## Insert Mine's UCI ICS 80 Sampling and Study Design (i.e. regression slides)
-
-## Insert Mine's UCI STATS 115 Evaluating Regression Models
+RMSE, correlation, coefficienct of determination
 -->
+
+
+
+
