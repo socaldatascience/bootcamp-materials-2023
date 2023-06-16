@@ -91,6 +91,12 @@ https://openintro-ims.netlify.app/inf-model-slr.html#tech-cond-linmod
 - Interpretation
 - Prediction
 
+## Multiple Linear Regression: Interaction terms
+<!--
+https://www.bayesrulesbook.com/chapter-11.html#optional-utilizing-interaction-terms
+-->
+
+
 ## Model Evaluation
 - R2
 - RMSE

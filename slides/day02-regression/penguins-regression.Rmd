@@ -1,0 +1,109 @@
+---
+title: "Data Viz - Titanic and Penguins"
+output: html_document
+---
+
+```{r echo = FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+
+library(palmerpenguins)
+data(penguins)
+remove(penguins_raw)
+```
+
+
+```{r}
+glimpse(penguins)
+```
+
+
+```{r}
+penguins %>% 
+  count(species, sort = TRUE)
+
+penguins %>% 
+  count(island, sort = TRUE)
+
+penguins %>% 
+  count(year, sort = TRUE)
+
+ggplot(data = penguins,
+       aes(x = species,
+           y = bill_length_mm)) + 
+  geom_violin()
+
+ggplot(data = penguins,
+       aes(x = species,
+           y = bill_length_mm)) + 
+  geom_boxplot()
+
+ggplot(data = penguins,
+       aes(x = bill_length_mm)) + 
+  geom_histogram() + 
+  facet_grid(species ~.)
+
+ggplot(data = penguins,
+       aes(x = bill_depth_mm,
+           y = bill_length_mm,
+           color = species,
+           shape = species,
+           size = body_mass_g)) +
+  geom_point()
+
+```
+
+
+```{r}
+ggplot(penguins,
+       aes(x = bill_length_mm, y = flipper_length_mm)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+
+model_b <- lm(flipper_length_mm ~ bill_length_mm, data = penguins)
+broom::tidy(model_b)
+confint(model_b)
+plot(model_b)
+
+penguins %>% 
+  modelr::add_predictions(model_b) %>% 
+  modelr::add_residuals(model_b) %>% 
+  select(flipper_length_mm, bill_length_mm, pred, resid)
+```
+
+```{r}
+set.seed(12345)
+penguins_split <- rsample::initial_split(penguins) ## 75% to 25% split
+
+penguins_train <- rsample::training(penguins_split)
+dim(penguins_train)
+
+penguins_test <- rsample::testing(penguins_split)
+dim(penguins_test)
+
+model_b_train <- lm(flipper_length_mm ~ bill_length_mm, data = penguins_train)
+model_b_test <- lm(flipper_length_mm ~ bill_length_mm, data = penguins_test)
+
+broom::glance(model_b_train)
+broom::glance(model_b_test)
+
+
+modelr::rmse(model_b_train, penguins_train)
+modelr::rmse(model_b_test, penguins_test)
+```
+
+
+```{r}
+ggplot(penguins, aes(y = bill_length_mm, x = flipper_length_mm, color = island)) +
+  geom_point(size = 0.5) + 
+  geom_smooth(method = "lm", se = FALSE)
+
+model_bi <- lm(flipper_length_mm ~ bill_length_mm + island, data = penguins)
+summary(model_bi)
+
+model_bi_interaction <- lm(flipper_length_mm ~ bill_length_mm + island + bill_length_mm:island, data = penguins)
+summary(model_bi_interaction)
+plot(model_bi_interaction)
+```
+
+
+
