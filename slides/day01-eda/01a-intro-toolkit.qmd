@@ -194,7 +194,13 @@ knitr::include_graphics('img/github-illustration.007.jpeg')
 
 ## 
 
-We need a video 
+::: {.font75}
+
+Demo
+
+:::
+
+We have actually done something similar to this demo before [by cloning the test repo and committing, and pushing](https://uci.yuja.com/V/Video?v=7926702&node=33717865&a=36939698&autoplay=1). 
 
 ## 
 
@@ -259,3 +265,8 @@ Do you git it?
 ::: 
 
 
+## EDA review
+
+- What R functions do you remember?
+- Can you load the `titanic_train` data from the `titanic` package?
+- What ggplot functions do you remember?
