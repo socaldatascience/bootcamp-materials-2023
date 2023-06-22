@@ -1,0 +1,356 @@
+---
+title: "Hierarchical Linear Models with No Predictors"
+author: "Dr. Mine Dogucu"
+execute:
+  echo: true
+format: 
+  revealjs:
+    slide-number: true
+    logo: "https://socaldatascience.github.io/bootcamp-materials-2022/img/socalds-logo.png"
+    theme: ["slide-style.scss"]
+    incremental: false
+---
+
+
+Note that examples in this lecture a modified version of [Chapter 16 of Bayes Rules! book](https://www.bayesrulesbook.com/chapter-16.html)
+
+## Packages
+
+```{r}
+library(bayesrules)
+library(tidyverse)
+```
+
+
+## Data
+
+```{r}
+data(cherry_blossom_sample)
+running <- cherry_blossom_sample %>% 
+  select(runner, age, net)
+glimpse(running)
+```
+
+##
+
+```{r}
+ggplot(running, aes(x = runner, y = net)) + 
+  geom_boxplot()
+```
+
+
+## Complete Pooling 
+
+
+Complete pooling technique: combine all 252 observations across our 36 runners into one pool of information. 
+
+
+```{r}
+#| warning: false
+#| fig.height: 4
+ggplot(running, aes(y = net, x = age)) + 
+  geom_point()
+```
+
+## Complete Pooling 
+
+$$Y_i | \beta_0, \beta_1, \sigma \stackrel{ind}{\sim} N\left(\mu_i, \sigma^2\right) \;\; \text{ with } \;\; \mu_i = \beta_0 + \beta_1X_i$$
+
+```{r}
+complete_pooled_model <- lm(net ~ age, data = running, family = gaussian)
+broom::tidy(complete_pooled_model)
+```
+
+## Complete pooling
+
+```{r}
+#| echo: false
+
+ggplot(running, aes(x = age, y = net, group = runner)) + 
+  geom_smooth(method = "lm", se = FALSE, color = "gray", size = 0.5) + 
+  geom_abline(aes(intercept = 75.06, slope = 0.27), color = "blue")
+```
+
+## Select an example subset
+
+```{r}
+#| fig.height: 4
+examples <- running %>% 
+  filter(runner %in% c("1", "20", "22"))
+ggplot(examples, aes(x = age, y = net)) + 
+  geom_point() + 
+  facet_wrap(~ runner) + 
+  geom_abline(aes(intercept = 75.06, slope = 0.27), color = "blue")
+```
+
+
+##
+
+1. Though the observations on one runner might be independent of those on another, the observations _within_ a runner are _correlated_. That is, how fast a runner ran in their previous race tells us something about how fast they'll run in the next. 
+2. With respect to the relationship between running time and age, people are inherently different.
+
+## Framework of a complete pooled model
+
+```{r}
+#| echo: false
+#| out.width: "50%"
+#| fig.align: 'center'
+knitr::include_graphics("img/complete_pool_diagram.png")
+```
+
+Drawbacks of a complete pooling approach:
+
+
+1. we violate the assumption of independence; and, in turn,
+2. we might produce misleading conclusions about the relationship itself and the significance of this relationship.
+
+## No pooling
+
+```{r}
+#| echo: false
+#| out.width: "50%"
+#| fig.align: 'center'
+#| out.height: "50%"
+knitr::include_graphics("img/no_pool_diagram.png")
+```
+
+No pooling approach builds a _separate_ model for each runner.
+
+Let $(Y_{ij}, X_{ij})$ denote the observed run times and age for runner $j$ in their $i$th race.
+Then the data structure for the Normal linear regression model of run time vs age for runner $j$ is:
+
+
+$$Y_{ij} | \beta_{0j}, \beta_{1j}, \sigma \sim N\left(\mu_{ij}, \sigma^2\right) \;\; \text{ with } \;\; \mu_{ij} = \beta_{0j} + \beta_{1j} X_{ij}$$
+
+
+
+This model allows for each runner $j$ to have a unique intercept $\beta_{0j}$ and age coefficient $\beta_{1j}$.
+
+
+##
+
+On the context of running, the no pooled models reflect the fact that some people tend to be faster than others (hence the different $\beta_{0j}$) and that _changes_ in speed over time aren't the same for everyone (hence the different $\beta_{1j}$).
+
+## 
+
+```{r}
+#| echo: false
+#| warning: false
+#| fig.height: 3.5
+#| message: false
+ggplot(examples, aes(x = age, y = net)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, fullrange = TRUE) + 
+  facet_wrap(~ runner) + 
+  xlim(52, 62)
+```
+
+Based on this model, what do you anticipate that your running time will be at the age of 55?
+
+##
+
+Drawbacks of a no pooling approach:
+
+- We cannot reliably generalize or apply the group-specific no pooled models to groups outside those in our sample.
+- No pooled models assume that one group doesn’t contain relevant information about another, and thus ignores potentially valuable information. This is especially consequential when we have a small number of observations per group.
+
+## Partial Pooling
+
+```{r echo=FALSE, out.width="70%"}
+knitr::include_graphics("img/partial_pool_diagram.png")
+```
+
+
+**Examples**: Students within classrooms, patients within hospitals, different runs for each runner (longitudunal, repeated-measures)
+
+
+
+##
+
+__Within-group variability__
+
+The degree of the variability among multiple observations _within_ each group can be interesting on its own. For example, we can examine how _consistent_ an _individual's_ running times are from year to year.
+    
+<hr>
+
+__Between-group variability__
+    
+Hierarchical data also allows us to examine the variability from group to group. For example, we can examine the degree to which running patterns _vary_ from individual to individual.
+
+##
+
+```{r}
+data(spotify)
+
+spotify <- spotify %>% 
+  select(artist, title, popularity) %>% 
+  mutate(artist = fct_reorder(artist, popularity, .fun = 'mean'))
+
+glimpse(spotify)
+
+nlevels(spotify$artist)
+```
+
+
+## 
+
+```{r}
+artist_means <- spotify %>% 
+  group_by(artist) %>% 
+  summarize(count = n(), popularity = mean(popularity))
+
+artist_means %>%
+  slice(1:2, 43:44)
+```
+
+##
+
+```{r }
+#| echo: false
+#| out.width: "100%"
+knitr::include_graphics("img/spotify-hierarchical-data-diagram.png")
+```
+
+##
+
+__Complete pooling__    
+
+_Ignore_ artists and lump all songs together 
+
+__No pooling__    
+
+_Separately_ analyze each artist and assume that one artist's data doesn't contain valuable information about another artist 
+    
+__Partial pooling (via hierarchical models)__    
+
+Acknowledge the grouping structure, so that even though artists differ in popularity, they might share valuable information about each other _and_ about the broader population of artists.
+    
+
+## The hierarchy
+
+Layer 1:
+
+$Y_{ij} | \mu_j, \sigma_y   \hspace{-0.075in} \sim \text{model of how song popularity varies WITHIN artist } j$
+
+<hr>
+
+Layer 2:
+
+$\mu_j | \mu, \sigma_\mu  \hspace{-0.075in} \sim \text{model of how the typical popularity} \mu_j \text{varies BETWEEN artists}$
+
+<hr>
+
+- $\mu_j$ = mean song popularity for artist $j$; and
+- $\sigma_y$ = __within-group variability__, i.e., the standard deviation in popularity from song to song within each artist.
+
+## 
+
+Popularity varies from artist to artist.
+
+We model this variability in mean popularity __between__ artists by assuming that the individual mean popularity levels, $\mu_j$, are _Normally_ distributed around $\mu$ with standard deviation $\sigma_\mu$
+
+$$\mu_j | \mu, \sigma_\mu \sim N(\mu, \sigma^2_\mu)  .$$
+
+Thus, we can think of the two new parameters as follows:
+
+- $\mu$ = the __global average__ of mean song popularity $\mu_j$ across all artists $j$, i.e., the mean popularity rating for the most average artist; and
+- $\sigma_\mu$ = __between-group variability__, i.e., the standard deviation in mean popularity $\mu_j$ from artist to artist.
+
+## 
+
+```{r}
+ggplot(artist_means, aes(x = popularity)) + 
+  geom_density()
+```
+
+
+## 
+
+__Notation alert__
+
+- There's a difference between $\mu_j$ and $\mu$. When a parameter has a subscript $j$, it refers to a feature of group $j$. When a parameter _doesn't_ have a subscript $j$, it's the _global_ counterpart, i.e., the same feature across all groups.
+
+- Subscripts signal the group or layer of interest. For example, $\sigma_y$ refers to the standard deviation of $Y$ values within each group, whereas $\sigma_\mu$ refers to the standard deviation of means $\mu_j$ from group to group.
+
+##
+
+```{r}
+spotify_hierarchical <- lme4::lmer(popularity ~ (1 | artist), 
+                                   data = spotify)
+```
+
+- To indicate that the `artist` variable defines the group structure of our data, as opposed to it being a predictor of `popularity`, the appropriate formula here is `popularity ~ (1 | artist)`.
+
+## Analysis of Global Parameters
+
+- $\mu$  
+- $\sigma_y$ 
+- $\sigma_\mu^2$ 
+
+##
+
+```{r}
+broom.mixed::tidy(spotify_hierarchical, effects = "fixed")
+```
+
+Pay attention to `effect = fixed`, where "fixed" is synonymous with "non-varying" or "global."
+
+Per the results, the _average_ artist is expected to have a mean popularity rating of 52.4.
+
+##
+
+```{r}
+broom.mixed::tidy(spotify_hierarchical, effects = "ran_pars")
+```
+
+The point estimate of $\sigma_y$ (`sd__Observation` for Residual)  suggests that, _within_ any given artist, popularity ratings tend to vary by  about 14.0 points _from song to song_.
+The _between_ standard deviation $\sigma_\mu$ (`sd__(Intercept)` for artist)  tends to be slightly higher at around 14.8.
+Thus, the _mean_ popularity rating tends to vary by  points _from artist to artist_.
+
+##
+
+proportion of $\text{Var}(Y_{ij})$ that can be explained by differences in the observations within each group:
+
+$$\frac{\sigma^2_y}{\sigma^2_\mu + \sigma^2_y}$$ 
+
+<hr>
+
+proportion of $\text{Var}(Y_{ij})$that can be explained by differences between groups
+
+$$\frac{\sigma^2_\mu}{\sigma^2_\mu + \sigma^2_y}$$
+
+
+##
+
+These two sources of variability suggest that the popularity levels among multiple songs _by the same artist_ tend to have a moderate correlation near 0.53.
+
+```{r}
+14.8^2 / (14.8^2 + 14.0^2)
+```
+
+
+Thinking of this another way, 53% of the variability in song popularity is explained by differences between artists, whereas 47% is explained by differences among the songs within each artist:
+
+```{r}
+14.0^2 / (14.8^2 + 14.0^2)
+```
+
+
+## Analysis of group-specific parameters
+
+$$\mu_j = \mu + b_j $$
+
+Here, $b_j$ describes the _difference_ between artist $j$'s mean popularity and the global mean popularity.
+
+##
+
+```{r}
+broom.mixed::tidy(spotify_hierarchical, effects = "ran_coefs") %>% 
+  slice(1:2, 43:44)
+```
+
+
+It is expected that Camilo's mean popularity rating is about 78.44 above that of the average artist.
+
+
+$$\mu_{44} = \mu + b_{44} = 52.4 + 78.44.$$
