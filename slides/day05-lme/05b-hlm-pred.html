@@ -29,9 +29,73 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="05b-hlm-pred_files/libs/revealjs/dist/theme/quarto.css" id="theme">
-  <link rel="stylesheet" href="slide-style.css">
   <link href="05b-hlm-pred_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="05b-hlm-pred_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="05b-hlm-pred_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -340,6 +404,408 @@ Dr.&nbsp;Mine Dogucu
 <section class="slide level2">
 
 <p>Note that examples in this lecture a modified version of <a href="https://www.bayesrulesbook.com/chapter-17.html">Chapter 17 of Bayes Rules! book</a></p>
+</section>
+<section id="packages" class="slide level2">
+<h2>Packages</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(bayesrules)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="data" class="slide level2">
+<h2>Data</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">data</span>(cherry_blossom_sample)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>running <span class="ot">&lt;-</span> cherry_blossom_sample <span class="sc">%&gt;%</span> </span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">select</span>(runner, age, net)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>n_runners <span class="ot">&lt;-</span> <span class="fu">nlevels</span>(running<span class="sc">$</span>runner)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="hierarchical-model-with-varying-intercepts" class="slide level2">
+<h2>Hierarchical model with varying intercepts</h2>
+<p>Layer 1:</p>
+<p><span class="math inline">\(Y_{ij} | \mu_j, \sigma_y \hspace{-0.075in} \sim \text{model of how song popularity varies WITHIN artist } j\)</span></p>
+<hr>
+<p>Layer 2:</p>
+<p><span class="math inline">\(\mu_j | \mu, \sigma_\mu \hspace{-0.075in} \sim \text{model of how the typical popularity} \mu_j \text{varies BETWEEN artists}\)</span></p>
+</section>
+<section id="layer-1-variability-within-runner" class="slide level2">
+<h2>Layer 1: Variability within runner</h2>
+<p>The first layer of the simple Normal hierarchical model assumes that each runner’s net running times <span class="math inline">\(Y_{ij}\)</span> vary normally around their own mean time <span class="math inline">\(\mu_j\)</span>, with no consideration of their age <span class="math inline">\(X_{ij}\)</span>:</p>
+<p><span class="math display">\[Y_{ij} | \mu_{j}, \sigma_y \sim N(\mu_{j}, \sigma_y^2)\]</span></p>
+<p>To incorporate information about age into our understanding of running times within runners, we can replace the <span class="math inline">\(\mu_{j}\)</span> with runner-specific means <span class="math inline">\(\mu_{ij}\)</span>, which depend upon the runner’s age in their <span class="math inline">\(i\)</span>th race, <span class="math inline">\(X_{ij}\)</span>.</p>
+<p><span class="math display">\[\mu_{ij} = \beta_{0j} + \beta_1 X_{ij}\]</span></p>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+<p>Thus, the first layer of our hierarchical model describes the relationship between net times and age <strong>within</strong> each runner <span class="math inline">\(j\)</span> by:</p>
+<p><span class="math display">\[\begin{equation}
+Y_{ij} | \beta_{0j}, \beta_1, \sigma_y \sim N(\mu_{ij}, \sigma_y^2) \;\; \text{ where } \; \mu_{ij} = \beta_{0j} + \beta_1 X_{ij}
+\end{equation}\]</span></p>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+<p>Note that <span class="math inline">\(\beta_{0j}\)</span> depends upon <span class="math inline">\(j\)</span>, and thus is runner- or <strong>group-specific</strong>:</p>
+<ul>
+<li><span class="math inline">\(\beta_{0j}\)</span> = intercept of the regression model for runner <span class="math inline">\(j\)</span>.</li>
+</ul>
+<p>The other parameters are <strong>global</strong>, or shared across all runners <span class="math inline">\(j\)</span></p>
+<ul>
+<li><span class="math inline">\(\beta_1\)</span> = global age coefficient, i.e., the typical change in a runner’s net time per one year increase in age; and</li>
+<li><span class="math inline">\(\sigma_y\)</span> = <strong>within-group variability</strong> around the mean regression model <span class="math inline">\(\beta_{0j} + \beta_1 X_{ij}\)</span>, and hence a measure of the <em>strength</em> of the relationship between an individual runner’s time and their age.</li>
+</ul>
+<p>The first layer of our hierarchical model assumes that relationships between running time and age <em>randomly</em> vary from runner to runner, having <em>different</em> intercepts <span class="math inline">\(\beta_{0j}\)</span> but a shared age coefficient <span class="math inline">\(\beta_1\)</span>.</p>
+</section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+
+<img data-src="05b-hlm-pred_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
+<section id="layer-2-variability-between-runners" class="slide level2">
+<h2>Layer 2: Variability between runners</h2>
+<p>In this layer we capture how the relationships between running time and age vary from runner to runner, i.e., <strong>between</strong> runners.</p>
+<p>In this layer will model variability in the intercept parameters <span class="math inline">\(\beta_{0j}\)</span>.</p>
+<p><span class="math display">\[\begin{equation}
+\beta_{0j} | \beta_0, \sigma_0 \stackrel{ind}{\sim} N(\beta_0, \sigma_0^2)
+\end{equation}\]</span></p>
+<p>This layer of the hierarchical model which depends upon two new parameters:</p>
+<ul>
+<li><span class="math inline">\(\beta_0\)</span> = the <strong>global average intercept</strong> across all runners, i.e., the <em>average</em> runner’s baseline speed;</li>
+<li><span class="math inline">\(\sigma_0\)</span> = <strong>between-group variability</strong> in intercepts <span class="math inline">\(\beta_{0j}\)</span>, i.e., the extent to which baseline speeds vary from runner to runner.</li>
+</ul>
+</section>
+<section id="section-3" class="slide level2">
+<h2></h2>
+<p>Regression model within runner <span class="math inline">\(j\)</span>: <span class="math inline">\(Y_{ij} | \beta_{0j}, \beta_1, \sigma_y \sim N(\mu_{ij}, \sigma_y^2) \text{ with } \mu_{ij} = \beta_{0j} + \beta_1 X_{ij}\)</span></p>
+<p>variability in baseline speeds BETWEEN runners: <span class="math inline">\(\beta_{0j} | \beta_0, \sigma_0 \stackrel{ind}{\sim} N(\beta_0, \sigma_0^2)\)</span></p>
+</section>
+<section id="normal-hierarchical-regression-assumptions" class="slide level2">
+<h2>Normal hierarchical regression assumptions</h2>
+<p>Let <span class="math inline">\(Y_{ij}\)</span> and <span class="math inline">\(X_{ij}\)</span> denote observations for the <span class="math inline">\(i\)</span>th observation in group <span class="math inline">\(j\)</span>. The appropriateness of the Bayesian Normal hierarchical regression model of <span class="math inline">\(Y_{ij}\)</span> by <span class="math inline">\(X_{ij}\)</span> depends upon the following assumptions.</p>
+<ul>
+<li><strong>Structure of the data</strong><br>
+Conditioned on predictor <span class="math inline">\(X_{ij}\)</span>, the outcomes <span class="math inline">\(Y_{ij}\)</span> on any one group <span class="math inline">\(j\)</span> are <em>independent</em> of those on another group <span class="math inline">\(k\)</span>, <span class="math inline">\(Y_{ik}\)</span>. However, different data points <em>within</em> the same group <span class="math inline">\(j\)</span>, <span class="math inline">\(Y_{ij}\)</span> and <span class="math inline">\(Y_{hj}\)</span>, are <em>correlated</em>.</li>
+</ul>
+<p>(Continued on the next slide)</p>
+</section>
+<section id="section-4" class="slide level2">
+<h2></h2>
+<ul>
+<li><p><strong>Structure of the relationship</strong><br>
+Within any group <span class="math inline">\(j\)</span>, the typical outcome of <span class="math inline">\(Y_{ij}\)</span> ( <span class="math inline">\(\mu_{ij}\)</span> ) can be written as a <strong>linear function</strong> of predictor <span class="math inline">\(X_{ij}\)</span>.</p></li>
+<li><p><strong>Structure of the variability within groups</strong><br>
+Within any group <span class="math inline">\(j\)</span> and at any predictor value <span class="math inline">\(X_{ij}\)</span>, the observed values of <span class="math inline">\(Y_{ij}\)</span> will vary <strong>normally</strong> around mean <span class="math inline">\(\mu_{ij}\)</span> with consistent standard deviation <span class="math inline">\(\sigma_y\)</span>.</p></li>
+<li><p><strong>Structure of the variability between groups</strong><br>
+The group-specific baselines or intercepts, <span class="math inline">\(\beta_{0j}\)</span>, vary <strong>normally</strong> around a global intercept <span class="math inline">\(\beta_0\)</span> with standard deviation <span class="math inline">\(\sigma_0\)</span>.</p></li>
+</ul>
+</section>
+<section id="section-5" class="slide level2">
+<h2></h2>
+<p><strong>Connecting the hierarchical and complete pooled models</strong></p>
+<p>The complete pooled model is a <em>special case</em> of the random intercepts model. These two models are equivalent when <span class="math inline">\(\sigma_0 = 0\)</span>, i.e., when the intercepts do <em>not</em> differ from group to group.</p>
+<h3 id="another-way-to-think-about-it">Another way to think about it</h3>
+<p><em>Equivalently</em>, we can think of the runner-specific intercepts as random <em>tweaks</em> or <em>adjustments</em> <span class="math inline">\(b_{0j}\)</span> to <span class="math inline">\(\beta_0\)</span>,</p>
+<p><span class="math display">\[\beta_{0j} = \beta_0 + b_{0j}\]</span></p>
+<p>where these tweaks are normal deviations from <em>0</em> with standard deviation <span class="math inline">\(\sigma_0\)</span>:</p>
+<p><span class="math display">\[b_{0j} \sim N(0, \sigma_0^2)\]</span></p>
+</section>
+<section id="section-6" class="slide level2">
+<h2></h2>
+<p>Suppose that some runner <span class="math inline">\(j\)</span> has a baseline running speed of <span class="math inline">\(\beta_{0j} = 24\)</span> minutes, whereas the average baseline speed across <em>all</em> runners is <span class="math inline">\(\beta_0 = 19\)</span> minutes. Thus, at any age, runner <span class="math inline">\(j\)</span> tends to run 5 minutes slower than average. That is, <span class="math inline">\(b_{0j} = 5\)</span> and</p>
+<p><span class="math display">\[\beta_{0j} = \beta_0 + b_{0j} = 19 + 5 = 24\]</span></p>
+</section>
+<section id="section-7" class="slide level2">
+<h2></h2>
+<p>In general, then, we can reframe Layers 1 and 2 of our hierarchical model as follows:</p>
+<p><span class="math display">\[\begin{equation}
+\begin{split}
+Y_{ij} | \beta_{0j}, \beta_1, \sigma_y &amp; \sim N(\mu_{ij}, \sigma_y^2) \;\; \text{ with } \;\;  \mu_{ij} = (\beta_0 + b_{0j}) + \beta_1 X_{ij}  \\
+b_{0j} | \sigma_0  &amp; \stackrel{ind}{\sim} N(0, \sigma_0^2)
+\end{split}
+\end{equation}\]</span></p>
+<hr>
+<p><span class="math display">\[\begin{equation}
+\begin{split}
+Y_{ij} | \beta_{0j}, \beta_1, \sigma_y &amp; \sim N(\mu_{ij}, \sigma_y^2) \;\; \text{ with } \;\;  \mu_{ij} = \beta_{0j} + \beta_1 X_{ij} \\
+\beta_{0j} | \beta_0, \sigma_0  &amp; \stackrel{ind}{\sim} N(\beta_0, \sigma_0^2) \\
+\end{split}
+\end{equation}\]</span></p>
+</section>
+<section id="section-8" class="slide level2">
+<h2></h2>
+<p>Most runners’ times <em>do</em> tend to increase with age, and there is variability between the runners themselves – some tend to be faster than others.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">ggplot</span>(running, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> net)) <span class="sc">+</span> </span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> runner) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">55</span>,<span class="dv">60</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="05b-hlm-pred_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section>
+<section id="section-9" class="slide level2">
+<h2></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>running_model_1 <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(net <span class="sc">~</span> age <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> runner),</span>
+<span id="cb4-2"><a href="#cb4-2"></a>                              <span class="at">data =</span> running)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="section-10" class="slide level2">
+<h2></h2>
+<p>There are a whopping 40 parameters in our model: 36 runner-specific intercept parameters ( <span class="math inline">\(\beta_{0j}\)</span> ) in addition to 4 global parameters (<span class="math inline">\(\beta_0, \beta_1, \sigma_y, \sigma_0\)</span>).</p>
+</section>
+<section id="global-relationship" class="slide level2">
+<h2>Global relationship</h2>
+<p>Consider the <strong>global relationship</strong> between running time and age for the <em>typical</em> runner:</p>
+<p><span class="math display">\[\beta_0 + \beta_1 X\]</span></p>
+<p>Summaries for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, which are <code>fixed</code> across runners, can be shown with.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>broom.mixed<span class="sc">::</span><span class="fu">tidy</span>(running_model_1, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  effect term        estimate std.error statistic
+  &lt;chr&gt;  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 fixed  (Intercept)    21.8     12.3        1.77
+2 fixed  age             1.24     0.220      5.65</code></pre>
+</div>
+</div>
+<p>The <em>typical</em> runner tends to slow down about 1.24 minutes per year. Note that <span class="math inline">\(\hat \beta_1 = 21.8\)</span></p>
+</section>
+<section id="group-relationships" class="slide level2">
+<h2>Group Relationships</h2>
+<p>To examine the <strong>runner-specific relationships</strong> between net running time and age we have</p>
+<p><span class="math display">\[\hat \beta_{0j} + \hat \beta_1 X_{ij} \; = (\hat \beta_0 + b_{0j}) + \hat \beta_1 X_{ij} = (21.8 + b_{0j}) + 1.24 X_{ij}\]</span></p>
+</section>
+<section id="section-11" class="slide level2">
+<h2></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>broom.mixed<span class="sc">::</span><span class="fu">tidy</span>(running_model_1, <span class="at">effects =</span> <span class="st">"ran_vals"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">35</span><span class="sc">:</span><span class="dv">36</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 6
+  effect   group  level term        estimate std.error
+  &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;
+1 ran_vals runner 1     (Intercept)   -13.4       2.28
+2 ran_vals runner 2     (Intercept)    -4.81      2.28
+3 ran_vals runner 35    (Intercept)    -4.13      2.09
+4 ran_vals runner 36    (Intercept)    16.7       2.54</code></pre>
+</div>
+</div>
+<p>The <code>estimate</code> column would give us <span class="math inline">\(b_{0j}\)</span>.</p>
+</section>
+<section id="section-12" class="slide level2">
+<h2></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>broom.mixed<span class="sc">::</span><span class="fu">tidy</span>(running_model_1, <span class="at">effects =</span> <span class="st">"ran_coefs"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">35</span><span class="sc">:</span><span class="dv">38</span>, <span class="dv">43</span><span class="sc">:</span><span class="dv">44</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 5
+  effect    group  level term        estimate
+  &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;          &lt;dbl&gt;
+1 ran_coefs runner 1     (Intercept)     8.39
+2 ran_coefs runner 2     (Intercept)    17.0 
+3 ran_coefs runner 35    (Intercept)    17.6 
+4 ran_coefs runner 36    (Intercept)    38.4 
+5 ran_coefs runner 1     age             1.24
+6 ran_coefs runner 2     age             1.24
+7 ran_coefs runner 7     age             1.24
+8 ran_coefs runner 8     age             1.24</code></pre>
+</div>
+</div>
+<p>The first 36 rows would give us <span class="math inline">\(\beta_{0j}\)</span>. These values can also be achieved by adding 21.8 (<span class="math inline">\(\hat \beta_0\)</span>) to <span class="math inline">\(b_{0j}\)</span>s from previous slide.</p>
+<p>Runner 2 seems to have a slower baseline than Runner 1 (<span class="math inline">\(17.0-8.39 = 8.61\)</span>). Thus, at any shared age, we would expect runner 2 to run roughly 8.61 minutes slower than runner 1.</p>
+</section>
+<section id="section-13" class="slide level2">
+<h2></h2>
+
+<img data-src="05b-hlm-pred_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"><p>The models for our 36 runners <span class="math inline">\(j\)</span> as calculated from the hierarchical random intercepts model (gray), with the global model (blue).</p>
+</section>
+<section id="posterior-analysis-of-within--and-between-group-variability" class="slide level2">
+<h2>Posterior analysis of within- and between-group variability</h2>
+<p><span class="math inline">\(\sigma_y\)</span> measures the variability from the mean regression model <strong>within</strong> each runner.</p>
+<p><span class="math inline">\(\sigma_0\)</span> measures the variability in baseline running speeds <strong>between</strong> the runners.</p>
+</section>
+<section id="section-14" class="slide level2">
+<h2></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>broom.mixed<span class="sc">::</span><span class="fu">tidy</span>(running_model_1, <span class="at">effects =</span> <span class="st">"ran_pars"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+  effect   group    term            estimate
+  &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;              &lt;dbl&gt;
+1 ran_pars runner   sd__(Intercept)    13.2 
+2 ran_pars Residual sd__Observation     5.19</code></pre>
+</div>
+</div>
+<p>For a given runner <span class="math inline">\(j\)</span>, we estimate that their observed running time at any age will deviate from <em>their</em> mean regression model by roughly 5.19 minutes ( <span class="math inline">\(\sigma_y\)</span> ).</p>
+<p>In contrast, we expect that baseline speeds vary by roughly 13.2 minutes from runner to runner ( <span class="math inline">\(\sigma_0\)</span> ).</p>
+</section>
+<section id="section-15" class="slide level2">
+<h2></h2>
+<p>Comparatively then, the posterior results suggest that <span class="math inline">\(\sigma_y &lt; \sigma_0\)</span> – there’s greater variability in the models <em>between</em> runners than variability from the model <em>within</em> runners.</p>
+<p>Recall:</p>
+<p><span class="math display">\[\text{Var}(Y_{ij}) = \sigma_0^2 + \sigma_y^2  .\]</span> <span class="math display">\[\text{Var}(Y_{ij}) = 13.2^2 + 5.19^2 = 201.1761 .\]</span></p>
+</section>
+<section id="section-16" class="slide level2">
+<h2></h2>
+<p><span class="math display">\[\frac{13.2^2}{201.1761} = 0.8661069\]</span> <span class="math display">\[\text{vs.}\]</span> <span class="math display">\[\frac{5.19^2}{201.1761} = 0.1338931\]</span></p>
+<p>Thus, <em>proportionally</em> differences between runners account for roughly 87% (the majority!) of the total variability in racing times, with fluctuations among individual races within runners explaining the other 13%:</p>
+</section>
+<section id="hierarchical-model-with-varying-intercepts-slopes" class="slide level2">
+<h2>Hierarchical model with varying intercepts &amp; slopes</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>running <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">filter</span>(runner <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"20"</span>, <span class="st">"29"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">ggplot</span>(., <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> net)) <span class="sc">+</span> </span>
+<span id="cb13-4"><a href="#cb13-4"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb13-5"><a href="#cb13-5"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb13-6"><a href="#cb13-6"></a>    <span class="fu">facet_grid</span>(<span class="sc">~</span> runner)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="05b-hlm-pred_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
+<section id="section-17" class="slide level2">
+<h2></h2>
+<p>Observed trends in running time versus age for the 36 subjects</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">ggplot</span>(running, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> net, <span class="at">group =</span> runner)) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">size =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="05b-hlm-pred_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
+<section id="model-building" class="slide level2">
+<h2>Model building</h2>
+<p>Our goal is to build a model which recognizes that in the relationship between running time and age, <em>both</em> the intercept (i.e., baseline speed) and slope (i.e., rate at which speed changes with age) might vary from runner to runner.</p>
+<p><span class="math display">\[\begin{equation}
+Y_{ij} | \beta_{0j}, \beta_{1j}, \sigma_y \sim N(\mu_{ij}, \sigma_y^2) \;\; \text{ where } \mu_{ij} = \beta_{0j} + \beta_{1j} X_{ij}  .
+\end{equation}\]</span></p>
+</section>
+<section id="section-18" class="slide level2">
+<h2></h2>
+<p>Previously we assumed that the <em>runner-specific</em> intercepts <span class="math inline">\(\beta_{0j}\)</span> are Normally distributed around some <em>global</em> intercept <span class="math inline">\(\beta_0\)</span> with standard deviation <span class="math inline">\(\sigma_0\)</span>, we now also assume that the <em>runner-specific</em> age coefficients <span class="math inline">\(\beta_{1j}\)</span> are Normally distributed around some <em>global</em> age coefficient <span class="math inline">\(\beta_1\)</span> with standard deviation <span class="math inline">\(\sigma_1\)</span>:</p>
+<p><span class="math display">\[\begin{equation}
+\beta_{0j} | \beta_0, \sigma_0 \sim N(\beta_0, \sigma_0^2)
+\;\;\;\; \text{ and } \;\;\;\;
+\beta_{1j} | \beta_1, \sigma_1 \sim N(\beta_1, \sigma_1^2)
+\end{equation}\]</span></p>
+</section>
+<section id="section-19" class="slide level2">
+<h2></h2>
+<p><span class="math inline">\(\beta_{0j}\)</span> and <span class="math inline">\(\beta_{1j}\)</span> work <em>together</em> to describe the model for runner <span class="math inline">\(j\)</span>, and thus are <em>correlated</em>. Let <span class="math inline">\(\rho \in [-1,1]\)</span> represent the correlation between <span class="math inline">\(\beta_{0j}\)</span> and <span class="math inline">\(\beta_{1j}\)</span>. To reflect this correlation, we represent the <em>joint</em> Normal model of <span class="math inline">\(\beta_{0j}\)</span> and <span class="math inline">\(\beta_{1j}\)</span> by</p>
+<p><span class="math display">\[\begin{equation}
+\left(\begin{array}{c}
+\beta_{0j} \\
+\beta_{1j} \\
+\end{array}\right) \vert
+\beta_0, \beta_1, \sigma_0, \sigma_1
+\;\; \sim \;\;
+N\left(
+\left(\begin{array}{c}
+\beta_0 \\
+\beta_1 \\
+\end{array}\right), \;
+\Sigma
+\right)
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\((\beta_0, \beta_1)\)</span> is the joint mean and <span class="math inline">\(\Sigma\)</span> is the 2x2 <strong>covariance matrix</strong> which encodes the variability and correlation amongst <span class="math inline">\(\beta_{0j}\)</span> and <span class="math inline">\(\beta_{1j}\)</span>:</p>
+<p><span class="math display">\[\begin{equation}
+\Sigma = \left(\begin{array}{cc}
+\sigma_0^2 &amp;  \rho \sigma_0 \sigma_1 \\
+\rho \sigma_0 \sigma_1  &amp; \sigma_1^2 \\
+\end{array}\right)
+\end{equation}\]</span></p>
+</section>
+<section id="section-20" class="slide level2">
+<h2></h2>
+<p>On the next slide, plot (a) illustrates the scenario in which there’s a strong <em>negative</em> correlation between <span class="math inline">\(\beta_{0j}\)</span> and <span class="math inline">\(\beta_{1j}\)</span> – models that start out lower (with small <span class="math inline">\(\beta_{0j}\)</span>) tend to increase at a more rapid rate (with higher <span class="math inline">\(\beta_{1j}\)</span>). In plot (c) there’s a strong <em>positive</em> correlation between <span class="math inline">\(\beta_{0j}\)</span> and <span class="math inline">\(\beta_{1j}\)</span> – models that start out higher (with larger <span class="math inline">\(\beta_{0j}\)</span>) also tend to increase at a more rapid rate (with higher <span class="math inline">\(\beta_{1j}\)</span>). In between these two extremes, plot (b) illustrates the scenario in which there’s no correlation between the group-specific intercepts and slopes.</p>
+</section>
+<section id="section-21" class="slide level2">
+<h2></h2>
+
+<img data-src="05b-hlm-pred_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"></section>
+<section id="section-22" class="slide level2">
+<h2></h2>
+<p><strong>hierarchical random intercepts and slopes model</strong>:</p>
+<p><span class="math display">\[\begin{equation}
+\begin{array}{rl}
+Y_{ij} | \beta_{0j}, \beta_{1j}, \sigma_y &amp; \sim N(\mu_{ij}, \sigma_y^2) \;\; \text{ where } \; \mu_{ij} = \beta_{0j} + \beta_{1j} X_{ij}   \\
+&amp; \\
+\left(\begin{array}{c}
+\beta_{0j} \\
+\beta_{1j} \\
+\end{array}\right) \vert
+\beta_0, \beta_1, \sigma_0, \sigma_1 &amp; \sim
+N\left(
+\left(\begin{array}{c}
+\beta_0 \\
+\beta_1 \\
+\end{array}\right), \;
+\Sigma
+\right) \\
+\end{array}
+\end{equation}\]</span></p>
+</section>
+<section id="section-23" class="slide level2">
+<h2></h2>
+<p>Equivalently, we can re-express the random intercepts and slopes as random tweaks to the global intercept and slope: <span class="math inline">\(\mu_{ij} = (\beta_0 + b_{0j}) + (\beta_1 + b_{1j}) X_{ij}\)</span> with</p>
+<p><span class="math display">\[\left(\begin{array}{c}
+b_{0j} \\
+b_{1j} \\
+\end{array}\right) \vert \; \sigma_0, \sigma_1 \sim
+N\left(
+\left(\begin{array}{c}
+0 \\
+0 \\
+\end{array}\right), \;
+\Sigma
+\right)\]</span></p>
+</section>
+<section id="section-24" class="slide level2">
+<h2></h2>
+<p><strong>Connecting our hierarchical models</strong></p>
+<p>The random intercepts model is a <em>special case</em> of random intercepts and random slopes model. When <span class="math inline">\(\sigma_1 = 0\)</span>, i.e., when the group-specific age coefficients do <em>not</em> differ from group to group, these two models are equivalent.</p>
+</section>
+<section id="section-25" class="slide level2">
+<h2></h2>
+<p>The covariance matrix has information about three separate pieces:</p>
+<ol type="1">
+<li><p>the correlation between the group-specific intercepts and slopes, <span class="math inline">\(\rho\)</span>;</p></li>
+<li><p>the combined degree to which the intercepts and slopes vary by group, <span class="math inline">\(\sigma_0^2 + \sigma_1^2\)</span>;</p></li>
+<li><p>the relative proportion of this variability between groups that’s due to differing intercepts vs differing slopes,</p>
+<p><span class="math display">\[\pi_0 = \frac{\sigma_0^2}{\sigma_0^2 + \sigma_1^2} \;\; \text{ vs } \;\; \pi_1 = \frac{\sigma_1^2}{\sigma_0^2 + \sigma_1^2}\]</span></p></li>
+</ol>
+</section>
+<section id="section-26" class="slide level2">
+<h2></h2>
+<p>In general, <span class="math inline">\(\pi_0\)</span> and <span class="math inline">\(\pi_1\)</span> always sum to 1, and thus have a push-and-pull relationship.</p>
+<p>For example, when <span class="math inline">\(\pi_0 \approx 1\)</span> and <span class="math inline">\(\pi_1 \approx 0\)</span>, the variability in intercepts ( <span class="math inline">\(\sigma_0^2\)</span> ) is large in comparison to the variability in slopes ( <span class="math inline">\(\sigma_1^2\)</span> ).</p>
+<p>Thus, the majority of the variability between group-specific models is explained by differences in <em>intercepts</em> (plot a).</p>
+<p>In contrast, when <span class="math inline">\(\pi_0 \approx 0\)</span> and <span class="math inline">\(\pi_1 \approx 1\)</span>, the majority of the variability between group-specific models is explained by differences in <em>slopes</em> (plot c).</p>
+<p>In between these extremes, when <span class="math inline">\(\pi_0\)</span> and <span class="math inline">\(\pi_1\)</span> are both approximately 0.5, roughly half of the variability between groups can be explained by differing intercepts and the other half by differing slopes (plot b).</p>
+</section>
+<section id="section-27" class="slide level2">
+<h2></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>running_model_2 <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(net <span class="sc">~</span> age <span class="sc">+</span> (age <span class="sc">|</span> runner), </span>
+<span id="cb15-2"><a href="#cb15-2"></a>                              <span class="at">data =</span> running, </span>
+<span id="cb15-3"><a href="#cb15-3"></a>                              <span class="at">REML =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="global-and-group-specific-parameters" class="slide level2">
+<h2>Global and group-specific parameters</h2>
+<p>Remember thinking that the 40 parameters in the random intercepts model was a lot? This new model has 78 parameters: 36 runner-specific intercept parameters <span class="math inline">\(\beta_{0j}\)</span>, 36 runner-specific age coefficients <span class="math inline">\(\beta_{1j}\)</span>, and 6 global parameters ( <span class="math inline">\(\beta_0, \beta_1, \sigma_y, \sigma_0, \sigma_1, \rho\)</span> ). Let’s examine these piece by piece, starting with the global model of the relationship between running time and age,</p>
+<p><span class="math display">\[\beta_0 + \beta_1 X\]</span></p>
+</section>
+<section id="section-28" class="slide level2">
+<h2></h2>
+<p>Summaries for <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, which are <code>fixed</code> across runners, can be shown with.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>broom.mixed<span class="sc">::</span><span class="fu">tidy</span>(running_model_2, <span class="at">effects =</span> <span class="st">"fixed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  effect term        estimate std.error statistic
+  &lt;chr&gt;  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 fixed  (Intercept)    21.7     12.1        1.80
+2 fixed  age             1.25     0.228      5.47</code></pre>
+</div>
+</div>
 
 <img src="https://socaldatascience.github.io/bootcamp-materials-2022/img/socalds-logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
 
@@ -556,6 +1022,44 @@ Dr.&nbsp;Mine Dogucu
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
