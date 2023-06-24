@@ -562,10 +562,10 @@ In between these extremes, when $\pi_0$ and $\pi_1$ are both approximately 0.5, 
 
 
 ##
+
 ```{r}
 running_model_2 <- lme4::lmer(net ~ age + (age | runner), 
-                              data = running, 
-                              REML = FALSE)
+                              data = running)
 ```
 
 ## Global and group-specific parameters
@@ -583,3 +583,77 @@ Summaries for $\beta_0$ and $\beta_1$, which are `fixed` across runners, can be 
 ```{r}
 broom.mixed::tidy(running_model_2, effects = "fixed")
 ```
+
+The global model is $21.7 + 1.25 \text{age}$
+
+##
+
+```{r}
+broom.mixed::tidy(running_model_2, effects = "ran_coefs") %>% 
+  slice(1:2,35:37, 71:72)
+```
+##
+
+```{r}
+#| echo: false
+summary2 <- broom.mixed::tidy(running_model_2, effects = "fixed")
+
+B0 <- summary2$estimate[1]
+B1 <- summary2$estimate[2]
+
+
+random_intercepts <- broom.mixed::tidy(running_model_2, effects = "ran_coefs") %>% 
+  filter(term == "(Intercept)") %>% 
+  select(estimate) %>% 
+  pull()
+
+random_slopes <- broom.mixed::tidy(running_model_2, effects = "ran_coefs") %>% 
+  filter(term == "age") %>% 
+  select(estimate) %>% 
+  pull()
+
+runner_summaries_2 <- tibble(random_intercepts = random_intercepts,
+                             random_slopes = random_slopes)
+
+#| echo: false
+# Plot runner-specific models with the global model
+ggplot(running, aes(y = net, x = age, group = runner)) + 
+  geom_abline(data = runner_summaries_2, color = "gray",
+              aes(intercept = random_intercepts, slope = random_slopes)) + 
+  geom_abline(intercept = B0, slope = B1, color = "blue") + 
+  lims(x = c(50, 61), y = c(50, 135))
+```
+
+## 
+
+The slopes do differ, but not as drastically as we expected.
+
+On average, runner 1's running time increases by just 0.813 minute per year, whereas runner 36's increases by 1.75 minutes per year.
+
+##
+
+
+```{r}
+broom.mixed::tidy(running_model_2, effects = "ran_pars")
+```
+
+
+- The standard deviation $\sigma_1$ in the age coefficients $\beta_{1j}$ is likely around 0.411 minutes per year. On the scale of a 10-mile race, this indicates very little variability between the runners when it comes to the rate at which running times change with age.
+
+
+
+- Per the output for $\sigma_y$, an individual runner's net times tend to deviate from their own mean model by roughly 5.12 minutes.
+
+
+
+- There's a strong negative correlation of roughly -0.934 between the runner-specific $\beta_{0j}$ and $\beta_{1j}$ parameters. Thus, it seems that runners that start off faster tend to slow down at a faster rate.
+
+##
+
+
+Is it worth adding all the additional parameters?
+
+```{r}
+anova(running_model_1, running_model_2)
+```
+

@@ -784,8 +784,7 @@ N\left(
 <h2></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>running_model_2 <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(net <span class="sc">~</span> age <span class="sc">+</span> (age <span class="sc">|</span> runner), </span>
-<span id="cb15-2"><a href="#cb15-2"></a>                              <span class="at">data =</span> running, </span>
-<span id="cb15-3"><a href="#cb15-3"></a>                              <span class="at">REML =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-2"><a href="#cb15-2"></a>                              <span class="at">data =</span> running)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="global-and-group-specific-parameters" class="slide level2">
@@ -802,8 +801,75 @@ N\left(
 <pre><code># A tibble: 2 × 5
   effect term        estimate std.error statistic
   &lt;chr&gt;  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 fixed  (Intercept)    21.7     12.1        1.80
-2 fixed  age             1.25     0.228      5.47</code></pre>
+1 fixed  (Intercept)    21.7     12.1        1.78
+2 fixed  age             1.25     0.229      5.45</code></pre>
+</div>
+</div>
+<p>The global model is <span class="math inline">\(21.7 + 1.25 \text{age}\)</span></p>
+</section>
+<section id="section-29" class="slide level2">
+<h2></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>broom.mixed<span class="sc">::</span><span class="fu">tidy</span>(running_model_2, <span class="at">effects =</span> <span class="st">"ran_coefs"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="dv">35</span><span class="sc">:</span><span class="dv">37</span>, <span class="dv">71</span><span class="sc">:</span><span class="dv">72</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 5
+  effect    group  level term        estimate
+  &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;          &lt;dbl&gt;
+1 ran_coefs runner 1     (Intercept)   31.7  
+2 ran_coefs runner 2     (Intercept)   24.9  
+3 ran_coefs runner 35    (Intercept)   24.9  
+4 ran_coefs runner 36    (Intercept)   10.6  
+5 ran_coefs runner 1     age            0.817
+6 ran_coefs runner 35    age            1.11 
+7 ran_coefs runner 36    age            1.75 </code></pre>
+</div>
+</div>
+</section>
+<section id="section-30" class="slide level2">
+<h2></h2>
+
+<img data-src="05b-hlm-pred_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch"></section>
+<section id="section-31" class="slide level2">
+<h2></h2>
+<p>The slopes do differ, but not as drastically as we expected.</p>
+<p>On average, runner 1’s running time increases by just 0.813 minute per year, whereas runner 36’s increases by 1.75 minutes per year.</p>
+</section>
+<section id="section-32" class="slide level2">
+<h2></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>broom.mixed<span class="sc">::</span><span class="fu">tidy</span>(running_model_2, <span class="at">effects =</span> <span class="st">"ran_pars"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+  effect   group    term                 estimate
+  &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;                   &lt;dbl&gt;
+1 ran_pars runner   sd__(Intercept)        11.3  
+2 ran_pars runner   cor__(Intercept).age   -0.926
+3 ran_pars runner   sd__age                 0.414
+4 ran_pars Residual sd__Observation         5.14 </code></pre>
+</div>
+</div>
+<ul>
+<li><p>The standard deviation <span class="math inline">\(\sigma_1\)</span> in the age coefficients <span class="math inline">\(\beta_{1j}\)</span> is likely around 0.411 minutes per year. On the scale of a 10-mile race, this indicates very little variability between the runners when it comes to the rate at which running times change with age.</p></li>
+<li><p>Per the output for <span class="math inline">\(\sigma_y\)</span>, an individual runner’s net times tend to deviate from their own mean model by roughly 5.12 minutes.</p></li>
+<li><p>There’s a strong negative correlation of roughly -0.934 between the runner-specific <span class="math inline">\(\beta_{0j}\)</span> and <span class="math inline">\(\beta_{1j}\)</span> parameters. Thus, it seems that runners that start off faster tend to slow down at a faster rate.</p></li>
+</ul>
+</section>
+<section id="section-33" class="slide level2">
+<h2></h2>
+<p>Is it worth adding all the additional parameters?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">anova</span>(running_model_1, running_model_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Data: running
+Models:
+running_model_1: net ~ age + (1 | runner)
+running_model_2: net ~ age + (age | runner)
+                npar    AIC    BIC  logLik deviance  Chisq Df Pr(&gt;Chisq)  
+running_model_1    4 1267.2 1280.0 -629.58   1259.2                       
+running_model_2    6 1265.9 1285.2 -626.97   1253.9 5.2306  2    0.07315 .
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 
