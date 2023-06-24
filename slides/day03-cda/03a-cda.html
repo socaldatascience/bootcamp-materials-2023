@@ -28,6 +28,70 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="03a-cda_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="03a-cda_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -683,6 +747,127 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 </tr>
 </tbody>
 </table>
+</section>
+<section id="how-important-is-it-to-ask-pointed-questions" class="slide level2 smaller">
+<h2>How important is it to ask pointed questions?</h2>
+<p>The following is example is taken from <a href="https://openintro-ims.netlify.app/inference-tables.html">Chapter 18 of Introduction to Modern Statistics</a></p>
+<div class="vertical-space">
+
+</div>
+<p>In this experiment, 219 individuals were asked to be a seller of an iPod The participant received $10 + 5% of the sale price for participating. The iPod they were selling had frozen twice in the past inexplicably but otherwise worked fine.</p>
+<div class="vertical-space">
+
+</div>
+<p>The prospective buyer starts off and then asks one of three final questions, depending on the seller’s treatment group.</p>
+<ul>
+<li><strong>General:</strong> What can you tell me about it ?</li>
+<li><strong>Positive Assumption:</strong> It doesn’t have any problems, does it ?</li>
+<li><strong>Negative Assumption:</strong> What problem does it have ?</li>
+</ul>
+<p>The outcome variable is whether or not the participant discloses or hides the problem with the iPod</p>
+<div class="footer">
+<p><a href="https://www.acrwebsite.org/volumes/1012889/volumes/v40/NA-40"><em>Source: Minson JA, Ruedy NE, Schweitzer ME. There is such a thing as a stupid question: Question disclosure in strategic communication</em></a></p>
+</div>
+</section>
+<section id="section-11" class="slide level2">
+<h2></h2>
+<p>The following data is the <code>ask</code> dataset from the R package <code>openintro</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>ask_two_way <span class="ot">&lt;-</span> openintro<span class="sc">::</span>ask <span class="sc">|&gt;</span> </span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="fu">select</span>(question_class, response) <span class="sc">|&gt;</span> </span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="fu">table</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-4"><a href="#cb1-4"></a>  <span class="fu">addmargins</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Disclose</th>
+<th style="text-align: right;">Hide</th>
+<th style="text-align: right;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">General</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">71</td>
+<td style="text-align: right;">73</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Negative_assumption</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">73</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Positive_assumption</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">73</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">158</td>
+<td style="text-align: right;">219</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="section-12" class="slide level2">
+<h2></h2>
+
+<img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch quarto-figure-center"><p>If there were no relationship, we would expect to see the purple bars reaching to the same height, regardless of the question class</p>
+</section>
+<section id="section-13" class="slide level2">
+<h2></h2>
+<div class="callout callout-note no-icon callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<p><strong>Expected Counts</strong></p>
+</div>
+<div class="callout-content">
+<p>To calculate the expected count for the <span class="math inline">\(i^{th}\)</span> row and <span class="math inline">\(j^{th}\)</span> column, compute <span class="math display">\[
+\text{Expected Count}_{\,row \, i,\, \;col \, j } =
+\frac{
+(\text{row}\,\; i \; \text{total}) \times (\text{column}\,\; j \; \text{total})
+}{
+\text{table total}
+}
+\]</span></p>
+</div>
+</div>
+</div>
+</section>
+<section id="section-14" class="slide level2">
+<h2></h2>
+<div class="callout callout-note no-icon callout-captioned callout-style-default">
+<div class="callout-body">
+<div class="callout-caption">
+<p><strong><span class="math inline">\(\chi^2\)</span> test-statistic</strong></p>
+</div>
+<div class="callout-content">
+<p>The test statistic for assessing the independence between two categorical variables</p>
+<p><span class="math display">\[
+\chi^2 = \sum_{ij} \frac{
+(\text{observed count - expected count})^2
+}{
+\text{expected count}
+}
+\]</span> When the null hypothesis is true and the conditions are met, <span class="math inline">\(\, \chi^2\)</span> has a Chi-squared distribution with <span class="math inline">\(\, df = (r-1) \times (c-1)\)</span>, where <span class="math inline">\(r=\)</span> number of rows, and <span class="math inline">\(c=\)</span> number of columns</p>
+</div>
+</div>
+</div>
+<p>Conditions:</p>
+<ul>
+<li>Independent observations</li>
+<li>Large samples: At least 5 expected counts in each cell</li>
+</ul>
 
 <img src="https://socaldatascience.github.io/bootcamp-materials-2022/img/socalds-logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
 

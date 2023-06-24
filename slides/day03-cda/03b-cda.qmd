@@ -1,0 +1,107 @@
+## How important is it to ask pointed questions? {.smaller}
+
+The following is example is taken from [Chapter 18 of Introduction to Modern Statistics](https://openintro-ims.netlify.app/inference-tables.html)
+
+::: vertical-space
+:::
+
+In this experiment, 219 individuals were asked to be a seller of an iPod
+The participant received $10 + 5% of the sale price for participating. 
+The iPod they were selling had frozen twice in the past inexplicably but otherwise worked fine.
+
+::: vertical-space
+:::
+
+The prospective buyer starts off and then asks one of three final questions, depending on the seller's treatment group.
+
+- **General:** What can you tell me about it ?
+- **Positive Assumption:** It doesn't have any problems, does it ?
+- **Negative Assumption:** What problem does it have ?
+
+
+
+The outcome variable is whether or not the participant discloses or hides the problem with the iPod
+
+
+:::footer
+[*Source: Minson JA, Ruedy NE, Schweitzer ME. There is such a thing as a stupid question: Question disclosure in strategic communication*](https://www.acrwebsite.org/volumes/1012889/volumes/v40/NA-40)
+:::
+
+##
+
+The following data is the `ask` dataset from the R package `openintro`
+
+```{r}
+#| echo: true
+ask_two_way <- openintro::ask |> 
+  select(question_class, response) |> 
+  table() |> 
+  addmargins()
+```
+
+
+
+```{r}
+attr(ask_two_way,'dimnames')$question_class <- c('General','Negative_assumption','Positive_assumption','Total')
+attr(ask_two_way,'dimnames')$response <- c('Disclose','Hide','Total')
+knitr::kable(ask_two_way)
+```
+
+
+
+##
+
+```{r}
+#| fig-align: center
+openintro::ask |> 
+  ggplot() +
+  aes(x = question_class, fill = response) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(values=c('#8dc4b0','#948DC4')) +
+  theme(axis.text.x = element_text(angle = 45,vjust = .5)) +
+  labs(x = "Question Class",
+       y = "Proportion")
+```
+
+
+If there were no relationship, we would expect to see the purple bars reaching to the same height, regardless of the question class
+
+
+
+##
+
+:::callout-note
+## Expected Counts
+To calculate the expected count for the $i^{th}$ row and $j^{th}$ column, compute
+$$
+\text{Expected Count}_{\,row \, i,\, \;col \, j } = 
+\frac{
+(\text{row}\,\; i \; \text{total}) \times (\text{column}\,\; j \; \text{total}) 
+}{
+\text{table total}
+}
+$$
+:::
+
+
+
+##
+:::callout-note
+## $\chi^2$ test-statistic
+The test statistic for assessing the independence between two categorical variables
+
+$$
+\chi^2 = \sum_{ij} \frac{
+(\text{observed count - expected count})^2
+}{
+\text{expected count}
+}
+$$
+When the null hypothesis is true and the conditions are met, $\, \chi^2$ has a Chi-squared distribution with 
+$\, df = (r-1) \times (c-1)$, where $r=$ number of rows, and $c=$ number of columns
+:::
+
+Conditions:
+
+- Independent observations
+- Large samples: At least 5 expected counts in each cell

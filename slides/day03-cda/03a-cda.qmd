@@ -8,6 +8,8 @@ format:
     theme: ["slide-style.scss"]
     incremental: false
     callout-icon: false
+    fig-width: 10
+    fig-height: 6
 ---
 
 ## Overview
@@ -332,3 +334,10 @@ Below is an example using the Binomial distribution
 | `pbinom` | Binomial distribution (Cumulative Distribution Function) | `pbinom(q=4,size=10,prob=0.5)`   |
 | `qbinom` | Quantile function of the Binomial distribution           | `qbinom(p=0.5,size=10,prob=0.5)` |
 | `rbinom` | Binomial random number generation                        | `rbinom(n=10,size=10,prob=0.5)`  |
+
+
+
+
+{{< include 03b-cda.qmd >}}
+
+
