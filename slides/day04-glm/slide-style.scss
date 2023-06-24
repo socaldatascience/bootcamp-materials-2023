@@ -1,0 +1,36 @@
+//Fonts
+
+/*-- scss:defaults --*/
+
+$mainFontSize: 35px;
+$backgroundColor: #FFFFFF;
+$mainColor: #003b49;
+
+// Links and actions
+$linkColor: #a84d0e;
+$linkColorHover: darken( $linkColor, 20% );
+
+/*-- scss:rules --*/
+
+.reveal .slide .note {
+  border-left: 5px solid  #000000;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  padding: 0.5em;
+  background:#fcece0;
+}
+
+* {
+  color:#000000;
+}
+
+.reveal .slide-logo {
+  height: 50px !important;
+  width: 50px!important;
+  max-width: unset !important;
+  max-height: unset !important;
+}
+
+.font75{font-size:75px}
+.font100{font-size:100px}
+.font150{font-size:150px}
