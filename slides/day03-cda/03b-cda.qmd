@@ -48,7 +48,6 @@ knitr::kable(ask_two_way)
 ```
 
 
-
 ##
 
 ```{r}
@@ -65,6 +64,8 @@ openintro::ask |>
 
 
 If there were no relationship, we would expect to see the purple bars reaching to the same height, regardless of the question class
+
+
 
 
 
@@ -105,3 +106,153 @@ Conditions:
 
 - Independent observations
 - Large samples: At least 5 expected counts in each cell
+
+
+
+## Test of Independence: Using `Infer`
+
+We will conduct a $\chi^2$ test of independence to determine whether there is a relationship between the question class and the disclosure/hiding of the problem with the iPod by the participants.
+
+::: {style="font-size = 70%;"}
+The following implementation considers the use of the package `infer`, which is part of the `tidymodels` ecosystem
+:::
+
+
+```{r}
+#| echo: true
+library(infer)
+observed_indep_statistic <- openintro::ask |> 
+  specify(response ~ question_class) |> 
+  hypothesize(null = "independence") |> 
+  calculate(stat = "Chisq")
+```
+
+```{r}
+observed_indep_statistic
+```
+
+
+The observed $\chi^2$ statistic is 40.1.
+
+
+##
+
+Now we want to compare the observed $\chi^2 = 40.1$ statistic to a null 
+distribution, generated under the assumption that the question class and the disclosure/hiding of the problem with the iPod are not actually related. 
+
+::: vertical-space
+:::
+
+We generate the null distribution using a **randomization approach**
+
+
+::: vertical-space
+:::
+
+
+The randomization approach approximates the null distribution by randomly shuffling the response and explanatory variables. This process ensures that each participant's question class is paired with a randomly chosen disclosure or hiding of the problem with the iPod from the sample. 
+
+
+The purpose is to disrupt any existing association between the two variables
+
+
+
+##
+
+::: {.panel-tabset}
+
+### Code
+
+First, generate the null distribution using randomization
+
+```{r}
+#| echo: true
+null_dist_sim <- openintro::ask |> 
+  specify(response ~ question_class) |> 
+  hypothesize(null = "independence") |> 
+  generate(reps = 1000, type = "permute") |> 
+  calculate(stat = "Chisq")
+```
+
+
+::: vertical-space
+:::
+
+To visualize both the randomization-based and theoretical null distribution, we can pipe the randomization-based null distribution into `visualize()`, and provide `method = "both"`
+
+```{r}
+#| echo: true
+#| eval: false
+null_dist_sim |> 
+  visualize(method = "both") + 
+  shade_p_value(observed_indep_statistic,
+                direction = "greater")
+```
+
+
+### Output
+
+
+
+```{r}
+#| fig-width: 9
+#| fig-height: 4
+null_dist_sim |> 
+  visualize(method = "both") + 
+  shade_p_value(observed_indep_statistic,
+                direction = "greater")
+```
+
+
+None of the 1,000 simulations had a $\chi^2$ value of at least 40.13. 
+In fact, none of the simulated $\chi^2$ statistics came anywhere close to the observed statistic
+
+:::
+
+
+##
+
+
+Using the simulated null distribution, we can approximate the $\,p\,$-value with `get_p_value`
+
+```{r}
+#| echo: true
+null_dist_sim |> 
+  get_p_value(obs_stat = observed_indep_statistic, direction = "greater")
+```
+
+::: vertical-space
+:::
+
+::: {style="font-size = 80%;"}
+Therefore, if there were really no relationship between the question class and the disclosure/hiding of the problem with the iPod, our approximation of the probability that we would see a statistic as or more extreme than 40.1 is approximately 0
+:::
+
+
+##
+
+Equivalently, the theory-based approach to calculate the $\,p\,$-value using the true $\chi^2$ distribution can be obtained using the base R function `pchisq`
+
+
+```{r}
+#| echo: true
+pchisq(observed_indep_statistic$stat, 
+       df = 2, lower.tail = FALSE)
+```
+
+
+::: vertical-space
+:::
+
+
+The `infer` package provides a wrapper function `chisq_test`, to carry out $\chi^2$ test of independence on `tidy data`
+
+```{r}
+#| echo: true
+chisq_test(openintro::ask, response ~ question_class)
+```
+
+
+
+
+

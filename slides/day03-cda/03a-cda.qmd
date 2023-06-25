@@ -10,6 +10,7 @@ format:
     callout-icon: false
     fig-width: 10
     fig-height: 6
+    fig-align: center
 ---
 
 ## Overview
