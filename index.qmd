@@ -31,7 +31,7 @@ library(fontawesome)
 
 | Topic                         | Materials |
 |-------------------------------|-----------|
-|Meet and greet ||
+|Meet & greet ||
 | Introduction to Toolkit       |[`r fontawesome::fa(name = "desktop")`](slides/day01-eda/01a-intro-toolkit.html)           |
 |Exploratory Data Analysis (EDA) Activity|`day01-eda-activity-username` repo on GitHub|
 
