@@ -240,6 +240,9 @@ $$
 We can calculate the remaining probabilities of obtaining $k$ heads
 
 ```{r}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show code"
 #| fig-align: center
 dat <- tibble(heads = 0:10, prob = dbinom(x = 0:10, size = 10, prob = 0.5))
 
@@ -272,31 +275,14 @@ $$ for $k = (0,1,2,\dots)$
 
 If $\,X \sim Pois(\lambda)$, then both expectation $\mathbb{E}(X)$ and $Var(X)$ are equal to $\lambda$ That is, the spread or variability of the Poisson distribution is directly determined by the average rate $(\lambda)$ of an event occurrence
 
-## 
 
-::: {style="font-size: 85%;"}
-For Poisson distribution the following are considered
-
--   The events of occurrences must be independent of each other
--   The events must occur at a constant average rate throughout the specified interval
--   It is important to ensure that the average rate of occurrence is relatively low, so that multiple events happening simultaneously or in quick succession is unlikely.
-:::
-
-::: callout-tip
-## Poisson Distribution: Example
-
-Consider a scenario where you have a service facility, such as a call center, or helpdesk, and you want to model the number of customers arriving at the facility during a specific time period
-
-Let's say from previous data on customer arrivals you find that, on average, you receive 10 customer arrivals per hour
-
-1.  What is $\lambda$ ?
-2.  What is the probability of having exactly 8 customers arrive during the next hour ?
-:::
 
 ## 
 
 ```{r}
-#| echo: false
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show code"
 #| fig-align: center
 x_vals <- 0:20
 lambda_vals <- seq(2,10,2)
@@ -315,6 +301,31 @@ ggplot(p_dat, aes(x, y, color = factor(l, levels = lambda_vals))) +
        subtitle = "Poisson(lambda)",
        x = "k",y = 'P(X=k)',color = "Lambda")
 ```
+
+
+
+
+## 
+
+::: {style="font-size: 85%;"}
+For Poisson distribution the following are considered
+
+-   The events of occurrences must be independent of each other
+-   The events must occur at a constant average rate throughout the specified interval
+-   It is important to ensure that the average rate of occurrence is relatively low, so that multiple events happening simultaneously or in quick succession is unlikely.
+:::
+
+::: callout-tip
+## Poisson Distribution: Example
+
+Consider a scenario where you have a service facility, such as a call center, or helpdesk, and you want to model the number of customers arriving at the facility during a specific time period
+
+Let's say from previous data on customer arrivals you find that, on average, you receive 10 customer arrivals per hour
+
+1.  What is $\,\lambda$ ?
+2.  What is the probability of having exactly 8 customers arrive during the next hour ?
+:::
+
 
 ## Distributions in R {.smaller}
 

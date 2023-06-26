@@ -51,6 +51,9 @@ knitr::kable(ask_two_way)
 ##
 
 ```{r}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show code"
 #| fig-align: center
 openintro::ask |> 
   ggplot() +
@@ -277,6 +280,9 @@ Or is $\chi^2 = 40.13$ a value we'd expect to see just due to natural variabilit
 $\chi^2$ distribution for differing degrees of freedom
 
 ```{r}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show code"
 x_vals <- 0:20
 df_vals <- seq(2,10,2)
 

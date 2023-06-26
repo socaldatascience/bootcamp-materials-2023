@@ -1,32 +1,213 @@
-## Goodness of Fit: Using `Infer`
-
-Considering a goodness of fit test, we want to look at the responses from the participants in their disclosure/hiding of the problem with the iPods
-
-Suppose our null hypothesis is that `response` follows a uniform distribution *(i.e., there's actually an equal number of hidden and disclosed responses to the problems with the iPods)*
 
 
-##
+## Gregor Mendel’s Experiments
+
+From (1822-1884) Gregor Mendel conducted crossing experiments with pea plants
+of different shapes and color. Let us look at the outcome of a pea crossing experiment with the following results
 
 ```{r}
-#| fig-align: center
-openintro::ask |>
-  count(response) |> 
-  mutate(proportion = n/sum(n)) |> 
-  ggplot() +
-  aes(x = response, y= proportion) +
-  geom_bar(stat='identity',fill = '#8dc4b0') +
-  geom_hline(yintercept = 0.5,col='red', linetype = 2)+
-  labs(x = "response: Disclosure/hiding of the problem with the iPod",
-       y = "Proportion of Responses")
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show code"
+crossing_peas <- tibble::tibble(cross_result = 
+                                  rep(c('round yellow', 'round green',
+                                        'edged yellow','edged green'),
+                                      c(315,108,101,32) )) |> 
+  mutate(cross_result = as.factor(cross_result))
 ```
 
 
-It seems like there are more hidden responses compared to disclosing the actual problems with the iPods. Lets now test whethere this difference is statistically significant 
+::: vertical-space
+:::
 
+
+```{r}
+knitr::kable(crossing_peas |> table())
+```
+
+
+
+## {.smaller}
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show code"
+#| fig-align: center
+
+positions <- c('round yellow', 'round green','edged yellow','edged green')
+
+crossing_peas |>
+  count(cross_result) |> 
+  mutate(proportion = n/sum(n)) |> 
+  ggplot() +
+  aes(x = cross_result, y= proportion) +
+  geom_bar(stat='identity',fill = '#8dc4b0') +
+  scale_x_discrete(limits = positions)+
+  labs(x = "Crossing result",
+       y = "Proportion")
+```
+
+
+Medel had the hypothesis that the four different types occur in proportions of 9:3:3:1, that is
+$$
+p_{\text{round-yellow}} = \frac{9}{16}, \,
+p_{\text{round-green}} = \frac{3}{16}, \,
+p_{\text{edged-yellow}} = \frac{3}{16}, \,
+p_{\text{edged-green}} = \frac{1}{16},
+$$
+
+
+## {.smaller}
+
+Mendel's hypothesis is then 
+
+$$
+H_0: \,
+p_{\text{round-yellow}} = \frac{9}{16}, \,
+p_{\text{round-green}} = \frac{3}{16}, \,
+p_{\text{edged-yellow}} = \frac{3}{16}, \,
+p_{\text{edged-green}} = \frac{1}{16},
+$$
+
+$$
+H_a: \
+p_{\text{round-yellow}} \neq \frac{9}{16}, \,
+p_{\text{round-green}} \neq \frac{3}{16}, \,
+p_{\text{edged-yellow}} \neq \frac{3}{16}, \,
+p_{\text{edged-green}} \neq \frac{1}{16},
+$$
+
+::: vertical-space
+:::
+
+
+The alternative simply states the proportions of the four different outcomes of a pea crossing experiment is not 9:3:3:1
+
+
+
+
+## Goodness of Fit: Using `Infer`
+
+
+
+First, to carry out this hypothesis test, we need to calculate out observed statistic
+
+```{r}
+#| echo: true
+observed_gof_statistic <- crossing_peas |> 
+  specify(response = cross_result) |> 
+  hypothesize(null = "point",
+              p = c("round yellow" = 9/16,
+                    "round green" = 3/16,
+                    "edged yellow" = 3/16,
+                    "edged green" = 1/16)) |> 
+  calculate(stat = "Chisq")
+```
+
+```{r}
+observed_gof_statistic
+```
+
+
+Now we want to compare the observed $\chi^2 =0.47$ statistic to a null 
+distribution, generated under the assumption that the proportions of the four different outcomes of a pea crossing experiment is 9:3:3:1
+
+ 
 
 ##
 
-First, to carry out this hypothesis test, we need to calculate out observed statistic
+::: {.panel-tabset}
+
+
+### Code
+
+First, generate the null distribution using simulation
+
+```{r}
+#| echo: true
+null_dist_gof <- crossing_peas |> 
+  specify(response = cross_result) |> 
+  hypothesize(null = "point",
+              p = c("round yellow" = 9/16,
+                    "round green" = 3/16,
+                    "edged yellow" = 3/16,
+                    "edged green" = 1/16)) |> 
+  generate(reps = 1000, type = "draw") |> 
+  calculate(stat = "Chisq")
+```
+
+::: vertical-space
+:::
+
+
+To get a sense for what these distributions look like, and where our observed statistic falls, we can use `visualize()`
+
+
+```{r}
+#| echo: true
+#| eval: false
+null_dist_gof |> 
+  visualize() + 
+  shade_p_value(observed_gof_statistic,
+                direction = "greater")
+```
+
+
+### Output
+
+
+```{r}
+#| fig-width: 9
+#| fig-height: 4
+null_dist_gof |> 
+  visualize() + 
+  shade_p_value(observed_gof_statistic,
+                direction = "greater")
+```
+
+
+The statistic seems like it would be quite likely if the proportions of the four different outcomes of a pea crossing experiment is 9:3:3:1. 
+
+
+
+:::
+
+
+
+
+## 
+
+Using the simulated null distribution, we can approximate the $\,p\,$-value with `get_p_value`
+
+
+```{r}
+p_value_gof <- null_dist_gof |> 
+  get_p_value(observed_gof_statistic,
+              direction = 'greater')
+```
+
+```{r}
+p_value_gof
+```
+
+::: vertical-space
+:::
+
+Thus, if the proportions of the four different outcomes of a pea crossing experiment is  9:3:3:1, our approximation of the probability that we would see a distribution like the one we did is approximately `r p_value_gof`
+
+
+::: vertical-space
+:::
+
+To calculate the $p$-value using the true $\chi^2$ distribution, we can use the `pchisq` function from base R
+
+
+```{r}
+#| echo: true
+pchisq(observed_gof_statistic$stat, df = 3, lower.tail = FALSE)
+```
+
 
 
 
@@ -36,11 +217,13 @@ The `infer` package provides a wrapper function `chisq_test`, to carry out $\chi
 
 ```{r}
 #| echo: true
-chisq_test(openintro::ask, 
-           response = response,
-           p = c('hide' = 1/2,
-                 'disclose' = 1/2))
+chisq_test(crossing_peas, 
+           response = cross_result, 
+           p = c("edged green" = 1/16, # <1>
+                 "edged yellow" = 3/16,
+                 "round green" = 3/16,
+                 "round yellow" = 9/16))
 ```
 
-
+1. If `response` is a factor, then list the proportions of the levels in order of `levels(response)`
 
