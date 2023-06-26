@@ -207,7 +207,7 @@ We have actually done something similar to this demo before [by cloning the test
 
 ::: {.font75}
 
-Always use .Rproj file to open projects. Then open the appropriate .Rmd file from the Files pane.
+Always use .Rproj file to open projects. Then open the appropriate .qmd / .R file from the Files pane.
 
 :::
 
