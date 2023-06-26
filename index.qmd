@@ -31,9 +31,10 @@ library(fontawesome)
 
 | Topic                         | Materials |
 |-------------------------------|-----------|
-| Introduction to Toolkit       |[`r fontawesome::fa(name = "desktop")`]()           |
-| Summarizing Data with Numbers |[`r fontawesome::fa(name = "desktop")`]()                    |
-| Visualizing Data              |[`r fontawesome::fa(name = "desktop")`]()           |
+|Meet and greet ||
+| Introduction to Toolkit       |[`r fontawesome::fa(name = "desktop")`](slides/day01-eda/01a-intro-toolkit.html)           |
+|Exploratory Data Analysis (EDA) Activity|`day01-eda-activity-username` repo on GitHub|
+
 
 ## Day 2 - Linear Regression and Model Evaluation
 
