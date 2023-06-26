@@ -339,6 +339,7 @@ Below is an example using the Binomial distribution
 
 
 
-{{< include 03b-cda.qmd >}}
+{{< include 03b-cda-independence.qmd >}}
 
+{{< include 03c-cda-gof.qmd >}}
 

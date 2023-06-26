@@ -69,7 +69,7 @@ If there were no relationship, we would expect to see the purple bars reaching t
 
 
 
-##
+## {.smaller}
 
 :::callout-note
 ## Expected Counts
@@ -86,7 +86,82 @@ $$
 
 
 
+::: vertical-space
+:::
+
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+knitr::kable(ask_two_way)
+```
+
+:::
+
+::: {.column width="50%"}
+$\text{Expected Count}_{\,row \, 1,\, \;col \, 1 } =$
+
+$$
+\frac{(\text{row 1 total}) \times (\text{column 1 total}) }{
+(\text{table total})
+} =
+\frac{73 \times 61}{219} = 20.33
+$$
+
+::: vertical-space
+:::
+
+
+$\text{Expected Count}_{\,row \, 1,\, \;col \, 2 } =$
+
+$$
+\frac{(\text{row 1 total}) \times (\text{column 2 total}) }{
+(\text{table total})
+} =
+\frac{73 \times 158}{219} = 52.67
+$$
+:::
+
+::::
+
+
+::: vertical-space
+:::
+
+
+Compute the expected counts for the remaining cells
+
+
+
+
+
 ##
+
+
+```{r}
+expected_counts <- tibble::tribble(
+  ~`Question Type`, ~`Disclose (Expected)`, ~`Hide (Expected)`, ~Total,
+  'General','2  (20.33)','71  (52.67)','73',
+  'Positive assumption','23  (20.33)','50  (52.67)', '73',
+  'Negative assumption','36  (20.33)','37   (52.67)', '73',
+  'Total', '61', '158', '219'
+)
+```
+
+
+```{r}
+knitr::kable(expected_counts)
+```
+
+
+##
+
+
+The $\chi^2$ test statistic for a two-way table is found by finding the ratio of how far the observed counts are from the expected counts
+
+
 :::callout-note
 ## $\chi^2$ test-statistic
 The test statistic for assessing the independence between two categorical variables
@@ -109,6 +184,170 @@ Conditions:
 
 
 
+## {.smaller}
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```{r}
+expected_counts <- tibble::tribble(
+  ~`Question Type`, ~`Disclose (Expected)`, ~`Hide (Expected)`, ~Total,
+  'General','2  (20.33)','71  (52.67)','73',
+  'Positive assumption','23  (20.33)','50  (52.67)', '73',
+  'Negative assumption','36  (20.33)','37   (52.67)', '73',
+  'Total', '61', '158', '219'
+)
+```
+
+
+```{r}
+knitr::kable(expected_counts)
+```
+
+:::
+
+::: {.column width="50%"}
+
+
+**row 1, column 1**
+$$
+\frac{(2-20.33)^2}{20.33} = 16.53
+$$
+**row 2, column 1**
+$$
+\begin{align*}
+\frac{(23-20.33)^2}{20.33} &= 0.35 \\
+&\vdots
+\end{align*}
+$$
+**row 3, column 2**
+$$
+\frac{(37-52.67)^2}{52.67} = 4.66
+$$
+
+
+
+:::
+
+::::
+
+::: vertical-space
+:::
+
+Compute the remaining cells
+
+
+
+
+##
+
+
+```{r}
+observed_chi2 <- tibble::tribble(
+  ~`Question Type`, ~`Disclose`, ~`Hide`,
+  'General', 16.53, 6.38,
+  'Positive assumption', 0.35, 0.14,
+  'Negative assumption',12.07, 4.66
+)
+```
+
+
+```{r}
+knitr::kable(observed_chi2)
+```
+
+
+:::vertical-space
+:::
+
+Adding the computed value for each cell gives the $\chi^2$ test statistic
+$$
+\chi^2 = 16.53 + 0.53 + \cdots + 4.66 = 40.13
+$$
+
+Does the value of the $\chi^2=40.13$ test statistic indicate that the observed and expected values are really different ?
+
+Or is $\chi^2 = 40.13$ a value we'd expect to see just due to natural variability
+
+
+## {.smaller}
+
+$\chi^2$ distribution for differing degrees of freedom
+
+```{r}
+x_vals <- 0:20
+df_vals <- seq(2,10,2)
+
+df_dat <- map_df(df_vals, ~ tibble(
+  l = paste(.),
+  x = x_vals,
+  y = dchisq(x_vals, .)
+))
+
+ggplot(df_dat, aes(x, y, color = factor(l, levels = df_vals))) +
+  geom_line(data = df_dat, 
+             aes(x, y, color = factor(l, levels = df_vals))) +
+  labs(title = "Chi-square Distribution",
+       subtitle = "various degrees of freedom",
+       x = "",y = 'Density',color = "Degrees of Freedom")
+```
+
+
+The larger the degrees of freedom, the long the right tail extends. The smaller the degrees of freedom, the more peaked the mode on the left becomes
+
+## {.smaller}
+
+We need to understand the variability in the values of the $\chi^2$ statistic we would expect to see if the null hypothesis was true *(i.e, $\chi^2$ distribution with $df = (3-2) \times (2-1) = 2$)*
+
+
+```{r}
+library(infer)
+observed_indep_statistic <- openintro::ask |> 
+  specify(response ~ question_class) |> 
+  hypothesize(null = "independence") |> 
+  calculate(stat = "Chisq")
+
+openintro::ask |> 
+  specify(response ~ question_class) |> 
+  assume(distribution = "Chisq") |> 
+  visualize() + 
+  shade_p_value(observed_indep_statistic,
+                direction = "greater")
+```
+
+
+The red vertical line is our observed $\chi^2=40.13$ test statistic
+
+
+##
+
+
+We can now compute the $\,p$-value and draw a conclusion about whether the question affects the sellers likelihood of reporting the iPod problems
+
+```{r}
+#| echo: true
+1 - pchisq(40.13, df = 2)
+```
+
+
+::: vertical-space
+:::
+
+Using a significance level of $\, \alpha = 0.05,$ the null hypothesis is rejected since the $\,p$-value is smaller
+
+
+
+::: vertical-space
+:::
+
+That is, the data provide convincing evidence that the question asked did affect a seller’s likelihood to tell the truth about problems with the iPod.
+
+
+
+
+
 ## Test of Independence: Using `Infer`
 
 We will conduct a $\chi^2$ test of independence to determine whether there is a relationship between the question class and the disclosure/hiding of the problem with the iPod by the participants.
@@ -120,6 +359,7 @@ The following implementation considers the use of the package `infer`, which is 
 
 ```{r}
 #| echo: true
+#| eval: false
 library(infer)
 observed_indep_statistic <- openintro::ask |> 
   specify(response ~ question_class) |> 
@@ -133,6 +373,7 @@ observed_indep_statistic
 
 
 The observed $\chi^2$ statistic is 40.1.
+
 
 
 ##
@@ -251,8 +492,4 @@ The `infer` package provides a wrapper function `chisq_test`, to carry out $\chi
 #| echo: true
 chisq_test(openintro::ask, response ~ question_class)
 ```
-
-
-
-
 

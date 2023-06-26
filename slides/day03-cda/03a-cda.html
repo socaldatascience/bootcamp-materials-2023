@@ -824,7 +824,7 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 
 <img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch quarto-figure-center"><p>If there were no relationship, we would expect to see the purple bars reaching to the same height, regardless of the question class</p>
 </section>
-<section id="section-13" class="slide level2">
+<section id="section-13" class="slide level2 smaller">
 <h2></h2>
 <div class="callout callout-note no-icon callout-captioned callout-style-default">
 <div class="callout-body">
@@ -843,9 +843,125 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 </div>
 </div>
 </div>
+<div class="vertical-space">
+
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Disclose</th>
+<th style="text-align: right;">Hide</th>
+<th style="text-align: right;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">General</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">71</td>
+<td style="text-align: right;">73</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Negative_assumption</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">73</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Positive_assumption</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">73</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">158</td>
+<td style="text-align: right;">219</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><span class="math inline">\(\text{Expected Count}_{\,row \, 1,\, \;col \, 1 } =\)</span></p>
+<p><span class="math display">\[
+\frac{(\text{row 1 total}) \times (\text{column 1 total}) }{
+(\text{table total})
+} =
+\frac{73 \times 61}{219} = 20.33
+\]</span></p>
+<div class="vertical-space">
+
+</div>
+<p><span class="math inline">\(\text{Expected Count}_{\,row \, 1,\, \;col \, 2 } =\)</span></p>
+<p><span class="math display">\[
+\frac{(\text{row 1 total}) \times (\text{column 2 total}) }{
+(\text{table total})
+} =
+\frac{73 \times 158}{219} = 52.67
+\]</span></p>
+</div>
+</div>
+<div class="vertical-space">
+
+</div>
+<p>Compute the expected counts for the remaining cells</p>
 </section>
 <section id="section-14" class="slide level2">
 <h2></h2>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Question Type</th>
+<th style="text-align: left;">Disclose (Expected)</th>
+<th style="text-align: left;">Hide (Expected)</th>
+<th style="text-align: left;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">General</td>
+<td style="text-align: left;">2 (20.33)</td>
+<td style="text-align: left;">71 (52.67)</td>
+<td style="text-align: left;">73</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Positive assumption</td>
+<td style="text-align: left;">23 (20.33)</td>
+<td style="text-align: left;">50 (52.67)</td>
+<td style="text-align: left;">73</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Negative assumption</td>
+<td style="text-align: left;">36 (20.33)</td>
+<td style="text-align: left;">37 (52.67)</td>
+<td style="text-align: left;">73</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Total</td>
+<td style="text-align: left;">61</td>
+<td style="text-align: left;">158</td>
+<td style="text-align: left;">219</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="section-15" class="slide level2">
+<h2></h2>
+<p>The <span class="math inline">\(\chi^2\)</span> test statistic for a two-way table is found by finding the ratio of how far the observed counts are from the expected counts</p>
 <div class="callout callout-note no-icon callout-captioned callout-style-default">
 <div class="callout-body">
 <div class="callout-caption">
@@ -869,6 +985,145 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 <li>Large samples: At least 5 expected counts in each cell</li>
 </ul>
 </section>
+<section id="section-16" class="slide level2 smaller">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Question Type</th>
+<th style="text-align: left;">Disclose (Expected)</th>
+<th style="text-align: left;">Hide (Expected)</th>
+<th style="text-align: left;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">General</td>
+<td style="text-align: left;">2 (20.33)</td>
+<td style="text-align: left;">71 (52.67)</td>
+<td style="text-align: left;">73</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Positive assumption</td>
+<td style="text-align: left;">23 (20.33)</td>
+<td style="text-align: left;">50 (52.67)</td>
+<td style="text-align: left;">73</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Negative assumption</td>
+<td style="text-align: left;">36 (20.33)</td>
+<td style="text-align: left;">37 (52.67)</td>
+<td style="text-align: left;">73</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Total</td>
+<td style="text-align: left;">61</td>
+<td style="text-align: left;">158</td>
+<td style="text-align: left;">219</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p><strong>row 1, column 1</strong> <span class="math display">\[
+\frac{(2-20.33)^2}{20.33} = 16.53
+\]</span> <strong>row 2, column 1</strong> <span class="math display">\[
+\begin{align*}
+\frac{(23-20.33)^2}{20.33} &amp;= 0.35 \\
+&amp;\vdots
+\end{align*}
+\]</span> <strong>row 3, column 2</strong> <span class="math display">\[
+\frac{(37-52.67)^2}{52.67} = 4.66
+\]</span></p>
+</div>
+</div>
+<div class="vertical-space">
+
+</div>
+<p>Compute the remaining cells</p>
+</section>
+<section id="section-17" class="slide level2">
+<h2></h2>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Question Type</th>
+<th style="text-align: right;">Disclose</th>
+<th style="text-align: right;">Hide</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">General</td>
+<td style="text-align: right;">16.53</td>
+<td style="text-align: right;">6.38</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Positive assumption</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">0.14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Negative assumption</td>
+<td style="text-align: right;">12.07</td>
+<td style="text-align: right;">4.66</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="vertical-space">
+
+</div>
+<p>Adding the computed value for each cell gives the <span class="math inline">\(\chi^2\)</span> test statistic <span class="math display">\[
+\chi^2 = 16.53 + 0.53 + \cdots + 4.66 = 40.13
+\]</span></p>
+<p>Does the value of the <span class="math inline">\(\chi^2=40.13\)</span> test statistic indicate that the observed and expected values are really different ?</p>
+<p>Or is <span class="math inline">\(\chi^2 = 40.13\)</span> a value we’d expect to see just due to natural variability</p>
+</section>
+<section id="section-18" class="slide level2 smaller">
+<h2></h2>
+<p><span class="math inline">\(\chi^2\)</span> distribution for differing degrees of freedom</p>
+
+<img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"><p>The larger the degrees of freedom, the long the right tail extends. The smaller the degrees of freedom, the more peaked the mode on the left becomes</p>
+</section>
+<section id="section-19" class="slide level2 smaller">
+<h2></h2>
+<p>We need to understand the variability in the values of the <span class="math inline">\(\chi^2\)</span> statistic we would expect to see if the null hypothesis was true <em>(i.e, <span class="math inline">\(\chi^2\)</span> distribution with <span class="math inline">\(df = (3-2) \times (2-1) = 2\)</span>)</em></p>
+
+<img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"><p>The red vertical line is our observed <span class="math inline">\(\chi^2=40.13\)</span> test statistic</p>
+</section>
+<section id="section-20" class="slide level2">
+<h2></h2>
+<p>We can now compute the <span class="math inline">\(\,p\)</span>-value and draw a conclusion about whether the question affects the sellers likelihood of reporting the iPod problems</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="fl">40.13</span>, <span class="at">df =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.93144e-09</code></pre>
+</div>
+</div>
+<div class="vertical-space">
+
+</div>
+<p>Using a significance level of <span class="math inline">\(\, \alpha = 0.05,\)</span> the null hypothesis is rejected since the <span class="math inline">\(\,p\)</span>-value is smaller</p>
+<div class="vertical-space">
+
+</div>
+<p>That is, the data provide convincing evidence that the question asked did affect a seller’s likelihood to tell the truth about problems with the iPod.</p>
+</section>
 <section id="test-of-independence-using-infer" class="slide level2">
 <h2>Test of Independence: Using <code>Infer</code></h2>
 <p>We will conduct a <span class="math inline">\(\chi^2\)</span> test of independence to determine whether there is a relationship between the question class and the disclosure/hiding of the problem with the iPod by the participants.</p>
@@ -876,11 +1131,11 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 <p>The following implementation considers the use of the package <code>infer</code>, which is part of the <code>tidymodels</code> ecosystem</p>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(infer)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>observed_indep_statistic <span class="ot">&lt;-</span> openintro<span class="sc">::</span>ask <span class="sc">|&gt;</span> </span>
-<span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">specify</span>(response <span class="sc">~</span> question_class) <span class="sc">|&gt;</span> </span>
-<span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb2-5"><a href="#cb2-5"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">library</span>(infer)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>observed_indep_statistic <span class="ot">&lt;-</span> openintro<span class="sc">::</span>ask <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">specify</span>(response <span class="sc">~</span> question_class) <span class="sc">|&gt;</span> </span>
+<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -895,7 +1150,7 @@ Null Hypothesis: independence
 </div>
 <p>The observed <span class="math inline">\(\chi^2\)</span> statistic is 40.1.</p>
 </section>
-<section id="section-15" class="slide level2">
+<section id="section-21" class="slide level2">
 <h2></h2>
 <p>Now we want to compare the observed <span class="math inline">\(\chi^2 = 40.1\)</span> statistic to a null distribution, generated under the assumption that the question class and the disclosure/hiding of the problem with the iPod are not actually related.</p>
 <div class="vertical-space">
@@ -908,7 +1163,7 @@ Null Hypothesis: independence
 <p>The randomization approach approximates the null distribution by randomly shuffling the response and explanatory variables. This process ensures that each participant’s question class is paired with a randomly chosen disclosure or hiding of the problem with the iPod from the sample.</p>
 <p>The purpose is to disrupt any existing association between the two variables</p>
 </section>
-<section id="section-16" class="slide level2">
+<section id="section-22" class="slide level2">
 <h2></h2>
 <div class="panel-tabset">
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Code</a></li><li><a href="#tabset-1-2">Output</a></li></ul>
@@ -916,27 +1171,27 @@ Null Hypothesis: independence
 <div id="tabset-1-1">
 <p>First, generate the null distribution using randomization</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>null_dist_sim <span class="ot">&lt;-</span> openintro<span class="sc">::</span>ask <span class="sc">|&gt;</span> </span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">specify</span>(response <span class="sc">~</span> question_class) <span class="sc">|&gt;</span> </span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>null_dist_sim <span class="ot">&lt;-</span> openintro<span class="sc">::</span>ask <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">specify</span>(response <span class="sc">~</span> question_class) <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="vertical-space">
 
 </div>
 <p>To visualize both the randomization-based and theoretical null distribution, we can pipe the randomization-based null distribution into <code>visualize()</code>, and provide <code>method = "both"</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>null_dist_sim <span class="sc">|&gt;</span> </span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">visualize</span>(<span class="at">method =</span> <span class="st">"both"</span>) <span class="sc">+</span> </span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">shade_p_value</span>(observed_indep_statistic,</span>
-<span id="cb5-4"><a href="#cb5-4"></a>                <span class="at">direction =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>null_dist_sim <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">visualize</span>(<span class="at">method =</span> <span class="st">"both"</span>) <span class="sc">+</span> </span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">shade_p_value</span>(observed_indep_statistic,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>                <span class="at">direction =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-1-2">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-11-1.png" width="864"></p>
+<p><img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-21-1.png" width="864"></p>
 </div>
 </div>
 <p>None of the 1,000 simulations had a <span class="math inline">\(\chi^2\)</span> value of at least 40.13. In fact, none of the simulated <span class="math inline">\(\chi^2\)</span> statistics came anywhere close to the observed statistic</p>
@@ -944,12 +1199,12 @@ Null Hypothesis: independence
 </div>
 </div>
 </section>
-<section id="section-17" class="slide level2">
+<section id="section-23" class="slide level2">
 <h2></h2>
 <p>Using the simulated null distribution, we can approximate the <span class="math inline">\(\,p\,\)</span>-value with <code>get_p_value</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>null_dist_sim <span class="sc">|&gt;</span> </span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> observed_indep_statistic, <span class="at">direction =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>null_dist_sim <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> observed_indep_statistic, <span class="at">direction =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p_value
@@ -964,12 +1219,12 @@ Null Hypothesis: independence
 <p>Therefore, if there were really no relationship between the question class and the disclosure/hiding of the problem with the iPod, our approximation of the probability that we would see a statistic as or more extreme than 40.1 is approximately 0</p>
 </div>
 </section>
-<section id="section-18" class="slide level2">
+<section id="section-24" class="slide level2">
 <h2></h2>
 <p>Equivalently, the theory-based approach to calculate the <span class="math inline">\(\,p\,\)</span>-value using the true <span class="math inline">\(\chi^2\)</span> distribution can be obtained using the base R function <code>pchisq</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">pchisq</span>(observed_indep_statistic<span class="sc">$</span>stat, </span>
-<span id="cb8-2"><a href="#cb8-2"></a>       <span class="at">df =</span> <span class="dv">2</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">pchisq</span>(observed_indep_statistic<span class="sc">$</span>stat, </span>
+<span id="cb10-2"><a href="#cb10-2"></a>       <span class="at">df =</span> <span class="dv">2</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   X-squared 
 1.933339e-09 </code></pre>
@@ -980,12 +1235,42 @@ Null Hypothesis: independence
 </div>
 <p>The <code>infer</code> package provides a wrapper function <code>chisq_test</code>, to carry out <span class="math inline">\(\chi^2\)</span> test of independence on <code>tidy data</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">chisq_test</span>(openintro<span class="sc">::</span>ask, response <span class="sc">~</span> question_class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">chisq_test</span>(openintro<span class="sc">::</span>ask, response <span class="sc">~</span> question_class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   statistic chisq_df       p_value
       &lt;dbl&gt;    &lt;int&gt;         &lt;dbl&gt;
 1      40.1        2 0.00000000193</code></pre>
+</div>
+</div>
+</section>
+<section id="goodness-of-fit-using-infer" class="slide level2">
+<h2>Goodness of Fit: Using <code>Infer</code></h2>
+<p>Considering a goodness of fit test, we want to look at the responses from the participants in their disclosure/hiding of the problem with the iPods</p>
+<p>Suppose our null hypothesis is that <code>response</code> follows a uniform distribution <em>(i.e., there’s actually an equal number of hidden and disclosed responses to the problems with the iPods)</em></p>
+</section>
+<section id="section-25" class="slide level2">
+<h2></h2>
+
+<img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-25-1.png" width="960" class="r-stretch quarto-figure-center"><p>It seems like there are more hidden responses compared to disclosing the actual problems with the iPods. Lets now test whethere this difference is statistically significant</p>
+</section>
+<section id="section-26" class="slide level2">
+<h2></h2>
+<p>First, to carry out this hypothesis test, we need to calculate out observed statistic</p>
+</section>
+<section id="section-27" class="slide level2">
+<h2></h2>
+<p>The <code>infer</code> package provides a wrapper function <code>chisq_test</code>, to carry out <span class="math inline">\(\chi^2\)</span> goodness of fit tests on <code>tidy data</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">chisq_test</span>(openintro<span class="sc">::</span>ask, </span>
+<span id="cb14-2"><a href="#cb14-2"></a>           <span class="at">response =</span> response,</span>
+<span id="cb14-3"><a href="#cb14-3"></a>           <span class="at">p =</span> <span class="fu">c</span>(<span class="st">'hide'</span> <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>,</span>
+<span id="cb14-4"><a href="#cb14-4"></a>                 <span class="st">'disclose'</span> <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  statistic chisq_df  p_value
+      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+1      43.0        1 5.58e-11</code></pre>
 </div>
 </div>
 

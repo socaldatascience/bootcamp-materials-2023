@@ -1,0 +1,46 @@
+## Goodness of Fit: Using `Infer`
+
+Considering a goodness of fit test, we want to look at the responses from the participants in their disclosure/hiding of the problem with the iPods
+
+Suppose our null hypothesis is that `response` follows a uniform distribution *(i.e., there's actually an equal number of hidden and disclosed responses to the problems with the iPods)*
+
+
+##
+
+```{r}
+#| fig-align: center
+openintro::ask |>
+  count(response) |> 
+  mutate(proportion = n/sum(n)) |> 
+  ggplot() +
+  aes(x = response, y= proportion) +
+  geom_bar(stat='identity',fill = '#8dc4b0') +
+  geom_hline(yintercept = 0.5,col='red', linetype = 2)+
+  labs(x = "response: Disclosure/hiding of the problem with the iPod",
+       y = "Proportion of Responses")
+```
+
+
+It seems like there are more hidden responses compared to disclosing the actual problems with the iPods. Lets now test whethere this difference is statistically significant 
+
+
+##
+
+First, to carry out this hypothesis test, we need to calculate out observed statistic
+
+
+
+##
+
+The `infer` package provides a wrapper function `chisq_test`, to carry out $\chi^2$ goodness of fit tests on `tidy data`
+
+```{r}
+#| echo: true
+chisq_test(openintro::ask, 
+           response = response,
+           p = c('hide' = 1/2,
+                 'disclose' = 1/2))
+```
+
+
+
