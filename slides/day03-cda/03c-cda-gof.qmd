@@ -1,4 +1,5 @@
-## $\chi^2$ Goodness of Fit
+
+## Part 3:  $\chi^2$ Goodness of Fit
 
 The $\chi^2$ goodness of fit test is a statistical test used to determine whether observed categorical data follows an expected distribution or conforms to a specified theoretical distribution. 
 
@@ -12,7 +13,7 @@ It assesses whether there is a significant difference between the observed frequ
 ## Gregor Mendel’s Experiments
 
 From (1822-1884) Gregor Mendel conducted crossing experiments with pea plants
-of different shapes and color. Let us look at the outcome of a pea crossing experiment with the following results
+of different shapes and color. Let us look at the outcome of a pea crossing experiment with the following results:
 
 ```{r}
 #| echo: true
