@@ -377,7 +377,6 @@ https://www.bayesrulesbook.com/chapter-10.html
 - What biases might be baked into this analysis?
 
 ## Models are not always fair!
-- Unfair models are unfortunately abundant:
   - As recently as 2015, a major corporation reportedly utilized a model to evaluate applicants’ résumés for technical posts. They scrapped this model upon discovering that, by building this model using résumé data from its current technical employees (mostly men), it reinforced a preference for male job applicants (Dastin 2018).
   - Facial recognition models, increasingly used in police surveillance, are often built using image data of researchers that do not represent the whole of society. Thus, when applied in practice, misidentification is more common among people that are underrepresented in the research process. Given the severe consequences of misidentification, including false arrest, citizens are pushing back on the use of this technology in their communities (Harmon 2019).
   
