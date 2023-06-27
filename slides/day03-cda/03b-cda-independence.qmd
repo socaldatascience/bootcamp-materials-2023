@@ -1,3 +1,13 @@
+## $\chi^2$ Test of Independence
+
+The $\chi^2$ test of independence is a statistical test used to determine whether there is a significant association between two categorical variables. 
+
+::: vertical-space
+:::
+
+It helps to assess whether the occurrence of one categorical variable is related to the occurrence of another categorical variable
+
+
 ## How important is it to ask pointed questions? {.smaller}
 
 The following is example is taken from [Chapter 18 of Introduction to Modern Statistics](https://openintro-ims.netlify.app/inference-tables.html)
@@ -46,6 +56,14 @@ attr(ask_two_way,'dimnames')$question_class <- c('General','Negative_assumption'
 attr(ask_two_way,'dimnames')$response <- c('Disclose','Hide','Total')
 knitr::kable(ask_two_way)
 ```
+
+::: vertical-space
+:::
+
+
+To perform the $\chi^2$ test of independence, the data is organized in a contingency table *(shown above)*.
+This table displays the frequencies of the different combinations of categories for the two variables
+
 
 
 ##
@@ -110,8 +128,15 @@ $$
 \frac{(\text{row 1 total}) \times (\text{column 1 total}) }{
 (\text{table total})
 } =
+$$
+
+::: {.fragment}
+
+$$
 \frac{73 \times 61}{219} = 20.33
 $$
+:::
+
 
 ::: vertical-space
 :::
@@ -123,20 +148,32 @@ $$
 \frac{(\text{row 1 total}) \times (\text{column 2 total}) }{
 (\text{table total})
 } =
+$$
+
+::: {.fragment}
+
+
+$$
 \frac{73 \times 158}{219} = 52.67
 $$
-:::
+
+
+
+
+
+
 
 ::::
-
 
 ::: vertical-space
 :::
 
 
+
+:::
 Compute the expected counts for the remaining cells
 
-
+:::
 
 
 
@@ -239,7 +276,10 @@ $$
 ::: vertical-space
 :::
 
-Compute the remaining cells
+For each cell use the general formula
+$$
+\frac{(\text{observed - expected})^2}{\text{expected}}
+$$
 
 
 
@@ -269,6 +309,11 @@ Adding the computed value for each cell gives the $\chi^2$ test statistic
 $$
 \chi^2 = 16.53 + 0.53 + \cdots + 4.66 = 40.13
 $$
+
+
+::: vertical-space
+:::
+
 
 Does the value of the $\chi^2=40.13$ test statistic indicate that the observed and expected values are really different ?
 
@@ -340,6 +385,10 @@ We can now compute the $\,p$-value and draw a conclusion about whether the quest
 
 ::: vertical-space
 :::
+
+::: vertical-space
+:::
+
 
 Using a significance level of $\, \alpha = 0.05,$ the null hypothesis is rejected since the $\,p$-value is smaller
 

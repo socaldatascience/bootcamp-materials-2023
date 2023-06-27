@@ -1,3 +1,12 @@
+## $\chi^2$ Goodness of Fit
+
+The $\chi^2$ goodness of fit test is a statistical test used to determine whether observed categorical data follows an expected distribution or conforms to a specified theoretical distribution. 
+
+::: vertical-space
+:::
+
+It assesses whether there is a significant difference between the observed frequencies and the expected frequencies for different categories or group
+
 
 
 ## Gregor Mendel’s Experiments
@@ -49,7 +58,7 @@ crossing_peas |>
 ```
 
 
-Medel had the hypothesis that the four different types occur in proportions of 9:3:3:1, that is
+Mendel had the hypothesis that the four different types occur in proportions of 9:3:3:1, that is
 $$
 p_{\text{round-yellow}} = \frac{9}{16}, \,
 p_{\text{round-green}} = \frac{3}{16}, \,
@@ -225,5 +234,24 @@ chisq_test(crossing_peas,
                  "round yellow" = 9/16))
 ```
 
-1. If `response` is a factor, then list the proportions of the levels in order of `levels(response)`
+1. If `response` is a factor, then list the proportions of the levels in the order of `levels(response)`
+
+
+
+
+::: vertical-space
+:::
+
+
+Thus, we do not have sufficient evidence to suggest Mendel's hypothesis that the four different types occur in proportions of 9:3:3:1
+is not wrong. That is we fail to reject the null hypothesis.
+
+
+*(This does not mean we accept Mendel's hypothesis)*
+
+
+
+
+
+
 

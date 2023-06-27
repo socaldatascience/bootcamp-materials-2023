@@ -411,9 +411,8 @@ Jose Toledo Luna
 <li>Binomial</li>
 <li>Poisson</li>
 </ul></li>
-<li>Contingency Tables</li>
-<li>Chi-square goodness of fit test</li>
 <li>Chi-square test of independence</li>
+<li>Chi-square goodness of fit test</li>
 </ol>
 <style>
   .vertical-space {
@@ -783,6 +782,14 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 </tbody>
 </table>
 </section>
+<section id="chi2-test-of-independence" class="slide level2">
+<h2><span class="math inline">\(\chi^2\)</span> Test of Independence</h2>
+<p>The <span class="math inline">\(\chi^2\)</span> test of independence is a statistical test used to determine whether there is a significant association between two categorical variables.</p>
+<div class="vertical-space">
+
+</div>
+<p>It helps to assess whether the occurrence of one categorical variable is related to the occurrence of another categorical variable</p>
+</section>
 <section id="how-important-is-it-to-ask-pointed-questions" class="slide level2 smaller">
 <h2>How important is it to ask pointed questions?</h2>
 <p>The following is example is taken from <a href="https://openintro-ims.netlify.app/inference-tables.html">Chapter 18 of Introduction to Modern Statistics</a></p>
@@ -853,6 +860,10 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 </table>
 </div>
 </div>
+<div class="vertical-space">
+
+</div>
+<p>To perform the <span class="math inline">\(\chi^2\)</span> test of independence, the data is organized in a contingency table <em>(shown above)</em>. This table displays the frequencies of the different combinations of categories for the two variables</p>
 </section>
 <section id="section-12" class="slide level2">
 <h2></h2>
@@ -942,8 +953,12 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 \frac{(\text{row 1 total}) \times (\text{column 1 total}) }{
 (\text{table total})
 } =
+\]</span></p>
+<div class="fragment">
+<p><span class="math display">\[
 \frac{73 \times 61}{219} = 20.33
 \]</span></p>
+</div>
 <div class="vertical-space">
 
 </div>
@@ -952,14 +967,17 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 \frac{(\text{row 1 total}) \times (\text{column 2 total}) }{
 (\text{table total})
 } =
+\]</span></p>
+<div class="fragment">
+<p><span class="math display">\[
 \frac{73 \times 158}{219} = 52.67
 \]</span></p>
-</div>
 </div>
 <div class="vertical-space">
 
 </div>
-<p>Compute the expected counts for the remaining cells</p>
+</div><p>Compute the expected counts for the remaining cells</p>
+</div>
 </section>
 <section id="section-14" class="slide level2">
 <h2></h2>
@@ -1090,7 +1108,9 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 <div class="vertical-space">
 
 </div>
-<p>Compute the remaining cells</p>
+<p>For each cell use the general formula <span class="math display">\[
+\frac{(\text{observed - expected})^2}{\text{expected}}
+\]</span></p>
 </section>
 <section id="section-17" class="slide level2">
 <h2></h2>
@@ -1130,6 +1150,9 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 <p>Adding the computed value for each cell gives the <span class="math inline">\(\chi^2\)</span> test statistic <span class="math display">\[
 \chi^2 = 16.53 + 0.53 + \cdots + 4.66 = 40.13
 \]</span></p>
+<div class="vertical-space">
+
+</div>
 <p>Does the value of the <span class="math inline">\(\chi^2=40.13\)</span> test statistic indicate that the observed and expected values are really different ?</p>
 <p>Or is <span class="math inline">\(\chi^2 = 40.13\)</span> a value we’d expect to see just due to natural variability</p>
 </section>
@@ -1173,6 +1196,9 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.93144e-09</code></pre>
 </div>
+</div>
+<div class="vertical-space">
+
 </div>
 <div class="vertical-space">
 
@@ -1303,6 +1329,14 @@ Null Hypothesis: independence
 </div>
 </div>
 </section>
+<section id="chi2-goodness-of-fit" class="slide level2">
+<h2><span class="math inline">\(\chi^2\)</span> Goodness of Fit</h2>
+<p>The <span class="math inline">\(\chi^2\)</span> goodness of fit test is a statistical test used to determine whether observed categorical data follows an expected distribution or conforms to a specified theoretical distribution.</p>
+<div class="vertical-space">
+
+</div>
+<p>It assesses whether there is a significant difference between the observed frequencies and the expected frequencies for different categories or group</p>
+</section>
 <section id="gregor-mendels-experiments" class="slide level2">
 <h2>Gregor Mendel’s Experiments</h2>
 <p>From (1822-1884) Gregor Mendel conducted crossing experiments with pea plants of different shapes and color. Let us look at the outcome of a pea crossing experiment with the following results</p>
@@ -1369,7 +1403,7 @@ Null Hypothesis: independence
 </details>
 
 </div>
-<img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" class="r-stretch quarto-figure-center"><p>Medel had the hypothesis that the four different types occur in proportions of 9:3:3:1, that is <span class="math display">\[
+<img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" class="r-stretch quarto-figure-center"><p>Mendel had the hypothesis that the four different types occur in proportions of 9:3:3:1, that is <span class="math display">\[
 p_{\text{round-yellow}} = \frac{9}{16}, \,
 p_{\text{round-green}} = \frac{3}{16}, \,
 p_{\text{edged-yellow}} = \frac{3}{16}, \,
@@ -1471,13 +1505,13 @@ Null Hypothesis: point
 <pre><code># A tibble: 1 × 1
   p_value
     &lt;dbl&gt;
-1   0.917</code></pre>
+1   0.931</code></pre>
 </div>
 </div>
 <div class="vertical-space">
 
 </div>
-<p>Thus, if the proportions of the four different outcomes of a pea crossing experiment is 9:3:3:1, our approximation of the probability that we would see a distribution like the one we did is approximately 0.917</p>
+<p>Thus, if the proportions of the four different outcomes of a pea crossing experiment is 9:3:3:1, our approximation of the probability that we would see a distribution like the one we did is approximately 0.931</p>
 <div class="vertical-space">
 
 </div>
@@ -1503,7 +1537,7 @@ Null Hypothesis: point
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-15" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-15" data-code-annotation="1" data-code-lines="3">If <code>response</code> is a factor, then list the proportions of the levels in order of <code>levels(response)</code></span>
+<span data-code-lines="3" data-code-annotation="1" data-code-cell="annotated-cell-15">If <code>response</code> is a factor, then list the proportions of the levels in the order of <code>levels(response)</code></span>
 </dd>
 </dl>
 </div>
@@ -1514,6 +1548,11 @@ Null Hypothesis: point
 1     0.470        3   0.925</code></pre>
 </div>
 </div>
+<div class="vertical-space">
+
+</div>
+<p>Thus, we do not have sufficient evidence to suggest Mendel’s hypothesis that the four different types occur in proportions of 9:3:3:1 is not wrong. That is we fail to reject the null hypothesis.</p>
+<p><em>(This does not mean we accept Mendel’s hypothesis)</em></p>
 
 <img src="https://socaldatascience.github.io/bootcamp-materials-2022/img/socalds-logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
 
