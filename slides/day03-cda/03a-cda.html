@@ -8,9 +8,10 @@
 <link href="03a-cda_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="03a-cda_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="03a-cda_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.433">
+  <meta name="generator" content="quarto-1.3.353">
 
-  <meta name="author" content="Jose Toledo Luna">
+  <meta name="author" content="Author: Jose Toledo Luna">
+  <meta name="author" content="Co-author: Jessica Jaynes">
   <title>Categorical Data Analysis</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -395,7 +396,12 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Jose Toledo Luna 
+Author: Jose Toledo Luna 
+</div>
+</div>
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Co-author: Jessica Jaynes 
 </div>
 </div>
 </div>
@@ -403,33 +409,31 @@ Jose Toledo Luna
 </section>
 <section id="overview" class="slide level2">
 <h2>Overview</h2>
-<ol type="1">
-<li>Basic Probability Review</li>
-<li>Discrete Distributions
-<ul>
-<li>Bernoulli</li>
-<li>Binomial</li>
-<li>Poisson</li>
-</ul></li>
-<li>Chi-square test of independence</li>
-<li>Chi-square goodness of fit test</li>
-</ol>
+<p><strong>Part 1:</strong> Basic Probability Review and Common Discrete Distributions</p>
+<div class="vertical-space">
+
+</div>
+<p><strong>Part 2:</strong> Chi-square test of independence</p>
+<div class="vertical-space">
+
+</div>
+<p><strong>Part 3:</strong> Chi-square goodness of fit test</p>
 <style>
   .vertical-space {
     margin-bottom: 50px;
   }
 </style>
 </section>
-<section id="basic-probability-review" class="slide level2">
-<h2>Basic Probability Review</h2>
+<section id="part-1-basic-probability-review" class="slide level2">
+<h2>Part 1: Basic Probability Review</h2>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <p><strong>Definitions</strong></p>
 </div>
 <div class="callout-content">
-<p>The sample space is the set of all the possible outcomes of an experiment. A sample space will be denoted by <span class="math inline">\(S\)</span></p>
-<p>Any subset of of a sample space is called an event</p>
+<p>The sample space is the set of all the possible outcomes of an experiment. A sample space will be denoted by <span class="math inline">\(S\)</span>.</p>
+<p>Any subset of of a sample space is called an event.</p>
 </div>
 </div>
 </div>
@@ -449,8 +453,8 @@ S = \{HHH, HHT, HTH, THH, HTT, THT, TTH, TTT \}
 </div>
 </div>
 </section>
-<section id="section" class="slide level2">
-<h2></h2>
+<section id="example-1" class="slide level2">
+<h2>Example</h2>
 <p>Define the event <span class="math inline">\(\,A=\)</span> observing two heads in three coin tosses.</p>
 <div class="vertical-space">
 
@@ -478,43 +482,40 @@ P(A) = \frac{|A|}{|S|} = \frac{3}{8}
 </div>
 <p>A random variable <span class="math inline">\(X\)</span> is said to be discrete if it can assume only a finite or countably infinite number of <em>distinct</em> values <br></p>
 </section>
-<section id="section-1" class="slide level2">
+<section id="section" class="slide level2">
 <h2></h2>
-<div class="callout callout-tip no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Example</strong></p>
-</div>
-<div class="callout-content">
-<p>Flip a coin three times. <span class="math display">\[
+<!---
+::: callout-tip
+## Example
+
+Flip a coin three times. $$
 S = \{HHH, HHT, HTH, THH, HTT, THT, TTH, TTT \}
-\]</span> Define <span class="math inline">\(X =\,(\)</span>number of heads<span class="math inline">\()\)</span>, and <span class="math inline">\(Y = \,(\)</span>number of heads - number of tails <span class="math inline">\()\)</span> <span class="math display">\[
+$$ Define $X =\,($number of heads$)$, and $Y = \,($number of heads - number of tails $)$ $$
 \begin{align*}
 X(HHH) = 3, \quad X(HTH) = 2 \\
 Y(HHH) = 3, \quad Y(HTH) = 1
 \end{align*}
-\]</span></p>
-</div>
-</div>
-</div>
+$$
+:::
+--->
 </section>
 <section id="bernoulli-distribution" class="slide level2">
 <h2>Bernoulli Distribution</h2>
-<p>The Bernoulli distribution is a discrete probability distribution that models a single binary outcome or a <em>“success”</em> or <em>“failure”</em> event</p>
+<p>The Bernoulli distribution is a discrete probability distribution that models a single binary outcome, often denoted as <em>“success”</em> or <em>“failure”</em>.</p>
 <div class="vertical-space">
 
 </div>
 <p>In order to model an experiment through a Bernoulli distribution, all of the following conditions must hold</p>
 <div style="font-size: 90%;">
 <ul>
-<li>There are only two possible outcomes for an experiment or trial. A <em>success</em> and the other as a <em>failure</em>.</li>
+<li>There are only two possible outcomes for an experiment or trial: a <em>success</em> and the other as a <em>failure</em>.</li>
 <li>The probability of success, denoted as <span class="math inline">\(p\)</span>, represents the likelihood of the desired outcome occurring. The probability of failure is calculated as <span class="math inline">\(1 - p\)</span>.</li>
 <li>Each trial is assumed to be independent, meaning that the outcome of one trial does not affect the outcome of any other trial.</li>
 <li>The probability of success remains constant across all trials.</li>
 </ul>
 </div>
 </section>
-<section id="section-2" class="slide level2">
+<section id="section-1" class="slide level2">
 <h2></h2>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
@@ -522,7 +523,7 @@ Y(HHH) = 3, \quad Y(HTH) = 1
 <p><strong>Bernoulli Probability Mass Function</strong></p>
 </div>
 <div class="callout-content">
-<p>Given a random variable <span class="math inline">\(X\)</span> following a Bernoulli distribution, <span class="math inline">\(X \sim Ber(p)\)</span>. Its probability mass function is given by <span class="math display">\[
+<p>Given a random variable <span class="math inline">\(X\)</span> follows a Bernoulli distribution, <span class="math inline">\(X \sim Ber(p)\)</span>, then the probability mass function is given by <span class="math display">\[
 P(X = k) =  p^k\,
 (1-p)^{1-k}
 \]</span> for <span class="math inline">\(k \in \{0,1\}\)</span> and <span class="math inline">\(p \in [0,1]\)</span></p>
@@ -545,7 +546,7 @@ P(X = k) =  p^k\,
 <p><strong>Binomial Coefficient</strong></p>
 </div>
 <div class="callout-content">
-<p>The number of of <em>combinations</em> of <span class="math inline">\(n\)</span> objects taken <span class="math inline">\(k\)</span> at a time is the number of subsets, each of size <span class="math inline">\(k\)</span> , that can be formed from the <span class="math inline">\(n\)</span> objects is denoted by <span class="math display">\[
+<p>The number of of <em>combinations</em> of <span class="math inline">\(n\)</span> objects taken <span class="math inline">\(k\)</span> at a time is the number of subsets, each of size <span class="math inline">\(k,\)</span> that can be formed from the <span class="math inline">\(n\)</span> objects is denoted by <span class="math display">\[
 \binom{n}{k} = \frac{n !}{k! (n-k)!}
 \]</span> for a pair of integers <span class="math inline">\(n \geq k \geq 0\)</span>. This is known as the <em>binomial coefficient</em></p>
 </div>
@@ -553,7 +554,7 @@ P(X = k) =  p^k\,
 </div>
 <p><strong>Example:</strong> Choosing 3 desserts from a menu of 10 items <span class="math inline">\(\binom{10}{3} = \frac{10!}{3! (10-3)!} = 120\)</span></p>
 </section>
-<section id="section-3" class="slide level2">
+<section id="section-2" class="slide level2">
 <h2></h2>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
@@ -569,12 +570,12 @@ P(X = k) = \binom{n}{k} \, p^k\,
 </div>
 </div>
 <div style="font-size = 70%;">
-<p><em>Interpretation:</em> The probability of having <span class="math inline">\(k\)</span> successes is <span class="math inline">\(p^k\)</span> and the probability of having <span class="math inline">\((n-k)\)</span> failures is <span class="math inline">\((1-p)^{n-k}\)</span></p>
-<p>The <span class="math inline">\(k\)</span> successes can occur at any position among the <span class="math inline">\(n\)</span> trials, and there are <span class="math inline">\(\binom{n}{k}\)</span> ways to distribute the successes in the sequence of trials</p>
+<p><em>Interpretation:</em> The probability of having <span class="math inline">\(k\)</span> successes is <span class="math inline">\(p^k\)</span> and the probability of having <span class="math inline">\((n-k)\)</span> failures is <span class="math inline">\((1-p)^{n-k}\)</span>.</p>
+<p>The <span class="math inline">\(k\)</span> successes can occur at any position among the <span class="math inline">\(n\)</span> trials, and there are <span class="math inline">\(\binom{n}{k}\)</span> ways to distribute the successes in the sequence of trials.</p>
 </div>
 </section>
-<section id="section-4" class="slide level2">
-<h2></h2>
+<section id="binomial-distribution-1" class="slide level2">
+<h2>Binomial Distribution</h2>
 <p>In order to model an experiment through a binomial distribution, all of the following conditions must be satisfied</p>
 <ul>
 <li>There are a fixed number of <span class="math inline">\(n\)</span> trials</li>
@@ -582,13 +583,13 @@ P(X = k) = \binom{n}{k} \, p^k\,
 <li>For each trial, the event of interest represents one of two outcomes <em>(success or failure)</em></li>
 <li>The probability of <em>“success”</em> <span class="math inline">\(p\)</span> is the same on each trial</li>
 </ul>
-<p>The Bernoulli distribution is a special case of the binomial distribution with <span class="math inline">\(n=1\)</span></p>
+<p>The Bernoulli distribution is a special case of the binomial distribution with <span class="math inline">\(n=1\)</span>:</p>
 <ul>
 <li><span class="math inline">\(\mathbb{E}(X) = np\)</span></li>
 <li><span class="math inline">\(Var(X) = np(1-p)\)</span></li>
 </ul>
 </section>
-<section id="section-5" class="slide level2">
+<section id="section-3" class="slide level2">
 <h2></h2>
 <div class="callout callout-tip no-icon callout-titled callout-style-default">
 <div class="callout-body">
@@ -614,7 +615,7 @@ S = \{HHH, HHT, HTH, THH, HTT, THT, TTH, TTT \}
 <p>we can model the number of heads obtained in three coin flips using a <strong>binomial distribution</strong></p>
 </div>
 </section>
-<section id="section-6" class="slide level2">
+<section id="section-4" class="slide level2">
 <h2></h2>
 <div style="font-size=75%;">
 <p>Let <span class="math inline">\(\, X=\)</span> number of heads in three fair coin tosses. Since the coin is fair, the probability of obtaining heads <em>(success)</em> is <span class="math inline">\(p = \frac{1}{2}\)</span>. Therefore, <span class="math inline">\(\,X\sim B\left(n=3,p=\frac{1}{2}\right)\)</span> and we are interested in observing two heads</p>
@@ -628,7 +629,7 @@ P(X=2) &amp;= \binom{3}{2} \left(\frac{1}{2} \right)^2 \left(\frac{1}{2} \right)
 \end{align*}
 \]</span></p>
 </section>
-<section id="section-7" class="slide level2">
+<section id="section-5" class="slide level2">
 <h2></h2>
 <p>While the previous example was simple, consider a scenario where you are flipping a coin ten times. In such cases, it becomes impractical and time-consuming to manually list out all the possible combinations of coin tosses <span class="math inline">\((|S| = 1024)\)</span></p>
 <p><span class="math inline">\(X \sim B(n=10,p=\frac{1}{2})\)</span>, and we are interested in calculating the probability of observing four heads. This can easily be done</p>
@@ -640,7 +641,7 @@ P(X = 4) &amp;= \binom{10}{4} \left(\frac{1}{2}\right)^{4} \left( \frac{1}{2} \r
 \end{align*}
 \]</span></p>
 </section>
-<section id="section-8" class="slide level2">
+<section id="section-6" class="slide level2">
 <h2></h2>
 <p>We can calculate the remaining probabilities of obtaining <span class="math inline">\(k\)</span> heads</p>
 <div class="cell" data-layout-align="center">
@@ -660,79 +661,6 @@ P(X = 4) &amp;= \binom{10}{4} \left(\frac{1}{2}\right)^{4} \left( \frac{1}{2} \r
 
 </div>
 <img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch quarto-figure-center"></section>
-<section id="poisson-distribution" class="slide level2">
-<h2>Poisson Distribution</h2>
-<div style="font-size: 85%;">
-<p>The Poisson distribution helps us understand the frequency of events occurring within a specific time or space interval. It provides the probability of observing a certain number of events when the average rate of occurrence is known.</p>
-</div>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Poisson Probability Mass Function</strong></p>
-</div>
-<div class="callout-content">
-<p>Given a random variable <span class="math inline">\(X\)</span> following a Poisson distribution, <span class="math inline">\(\,X \sim Pois(\lambda)\)</span>, with parameter <span class="math inline">\(\lambda &gt;0\)</span>. The probability of observing <span class="math inline">\(k\)</span> occurrences is given by the following probability mass function <span class="math display">\[
-P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
-\]</span> for <span class="math inline">\(k = (0,1,2,\dots)\)</span></p>
-</div>
-</div>
-</div>
-<div class="vertical-space">
-
-</div>
-<p>If <span class="math inline">\(\,X \sim Pois(\lambda)\)</span>, then both expectation <span class="math inline">\(\mathbb{E}(X)\)</span> and <span class="math inline">\(Var(X)\)</span> are equal to <span class="math inline">\(\lambda\)</span> That is, the spread or variability of the Poisson distribution is directly determined by the average rate <span class="math inline">\((\lambda)\)</span> of an event occurrence</p>
-</section>
-<section id="section-9" class="slide level2">
-<h2></h2>
-<div class="cell" data-layout-align="center">
-<details>
-<summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>x_vals <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>lambda_vals <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">2</span>,<span class="dv">10</span>,<span class="dv">2</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a>p_dat <span class="ot">&lt;-</span> <span class="fu">map_df</span>(lambda_vals, <span class="sc">~</span> <span class="fu">tibble</span>(</span>
-<span id="cb2-5"><a href="#cb2-5"></a>  <span class="at">l =</span> <span class="fu">paste</span>(.),</span>
-<span id="cb2-6"><a href="#cb2-6"></a>  <span class="at">x =</span> x_vals,</span>
-<span id="cb2-7"><a href="#cb2-7"></a>  <span class="at">y =</span> <span class="fu">dpois</span>(x_vals, .)</span>
-<span id="cb2-8"><a href="#cb2-8"></a>))</span>
-<span id="cb2-9"><a href="#cb2-9"></a></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="fu">ggplot</span>(p_dat, <span class="fu">aes</span>(x, y, <span class="at">color =</span> <span class="fu">factor</span>(l, <span class="at">levels =</span> lambda_vals))) <span class="sc">+</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> p_dat, </span>
-<span id="cb2-13"><a href="#cb2-13"></a>             <span class="fu">aes</span>(x, y, <span class="at">color =</span> <span class="fu">factor</span>(l, <span class="at">levels =</span> lambda_vals))) <span class="sc">+</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Probability of X = k occurences"</span>,</span>
-<span id="cb2-15"><a href="#cb2-15"></a>       <span class="at">subtitle =</span> <span class="st">"Poisson(lambda)"</span>,</span>
-<span id="cb2-16"><a href="#cb2-16"></a>       <span class="at">x =</span> <span class="st">"k"</span>,<span class="at">y =</span> <span class="st">'P(X=k)'</span>,<span class="at">color =</span> <span class="st">"Lambda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-
-</div>
-<img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch quarto-figure-center"></section>
-<section id="section-10" class="slide level2">
-<h2></h2>
-<div style="font-size: 85%;">
-<p>For Poisson distribution the following are considered</p>
-<ul>
-<li>The events of occurrences must be independent of each other</li>
-<li>The events must occur at a constant average rate throughout the specified interval</li>
-<li>It is important to ensure that the average rate of occurrence is relatively low, so that multiple events happening simultaneously or in quick succession is unlikely.</li>
-</ul>
-</div>
-<div class="callout callout-tip no-icon callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<p><strong>Poisson Distribution: Example</strong></p>
-</div>
-<div class="callout-content">
-<p>Consider a scenario where you have a service facility, such as a call center, or helpdesk, and you want to model the number of customers arriving at the facility during a specific time period</p>
-<p>Let’s say from previous data on customer arrivals you find that, on average, you receive 10 customer arrivals per hour</p>
-<ol type="1">
-<li>What is <span class="math inline">\(\,\lambda\)</span> ?</li>
-<li>What is the probability of having exactly 8 customers arrive during the next hour ?</li>
-</ol>
-</div>
-</div>
-</div>
-</section>
 <section id="distributions-in-r" class="slide level2 smaller">
 <h2>Distributions in R</h2>
 <div style="font-size=90%;">
@@ -782,6 +710,79 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 </tbody>
 </table>
 </section>
+<section id="poisson-distribution" class="slide level2">
+<h2>Poisson Distribution</h2>
+<div style="font-size: 85%;">
+<p>The Poisson distribution helps us understand the frequency of events occurring within a specific time or space interval. It provides the probability of observing a certain number of events when the average rate of occurrence is known.</p>
+</div>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Poisson Probability Mass Function</strong></p>
+</div>
+<div class="callout-content">
+<p>Given a random variable <span class="math inline">\(X\)</span> following a Poisson distribution, <span class="math inline">\(\,X \sim Pois(\lambda)\)</span>, with parameter <span class="math inline">\(\lambda &gt;0\)</span>. The probability of observing <span class="math inline">\(k\)</span> occurrences is given by the following probability mass function <span class="math display">\[
+P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
+\]</span> for <span class="math inline">\(k = (0,1,2,\dots)\)</span></p>
+</div>
+</div>
+</div>
+<div class="vertical-space">
+
+</div>
+<p>If <span class="math inline">\(\,X \sim Pois(\lambda)\)</span>, then both expectation <span class="math inline">\(\mathbb{E}(X)\)</span> and <span class="math inline">\(Var(X)\)</span> are equal to <span class="math inline">\(\lambda\)</span>, i.e., the spread or variability of the Poisson distribution is directly determined by the average rate <span class="math inline">\((\lambda)\)</span> of an event occurrence.</p>
+</section>
+<section id="section-7" class="slide level2">
+<h2></h2>
+<div class="cell" data-layout-align="center">
+<details>
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>x_vals <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>lambda_vals <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">2</span>,<span class="dv">10</span>,<span class="dv">2</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a>p_dat <span class="ot">&lt;-</span> <span class="fu">map_df</span>(lambda_vals, <span class="sc">~</span> <span class="fu">tibble</span>(</span>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="at">l =</span> <span class="fu">paste</span>(.),</span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="at">x =</span> x_vals,</span>
+<span id="cb2-7"><a href="#cb2-7"></a>  <span class="at">y =</span> <span class="fu">dpois</span>(x_vals, .)</span>
+<span id="cb2-8"><a href="#cb2-8"></a>))</span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="fu">ggplot</span>(p_dat, <span class="fu">aes</span>(x, y, <span class="at">color =</span> <span class="fu">factor</span>(l, <span class="at">levels =</span> lambda_vals))) <span class="sc">+</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> p_dat, </span>
+<span id="cb2-13"><a href="#cb2-13"></a>             <span class="fu">aes</span>(x, y, <span class="at">color =</span> <span class="fu">factor</span>(l, <span class="at">levels =</span> lambda_vals))) <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Probability of X = k occurences"</span>,</span>
+<span id="cb2-15"><a href="#cb2-15"></a>       <span class="at">subtitle =</span> <span class="st">"Poisson(lambda)"</span>,</span>
+<span id="cb2-16"><a href="#cb2-16"></a>       <span class="at">x =</span> <span class="st">"k"</span>,<span class="at">y =</span> <span class="st">'P(X=k)'</span>,<span class="at">color =</span> <span class="st">"Lambda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch quarto-figure-center"></section>
+<section id="section-8" class="slide level2">
+<h2></h2>
+<div style="font-size: 85%;">
+<p>For Poisson distribution the following conditions must be considered:</p>
+<ul>
+<li>The events of occurrences must be independent of each other</li>
+<li>The events must occur at a constant average rate throughout the specified interval</li>
+<li>It is important to ensure that the average rate of occurrence is relatively low, so that multiple events happening simultaneously or in quick succession is unlikely</li>
+</ul>
+</div>
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>Poisson Distribution: Example</strong></p>
+</div>
+<div class="callout-content">
+<p>Consider a scenario where you have a service facility, such as a call center, or helpdesk, and you want to model the number of customers arriving at the facility during a specific time period</p>
+<p>Let’s say from previous data on customer arrivals you find that, on average, you receive 10 customer arrivals per hour</p>
+<ol type="1">
+<li>What is <span class="math inline">\(\,\lambda\)</span> ?</li>
+<li>What is the probability of having exactly 8 customers arrive during the next hour ?</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
 <section id="chi2-test-of-independence" class="slide level2">
 <h2><span class="math inline">\(\chi^2\)</span> Test of Independence</h2>
 <p>The <span class="math inline">\(\chi^2\)</span> test of independence is a statistical test used to determine whether there is a significant association between two categorical variables.</p>
@@ -811,7 +812,7 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 <p><a href="https://www.acrwebsite.org/volumes/1012889/volumes/v40/NA-40"><em>Source: Minson JA, Ruedy NE, Schweitzer ME. There is such a thing as a stupid question: Question disclosure in strategic communication</em></a></p>
 </div>
 </section>
-<section id="section-11" class="slide level2">
+<section id="section-9" class="slide level2">
 <h2></h2>
 <p>The following data is the <code>ask</code> dataset from the R package <code>openintro</code></p>
 <div class="cell">
@@ -865,7 +866,7 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 </div>
 <p>To perform the <span class="math inline">\(\chi^2\)</span> test of independence, the data is organized in a contingency table <em>(shown above)</em>. This table displays the frequencies of the different combinations of categories for the two variables</p>
 </section>
-<section id="section-12" class="slide level2">
+<section id="section-10" class="slide level2">
 <h2></h2>
 <div class="cell" data-layout-align="center">
 <details>
@@ -883,7 +884,7 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 </div>
 <img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch quarto-figure-center"><p>If there were no relationship, we would expect to see the purple bars reaching to the same height, regardless of the question class</p>
 </section>
-<section id="section-13" class="slide level2 smaller">
+<section id="section-11" class="slide level2 smaller">
 <h2></h2>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
@@ -979,7 +980,7 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 </div><p>Compute the expected counts for the remaining cells</p>
 </div>
 </section>
-<section id="section-14" class="slide level2">
+<section id="section-12" class="slide level2">
 <h2></h2>
 <div class="cell">
 <div class="cell-output-display">
@@ -1022,7 +1023,7 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 </div>
 </div>
 </section>
-<section id="section-15" class="slide level2">
+<section id="section-13" class="slide level2">
 <h2></h2>
 <p>The <span class="math inline">\(\chi^2\)</span> test statistic for a two-way table is found by finding the ratio of how far the observed counts are from the expected counts</p>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
@@ -1048,7 +1049,7 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 <li>Large samples: At least 5 expected counts in each cell</li>
 </ul>
 </section>
-<section id="section-16" class="slide level2 smaller">
+<section id="section-14" class="slide level2 smaller">
 <h2></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -1112,7 +1113,7 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 \frac{(\text{observed - expected})^2}{\text{expected}}
 \]</span></p>
 </section>
-<section id="section-17" class="slide level2">
+<section id="section-15" class="slide level2">
 <h2></h2>
 <div class="cell">
 <div class="cell-output-display">
@@ -1156,7 +1157,7 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 <p>Does the value of the <span class="math inline">\(\chi^2=40.13\)</span> test statistic indicate that the observed and expected values are really different ?</p>
 <p>Or is <span class="math inline">\(\chi^2 = 40.13\)</span> a value we’d expect to see just due to natural variability</p>
 </section>
-<section id="section-18" class="slide level2 smaller">
+<section id="section-16" class="slide level2 smaller">
 <h2></h2>
 <p><span class="math inline">\(\chi^2\)</span> distribution for differing degrees of freedom</p>
 <div class="cell">
@@ -1182,13 +1183,13 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 </div>
 <img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"><p>The larger the degrees of freedom, the long the right tail extends. The smaller the degrees of freedom, the more peaked the mode on the left becomes</p>
 </section>
-<section id="section-19" class="slide level2 smaller">
+<section id="section-17" class="slide level2 smaller">
 <h2></h2>
 <p>We need to understand the variability in the values of the <span class="math inline">\(\chi^2\)</span> statistic we would expect to see if the null hypothesis was true <em>(i.e, <span class="math inline">\(\chi^2\)</span> distribution with <span class="math inline">\(df = (3-2) \times (2-1) = 2\)</span>)</em></p>
 
 <img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"><p>The red vertical line is our observed <span class="math inline">\(\chi^2=40.13\)</span> test statistic</p>
 </section>
-<section id="section-20" class="slide level2">
+<section id="section-18" class="slide level2">
 <h2></h2>
 <p>We can now compute the <span class="math inline">\(\,p\)</span>-value and draw a conclusion about whether the question affects the sellers likelihood of reporting the iPod problems</p>
 <div class="cell">
@@ -1235,7 +1236,7 @@ Null Hypothesis: independence
 </div>
 <p>The observed <span class="math inline">\(\chi^2\)</span> statistic is 40.1.</p>
 </section>
-<section id="section-21" class="slide level2">
+<section id="section-19" class="slide level2">
 <h2></h2>
 <p>Now we want to compare the observed <span class="math inline">\(\chi^2 = 40.1\)</span> statistic to a null distribution, generated under the assumption that the question class and the disclosure/hiding of the problem with the iPod are not actually related.</p>
 <div class="vertical-space">
@@ -1248,7 +1249,7 @@ Null Hypothesis: independence
 <p>The randomization approach approximates the null distribution by randomly shuffling the response and explanatory variables. This process ensures that each participant’s question class is paired with a randomly chosen disclosure or hiding of the problem with the iPod from the sample.</p>
 <p>The purpose is to disrupt any existing association between the two variables</p>
 </section>
-<section id="section-22" class="slide level2">
+<section id="section-20" class="slide level2">
 <h2></h2>
 <div class="panel-tabset">
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Code</a></li><li><a href="#tabset-1-2">Output</a></li></ul>
@@ -1284,7 +1285,7 @@ Null Hypothesis: independence
 </div>
 </div>
 </section>
-<section id="section-23" class="slide level2">
+<section id="section-21" class="slide level2">
 <h2></h2>
 <p>Using the simulated null distribution, we can approximate the <span class="math inline">\(\,p\,\)</span>-value with <code>get_p_value</code></p>
 <div class="cell">
@@ -1304,7 +1305,7 @@ Null Hypothesis: independence
 <p>Therefore, if there were really no relationship between the question class and the disclosure/hiding of the problem with the iPod, our approximation of the probability that we would see a statistic as or more extreme than 40.1 is approximately 0</p>
 </div>
 </section>
-<section id="section-24" class="slide level2">
+<section id="section-22" class="slide level2">
 <h2></h2>
 <p>Equivalently, the theory-based approach to calculate the <span class="math inline">\(\,p\,\)</span>-value using the true <span class="math inline">\(\chi^2\)</span> distribution can be obtained using the base R function <code>pchisq</code></p>
 <div class="cell">
@@ -1384,7 +1385,7 @@ Null Hypothesis: independence
 </div>
 </div>
 </section>
-<section id="section-25" class="slide level2 smaller">
+<section id="section-23" class="slide level2 smaller">
 <h2></h2>
 <div class="cell" data-layout-align="center">
 <details>
@@ -1410,7 +1411,7 @@ p_{\text{edged-yellow}} = \frac{3}{16}, \,
 p_{\text{edged-green}} = \frac{1}{16},
 \]</span></p>
 </section>
-<section id="section-26" class="slide level2 smaller">
+<section id="section-24" class="slide level2 smaller">
 <h2></h2>
 <p>Mendel’s hypothesis is then</p>
 <p><span class="math display">\[
@@ -1457,7 +1458,7 @@ Null Hypothesis: point
 </div>
 <p>Now we want to compare the observed <span class="math inline">\(\chi^2 =0.47\)</span> statistic to a null distribution, generated under the assumption that the proportions of the four different outcomes of a pea crossing experiment is 9:3:3:1</p>
 </section>
-<section id="section-27" class="slide level2">
+<section id="section-25" class="slide level2">
 <h2></h2>
 <div class="panel-tabset">
 <ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Code</a></li><li><a href="#tabset-2-2">Output</a></li></ul>
@@ -1497,7 +1498,7 @@ Null Hypothesis: point
 </div>
 </div>
 </section>
-<section id="section-28" class="slide level2">
+<section id="section-26" class="slide level2">
 <h2></h2>
 <p>Using the simulated null distribution, we can approximate the <span class="math inline">\(\,p\,\)</span>-value with <code>get_p_value</code></p>
 <div class="cell">
@@ -1505,13 +1506,13 @@ Null Hypothesis: point
 <pre><code># A tibble: 1 × 1
   p_value
     &lt;dbl&gt;
-1   0.931</code></pre>
+1   0.922</code></pre>
 </div>
 </div>
 <div class="vertical-space">
 
 </div>
-<p>Thus, if the proportions of the four different outcomes of a pea crossing experiment is 9:3:3:1, our approximation of the probability that we would see a distribution like the one we did is approximately 0.931</p>
+<p>Thus, if the proportions of the four different outcomes of a pea crossing experiment is 9:3:3:1, our approximation of the probability that we would see a distribution like the one we did is approximately 0.922</p>
 <div class="vertical-space">
 
 </div>
@@ -1523,7 +1524,7 @@ Null Hypothesis: point
 </div>
 </div>
 </section>
-<section id="section-29" class="slide level2">
+<section id="section-27" class="slide level2">
 <h2></h2>
 <p>The <code>infer</code> package provides a wrapper function <code>chisq_test</code>, to carry out <span class="math inline">\(\chi^2\)</span> goodness of fit tests on <code>tidy data</code></p>
 <div class="cell">
@@ -1537,7 +1538,7 @@ Null Hypothesis: point
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-15" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="3" data-code-annotation="1" data-code-cell="annotated-cell-15">If <code>response</code> is a factor, then list the proportions of the levels in the order of <code>levels(response)</code></span>
+<span data-code-annotation="1" data-code-cell="annotated-cell-15" data-code-lines="3">If <code>response</code> is a factor, then list the proportions of the levels in the order of <code>levels(response)</code></span>
 </dd>
 </dl>
 </div>

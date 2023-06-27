@@ -1,6 +1,8 @@
 ---
 title: "Categorical Data Analysis"
-author: "Jose Toledo Luna"
+author: 
+  - "Author: Jose Toledo Luna"
+  - "Co-author: Jessica Jaynes"
 format: 
   revealjs:
     slide-number: true
@@ -20,13 +22,17 @@ library(tidyverse)
 theme_set(theme_bw())
 ```
 
-1.  Basic Probability Review
-2.  Discrete Distributions
-    -   Bernoulli
-    -   Binomial
-    -   Poisson
-3.  Chi-square test of independence
-4.  Chi-square goodness of fit test
+**Part 1:**  Basic Probability Review and Common Discrete Distributions
+
+::: vertical-space
+:::
+
+**Part 2:**  Chi-square test of independence
+
+::: vertical-space
+:::
+
+**Part 3:**  Chi-square goodness of fit test
 
 ```{=html}
 <style>
@@ -35,14 +41,14 @@ theme_set(theme_bw())
   }
 </style>
 ```
-## Basic Probability Review
+## Part 1: Basic Probability Review
 
 ::: callout-note
 ## Definitions
 
-The sample space is the set of all the possible outcomes of an experiment. A sample space will be denoted by $S$
+The sample space is the set of all the possible outcomes of an experiment. A sample space will be denoted by $S$.
 
-Any subset of of a sample space is called an event
+Any subset of of a sample space is called an event.
 :::
 
 ::: vertical-space
@@ -56,7 +62,7 @@ S = \{HHH, HHT, HTH, THH, HTT, THT, TTH, TTT \}
 $$ There are eight possible outcomes in this experiment
 :::
 
-## 
+## Example
 
 Define the event $\,A=$ observing two heads in three coin tosses.
 
@@ -92,6 +98,7 @@ A random variable $X$ is said to be discrete if it can assume only a finite or c
 
 ## 
 
+<!---
 ::: callout-tip
 ## Example
 
@@ -104,10 +111,11 @@ Y(HHH) = 3, \quad Y(HTH) = 1
 \end{align*}
 $$
 :::
+--->
 
 ## Bernoulli Distribution
 
-The Bernoulli distribution is a discrete probability distribution that models a single binary outcome or a *"success"* or *"failure"* event
+The Bernoulli distribution is a discrete probability distribution that models a single binary outcome, often denoted as *"success"* or *"failure"*.
 
 ::: vertical-space
 :::
@@ -115,7 +123,7 @@ The Bernoulli distribution is a discrete probability distribution that models a 
 In order to model an experiment through a Bernoulli distribution, all of the following conditions must hold
 
 ::: {style="font-size: 90%;"}
--   There are only two possible outcomes for an experiment or trial. A *success* and the other as a *failure*.
+-   There are only two possible outcomes for an experiment or trial: a *success* and the other as a *failure*.
 -   The probability of success, denoted as $p$, represents the likelihood of the desired outcome occurring. The probability of failure is calculated as $1 - p$.
 -   Each trial is assumed to be independent, meaning that the outcome of one trial does not affect the outcome of any other trial.
 -   The probability of success remains constant across all trials.
@@ -126,7 +134,7 @@ In order to model an experiment through a Bernoulli distribution, all of the fol
 ::: callout-note
 ## Bernoulli Probability Mass Function
 
-Given a random variable $X$ following a Bernoulli distribution, $X \sim Ber(p)$. Its probability mass function is given by $$
+Given a random variable $X$ follows a Bernoulli distribution, $X \sim Ber(p)$, then the probability mass function is given by $$
 P(X = k) =  p^k\, 
 (1-p)^{1-k}
 $$ for $k \in \{0,1\}$ and $p \in [0,1]$
@@ -144,7 +152,7 @@ The binomial distribution is a probability distribution that models the number o
 ::: callout-note
 ## Binomial Coefficient
 
-The number of of *combinations* of $n$ objects taken $k$ at a time is the number of subsets, each of size $k$ , that can be formed from the $n$ objects is denoted by $$
+The number of of *combinations* of $n$ objects taken $k$ at a time is the number of subsets, each of size $k,$ that can be formed from the $n$ objects is denoted by $$
 \binom{n}{k} = \frac{n !}{k! (n-k)!}
 $$ for a pair of integers $n \geq k \geq 0$. This is known as the *binomial coefficient*
 :::
@@ -163,12 +171,12 @@ $$ for a pair of integers $n \geq k \geq 0$ and $p \in [0,1]$
 :::
 
 ::: {style="font-size = 70%;"}
-*Interpretation:* The probability of having $k$ successes is $p^k$ and the probability of having $(n-k)$ failures is $(1-p)^{n-k}$
+*Interpretation:* The probability of having $k$ successes is $p^k$ and the probability of having $(n-k)$ failures is $(1-p)^{n-k}$.
 
-The $k$ successes can occur at any position among the $n$ trials, and there are $\binom{n}{k}$ ways to distribute the successes in the sequence of trials
+The $k$ successes can occur at any position among the $n$ trials, and there are $\binom{n}{k}$ ways to distribute the successes in the sequence of trials.
 :::
 
-## 
+## Binomial Distribution
 
 In order to model an experiment through a binomial distribution, all of the following conditions must be satisfied
 
@@ -177,7 +185,7 @@ In order to model an experiment through a binomial distribution, all of the foll
 -   For each trial, the event of interest represents one of two outcomes *(success or failure)*
 -   The probability of *"success"* $p$ is the same on each trial
 
-The Bernoulli distribution is a special case of the binomial distribution with $n=1$
+The Bernoulli distribution is a special case of the binomial distribution with $n=1$:
 
 -   $\mathbb{E}(X) = np$
 -   $Var(X) = np(1-p)$
@@ -255,6 +263,28 @@ ggplot(dat,aes(x = factor(heads), y = prob)) +
        x = "Successes (k)",y = "probability")
 ```
 
+## Distributions in R {.smaller}
+
+::: {style="font-size=90%;"}
+Each probability distribution in R is associated with four functions which follow a naming convention
+
+-   the probability density/mass function always begins with `‘d’`,
+-   the cumulative distribution function always begins with `‘p’`,
+-   the inverse cumulative distribution (or quantile function) always beings with `‘q’`,
+-   function that produces random variables always begins with `‘r’`.
+:::
+
+Below is an example using the Binomial distribution
+
+| Function | Description                                              | Usage                            |
+|----------------|---------------------------------------------|-----------|
+| `dbinom` | Binomial density (Probability Mass Function)             | `dbinom(x=1,size=10,prob=0.5)`   |
+| `pbinom` | Binomial distribution (Cumulative Distribution Function) | `pbinom(q=4,size=10,prob=0.5)`   |
+| `qbinom` | Quantile function of the Binomial distribution           | `qbinom(p=0.5,size=10,prob=0.5)` |
+| `rbinom` | Binomial random number generation                        | `rbinom(n=10,size=10,prob=0.5)`  |
+
+
+
 ## Poisson Distribution
 
 ::: {style="font-size: 85%;"}
@@ -272,7 +302,7 @@ $$ for $k = (0,1,2,\dots)$
 ::: vertical-space
 :::
 
-If $\,X \sim Pois(\lambda)$, then both expectation $\mathbb{E}(X)$ and $Var(X)$ are equal to $\lambda$ That is, the spread or variability of the Poisson distribution is directly determined by the average rate $(\lambda)$ of an event occurrence
+If $\,X \sim Pois(\lambda)$, then both expectation $\mathbb{E}(X)$ and $Var(X)$ are equal to $\lambda$, i.e., the spread or variability of the Poisson distribution is directly determined by the average rate $(\lambda)$ of an event occurrence.
 
 
 
@@ -307,11 +337,11 @@ ggplot(p_dat, aes(x, y, color = factor(l, levels = lambda_vals))) +
 ## 
 
 ::: {style="font-size: 85%;"}
-For Poisson distribution the following are considered
+For Poisson distribution the following conditions must be considered:
 
 -   The events of occurrences must be independent of each other
 -   The events must occur at a constant average rate throughout the specified interval
--   It is important to ensure that the average rate of occurrence is relatively low, so that multiple events happening simultaneously or in quick succession is unlikely.
+-   It is important to ensure that the average rate of occurrence is relatively low, so that multiple events happening simultaneously or in quick succession is unlikely
 :::
 
 ::: callout-tip
@@ -326,25 +356,6 @@ Let's say from previous data on customer arrivals you find that, on average, you
 :::
 
 
-## Distributions in R {.smaller}
-
-::: {style="font-size=90%;"}
-Each probability distribution in R is associated with four functions which follow a naming convention
-
--   the probability density/mass function always begins with `‘d’`,
--   the cumulative distribution function always begins with `‘p’`,
--   the inverse cumulative distribution (or quantile function) always beings with `‘q’`,
--   function that produces random variables always begins with `‘r’`.
-:::
-
-Below is an example using the Binomial distribution
-
-| Function | Description                                              | Usage                            |
-|----------------|---------------------------------------------|-----------|
-| `dbinom` | Binomial density (Probability Mass Function)             | `dbinom(x=1,size=10,prob=0.5)`   |
-| `pbinom` | Binomial distribution (Cumulative Distribution Function) | `pbinom(q=4,size=10,prob=0.5)`   |
-| `qbinom` | Quantile function of the Binomial distribution           | `qbinom(p=0.5,size=10,prob=0.5)` |
-| `rbinom` | Binomial random number generation                        | `rbinom(n=10,size=10,prob=0.5)`  |
 
 
 
