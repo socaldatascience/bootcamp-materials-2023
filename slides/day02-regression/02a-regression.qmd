@@ -363,14 +363,7 @@ $E[bwt_i | smoke_i = 1] = \hat{\beta_0} + \hat{\beta_1}$
 
 
 
-## Evaluating Regression Models
-<!--
-https://www.bayesrulesbook.com/chapter-10.html
--->
-- How fair is the model? How was the data collected? By whom and for what purpose? How might the results of the analysis, or the data collection itself, impact individuals and society? What biases or power structures might be baked into this analysis?
-- How wrong is the model? George Box famously said: “All models are wrong, but some are useful.” What’s important to know then is, how wrong is our model? Are our model assumptions reasonable?
-
-## Is the model fair?
+## Evaluating Regression Models: Is the model fair?
 - How was the data collected?
 - By whom and for what purpose was the data collected?
 - How might the results of the analysis, or the data collection itself, impact individuals and society?
@@ -380,7 +373,7 @@ https://www.bayesrulesbook.com/chapter-10.html
   - As recently as 2015, a major corporation reportedly utilized a model to evaluate applicants’ résumés for technical posts. They scrapped this model upon discovering that, by building this model using résumé data from its current technical employees (mostly men), it reinforced a preference for male job applicants (Dastin 2018).
   - Facial recognition models, increasingly used in police surveillance, are often built using image data of researchers that do not represent the whole of society. Thus, when applied in practice, misidentification is more common among people that are underrepresented in the research process. Given the severe consequences of misidentification, including false arrest, citizens are pushing back on the use of this technology in their communities (Harmon 2019).
   
-## How wrong is the model? 
+## Evaluating Regression Models: How wrong is the model? 
 - All models are wrong - Mainly, statistical models are idealistic representations of more complex realities. 
 - Even so, good statistical models can still be useful and inform our understanding of the world’s complexities.
 - The next question to ask in evaluating our model is not, is the model wrong, but how wrong is the model? 
