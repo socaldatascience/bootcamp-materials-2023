@@ -19,6 +19,7 @@ format:
 
 ```{r,echo=FALSE}
 library(tidyverse)
+library(openintro)
 theme_set(theme_bw())
 ```
 

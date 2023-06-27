@@ -783,43 +783,75 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 </div>
 </div>
 </section>
-<section id="chi2-test-of-independence" class="slide level2">
-<h2><span class="math inline">\(\chi^2\)</span> Test of Independence</h2>
+<section id="part-2-chi2-test-of-independence" class="slide level2">
+<h2>Part 2: <span class="math inline">\(\chi^2\)</span> Test of Independence</h2>
 <p>The <span class="math inline">\(\chi^2\)</span> test of independence is a statistical test used to determine whether there is a significant association between two categorical variables.</p>
 <div class="vertical-space">
 
 </div>
 <p>It helps to assess whether the occurrence of one categorical variable is related to the occurrence of another categorical variable</p>
 </section>
-<section id="how-important-is-it-to-ask-pointed-questions" class="slide level2 smaller">
-<h2>How important is it to ask pointed questions?</h2>
-<p>The following is example is taken from <a href="https://openintro-ims.netlify.app/inference-tables.html">Chapter 18 of Introduction to Modern Statistics</a></p>
+<section id="example-how-important-is-it-to-ask-pointed-questions" class="slide level2 smaller">
+<h2>Example: How important is it to ask pointed questions?</h2>
+<p>The following is example is taken from <a href="https://openintro-ims.netlify.app/inference-tables.html">Chapter 18 of Introduction to Modern Statistics</a>.</p>
 <div class="vertical-space">
 
 </div>
-<p>In this experiment, 219 individuals were asked to be a seller of an iPod The participant received $10 + 5% of the sale price for participating. The iPod they were selling had frozen twice in the past inexplicably but otherwise worked fine.</p>
-<div class="vertical-space">
-
-</div>
-<p>The prospective buyer starts off and then asks one of three final questions, depending on the seller’s treatment group.</p>
+<p>“We all buy used products – cars, computers, textbooks, and so on – and we sometimes assume the sellers of those products will be forthright about any underlying problems with what they’re selling. This is not something we should take for granted. Researchers recruited 219 participants in a study where they would sell a used iPod176 that was known to have frozen twice in the past. The participants were incentivized to get as much money as they could for the iPod since they would receive a 5% cut of the sale on top of $10 for participating. The researchers wanted to understand what types of questions would elicit the seller to disclose the freezing issue.”</p>
+</section>
+<section id="example-how-important-is-it-to-ask-pointed-questions-1" class="slide level2 smaller">
+<h2>Example: How important is it to ask pointed questions?</h2>
+<p>“Unbeknownst to the participants who were the sellers in the study, the buyers were collaborating with the researchers to evaluate the influence of different questions on the likelihood of getting the sellers to disclose the past issues with the iPod. The scripted buyers started with “Okay, I guess I’m supposed to go first. So you’ve had the iPod for 2 years …” and ended with one of three questions:”</p>
 <ul>
 <li><strong>General:</strong> What can you tell me about it ?</li>
 <li><strong>Positive Assumption:</strong> It doesn’t have any problems, does it ?</li>
 <li><strong>Negative Assumption:</strong> What problem does it have ?</li>
 </ul>
-<p>The outcome variable is whether or not the participant discloses or hides the problem with the iPod</p>
+<p>“The question is the treatment given to the sellers, and the response is whether the question prompted them to disclose the freezing issue with the iPod.”</p>
 <div class="footer">
 <p><a href="https://www.acrwebsite.org/volumes/1012889/volumes/v40/NA-40"><em>Source: Minson JA, Ruedy NE, Schweitzer ME. There is such a thing as a stupid question: Question disclosure in strategic communication</em></a></p>
 </div>
 </section>
-<section id="section-9" class="slide level2">
-<h2></h2>
-<p>The following data is the <code>ask</code> dataset from the R package <code>openintro</code></p>
+<section id="example-how-important-is-it-to-ask-pointed-questions-2" class="slide level2 smaller">
+<h2>Example: How important is it to ask pointed questions?</h2>
+<p>The <code>ask</code> dataset for this experiment can be found in the <code>openintro</code> R package.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>ask_two_way <span class="ot">&lt;-</span> openintro<span class="sc">::</span>ask <span class="sc">|&gt;</span> </span>
-<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">select</span>(question_class, response) <span class="sc">|&gt;</span> </span>
-<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">table</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">addmargins</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">glimpse</span>(ask)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 219
+Columns: 3
+$ question_class &lt;chr&gt; "general", "pos_assumption", "pos_assumption", "neg_ass…
+$ question       &lt;chr&gt; "What can you tell me about it?", "It doesn't have any …
+$ response       &lt;chr&gt; "hide", "hide", "disclose", "disclose", "hide", "disclo…</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">count</span>(ask, question_class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  question_class     n
+  &lt;chr&gt;          &lt;int&gt;
+1 general           73
+2 neg_assumption    73
+3 pos_assumption    73</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">count</span>(ask, response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  response     n
+  &lt;chr&gt;    &lt;int&gt;
+1 disclose    61
+2 hide       158</code></pre>
+</div>
+</div>
+</section>
+<section id="two-way-contingency-table" class="slide level2">
+<h2>Two-way Contingency Table</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>ask_two_way <span class="ot">&lt;-</span> openintro<span class="sc">::</span>ask <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">select</span>(question_class, response) <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">table</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">addmargins</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -866,25 +898,25 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 </div>
 <p>To perform the <span class="math inline">\(\chi^2\)</span> test of independence, the data is organized in a contingency table <em>(shown above)</em>. This table displays the frequencies of the different combinations of categories for the two variables</p>
 </section>
-<section id="section-10" class="slide level2">
+<section id="section-9" class="slide level2">
 <h2></h2>
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>openintro<span class="sc">::</span>ask <span class="sc">|&gt;</span> </span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> question_class, <span class="at">fill =</span> response) <span class="sc">+</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">'#8dc4b0'</span>,<span class="st">'#948DC4'</span>)) <span class="sc">+</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>,<span class="at">vjust =</span> .<span class="dv">5</span>)) <span class="sc">+</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Question Class"</span>,</span>
-<span id="cb4-8"><a href="#cb4-8"></a>       <span class="at">y =</span> <span class="st">"Proportion"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>openintro<span class="sc">::</span>ask <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">aes</span>(<span class="at">x =</span> question_class, <span class="at">fill =</span> response) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">'#8dc4b0'</span>,<span class="st">'#948DC4'</span>)) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>,<span class="at">vjust =</span> .<span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Question Class"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8"></a>       <span class="at">y =</span> <span class="st">"Proportion"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
-<img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch quarto-figure-center"><p>If there were no relationship, we would expect to see the purple bars reaching to the same height, regardless of the question class</p>
+<img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch quarto-figure-center"><p>If there were no relationship, we would expect to see the purple bars reaching to the same height, regardless of the question class</p>
 </section>
-<section id="section-11" class="slide level2 smaller">
+<section id="section-10" class="slide level2 smaller">
 <h2></h2>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
@@ -977,11 +1009,11 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 <div class="vertical-space">
 
 </div>
-</div><p>Compute the expected counts for the remaining cells</p>
+</div><p>Similarly, compute the expected counts for the remaining cells.</p>
 </div>
 </section>
-<section id="section-12" class="slide level2">
-<h2></h2>
+<section id="two-way-contingency-table-observed-and-expected-counts" class="slide level2">
+<h2>Two-way Contingency Table: Observed and Expected Counts</h2>
 <div class="cell">
 <div class="cell-output-display">
 <table>
@@ -1023,7 +1055,7 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 </div>
 </div>
 </section>
-<section id="section-13" class="slide level2">
+<section id="section-11" class="slide level2">
 <h2></h2>
 <p>The <span class="math inline">\(\chi^2\)</span> test statistic for a two-way table is found by finding the ratio of how far the observed counts are from the expected counts</p>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
@@ -1049,7 +1081,7 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 <li>Large samples: At least 5 expected counts in each cell</li>
 </ul>
 </section>
-<section id="section-14" class="slide level2 smaller">
+<section id="section-12" class="slide level2 smaller">
 <h2></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -1109,12 +1141,12 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 <div class="vertical-space">
 
 </div>
-<p>For each cell use the general formula <span class="math display">\[
+<p>For each cell use the general formula: <span class="math display">\[
 \frac{(\text{observed - expected})^2}{\text{expected}}
 \]</span></p>
 </section>
-<section id="section-15" class="slide level2">
-<h2></h2>
+<section id="calculating-the-chi2-test-statistic" class="slide level2">
+<h2>Calculating the <span class="math inline">\(\chi^2\)</span> Test Statistic</h2>
 <div class="cell">
 <div class="cell-output-display">
 <table>
@@ -1148,52 +1180,51 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 <div class="vertical-space">
 
 </div>
-<p>Adding the computed value for each cell gives the <span class="math inline">\(\chi^2\)</span> test statistic <span class="math display">\[
+<p>Adding the computed value for each cell gives the <span class="math inline">\(\chi^2\)</span> test statistic: <span class="math display">\[
 \chi^2 = 16.53 + 0.53 + \cdots + 4.66 = 40.13
 \]</span></p>
 <div class="vertical-space">
 
 </div>
 <p>Does the value of the <span class="math inline">\(\chi^2=40.13\)</span> test statistic indicate that the observed and expected values are really different ?</p>
-<p>Or is <span class="math inline">\(\chi^2 = 40.13\)</span> a value we’d expect to see just due to natural variability</p>
+<p>Or is <span class="math inline">\(\chi^2 = 40.13\)</span> a value we’d expect to see just due to natural variability.</p>
 </section>
-<section id="section-16" class="slide level2 smaller">
-<h2></h2>
-<p><span class="math inline">\(\chi^2\)</span> distribution for differing degrees of freedom</p>
+<section id="chi2-distribution-for-differing-degrees-of-freedom" class="slide level2">
+<h2><span class="math inline">\(\chi^2\)</span> Distribution for Differing Degrees of Freedom</h2>
 <div class="cell">
 <details>
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>x_vals <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>df_vals <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">2</span>,<span class="dv">10</span>,<span class="dv">2</span>)</span>
-<span id="cb5-3"><a href="#cb5-3"></a></span>
-<span id="cb5-4"><a href="#cb5-4"></a>df_dat <span class="ot">&lt;-</span> <span class="fu">map_df</span>(df_vals, <span class="sc">~</span> <span class="fu">tibble</span>(</span>
-<span id="cb5-5"><a href="#cb5-5"></a>  <span class="at">l =</span> <span class="fu">paste</span>(.),</span>
-<span id="cb5-6"><a href="#cb5-6"></a>  <span class="at">x =</span> x_vals,</span>
-<span id="cb5-7"><a href="#cb5-7"></a>  <span class="at">y =</span> <span class="fu">dchisq</span>(x_vals, .)</span>
-<span id="cb5-8"><a href="#cb5-8"></a>))</span>
-<span id="cb5-9"><a href="#cb5-9"></a></span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="fu">ggplot</span>(df_dat, <span class="fu">aes</span>(x, y, <span class="at">color =</span> <span class="fu">factor</span>(l, <span class="at">levels =</span> df_vals))) <span class="sc">+</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> df_dat, </span>
-<span id="cb5-12"><a href="#cb5-12"></a>             <span class="fu">aes</span>(x, y, <span class="at">color =</span> <span class="fu">factor</span>(l, <span class="at">levels =</span> df_vals))) <span class="sc">+</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Chi-square Distribution"</span>,</span>
-<span id="cb5-14"><a href="#cb5-14"></a>       <span class="at">subtitle =</span> <span class="st">"various degrees of freedom"</span>,</span>
-<span id="cb5-15"><a href="#cb5-15"></a>       <span class="at">x =</span> <span class="st">""</span>,<span class="at">y =</span> <span class="st">'Density'</span>,<span class="at">color =</span> <span class="st">"Degrees of Freedom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>x_vals <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>df_vals <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">2</span>,<span class="dv">10</span>,<span class="dv">2</span>)</span>
+<span id="cb11-3"><a href="#cb11-3"></a></span>
+<span id="cb11-4"><a href="#cb11-4"></a>df_dat <span class="ot">&lt;-</span> <span class="fu">map_df</span>(df_vals, <span class="sc">~</span> <span class="fu">tibble</span>(</span>
+<span id="cb11-5"><a href="#cb11-5"></a>  <span class="at">l =</span> <span class="fu">paste</span>(.),</span>
+<span id="cb11-6"><a href="#cb11-6"></a>  <span class="at">x =</span> x_vals,</span>
+<span id="cb11-7"><a href="#cb11-7"></a>  <span class="at">y =</span> <span class="fu">dchisq</span>(x_vals, .)</span>
+<span id="cb11-8"><a href="#cb11-8"></a>))</span>
+<span id="cb11-9"><a href="#cb11-9"></a></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="fu">ggplot</span>(df_dat, <span class="fu">aes</span>(x, y, <span class="at">color =</span> <span class="fu">factor</span>(l, <span class="at">levels =</span> df_vals))) <span class="sc">+</span></span>
+<span id="cb11-11"><a href="#cb11-11"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> df_dat, </span>
+<span id="cb11-12"><a href="#cb11-12"></a>             <span class="fu">aes</span>(x, y, <span class="at">color =</span> <span class="fu">factor</span>(l, <span class="at">levels =</span> df_vals))) <span class="sc">+</span></span>
+<span id="cb11-13"><a href="#cb11-13"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Chi-square Distribution"</span>,</span>
+<span id="cb11-14"><a href="#cb11-14"></a>       <span class="at">subtitle =</span> <span class="st">"various degrees of freedom"</span>,</span>
+<span id="cb11-15"><a href="#cb11-15"></a>       <span class="at">x =</span> <span class="st">""</span>,<span class="at">y =</span> <span class="st">'Density'</span>,<span class="at">color =</span> <span class="st">"Degrees of Freedom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
-<img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"><p>The larger the degrees of freedom, the long the right tail extends. The smaller the degrees of freedom, the more peaked the mode on the left becomes</p>
+<img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch"><p>The larger the degrees of freedom, the long the right tail extends. The smaller the degrees of freedom, the more peaked the mode on the left becomes</p>
 </section>
-<section id="section-17" class="slide level2 smaller">
+<section id="section-13" class="slide level2 smaller">
 <h2></h2>
-<p>We need to understand the variability in the values of the <span class="math inline">\(\chi^2\)</span> statistic we would expect to see if the null hypothesis was true <em>(i.e, <span class="math inline">\(\chi^2\)</span> distribution with <span class="math inline">\(df = (3-2) \times (2-1) = 2\)</span>)</em></p>
+<p>We need to understand the variability in the values of the <span class="math inline">\(\chi^2\)</span> statistic we would expect to see if the null hypothesis was true <em>(i.e, <span class="math inline">\(\chi^2\)</span> distribution with <span class="math inline">\(df = (3-2) \times (2-1) = 2\)</span>)</em>.</p>
 
-<img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"><p>The red vertical line is our observed <span class="math inline">\(\chi^2=40.13\)</span> test statistic</p>
+<img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch"><p>The red vertical line is our observed <span class="math inline">\(\chi^2=40.13\)</span> test statistic.</p>
 </section>
-<section id="section-18" class="slide level2">
+<section id="section-14" class="slide level2">
 <h2></h2>
-<p>We can now compute the <span class="math inline">\(\,p\)</span>-value and draw a conclusion about whether the question affects the sellers likelihood of reporting the iPod problems</p>
+<p>We can now compute the <span class="math inline">\(\,p\)</span>-value and draw a conclusion about whether the question affects the sellers likelihood of reporting the iPod problems:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="fl">40.13</span>, <span class="at">df =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(<span class="fl">40.13</span>, <span class="at">df =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.93144e-09</code></pre>
 </div>
@@ -1204,24 +1235,24 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 <div class="vertical-space">
 
 </div>
-<p>Using a significance level of <span class="math inline">\(\, \alpha = 0.05,\)</span> the null hypothesis is rejected since the <span class="math inline">\(\,p\)</span>-value is smaller</p>
+<p>Using a significance level of <span class="math inline">\(\, \alpha = 0.05,\)</span> the null hypothesis is rejected since the <span class="math inline">\(\,p\)</span>-value is smaller.</p>
 <div class="vertical-space">
 
 </div>
-<p>That is, the data provide convincing evidence that the question asked did affect a seller’s likelihood to tell the truth about problems with the iPod.</p>
+<p>That is the data provide convincing evidence that the question asked did affect a seller’s likelihood to tell the truth about problems with the iPod.</p>
 </section>
 <section id="test-of-independence-using-infer" class="slide level2">
 <h2>Test of Independence: Using <code>Infer</code></h2>
-<p>We will conduct a <span class="math inline">\(\chi^2\)</span> test of independence to determine whether there is a relationship between the question class and the disclosure/hiding of the problem with the iPod by the participants.</p>
 <div style="font-size = 70%;">
-<p>The following implementation considers the use of the package <code>infer</code>, which is part of the <code>tidymodels</code> ecosystem</p>
+<p>The following implementation considers the use of the package <code>infer</code>, which is part of the <code>tidymodels</code> ecosystem.</p>
 </div>
+<p>We will conduct a <span class="math inline">\(\chi^2\)</span> test of independence to determine whether there is a relationship between the question class and the disclosure/hiding of the problem with the iPod by the participants.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">library</span>(infer)</span>
-<span id="cb8-2"><a href="#cb8-2"></a>observed_indep_statistic <span class="ot">&lt;-</span> openintro<span class="sc">::</span>ask <span class="sc">|&gt;</span> </span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">specify</span>(response <span class="sc">~</span> question_class) <span class="sc">|&gt;</span> </span>
-<span id="cb8-4"><a href="#cb8-4"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb8-5"><a href="#cb8-5"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">library</span>(infer)</span>
+<span id="cb14-2"><a href="#cb14-2"></a>observed_indep_statistic <span class="ot">&lt;-</span> openintro<span class="sc">::</span>ask <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">specify</span>(response <span class="sc">~</span> question_class) <span class="sc">|&gt;</span> </span>
+<span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb14-5"><a href="#cb14-5"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -1236,7 +1267,7 @@ Null Hypothesis: independence
 </div>
 <p>The observed <span class="math inline">\(\chi^2\)</span> statistic is 40.1.</p>
 </section>
-<section id="section-19" class="slide level2">
+<section id="section-15" class="slide level2">
 <h2></h2>
 <p>Now we want to compare the observed <span class="math inline">\(\chi^2 = 40.1\)</span> statistic to a null distribution, generated under the assumption that the question class and the disclosure/hiding of the problem with the iPod are not actually related.</p>
 <div class="vertical-space">
@@ -1246,10 +1277,9 @@ Null Hypothesis: independence
 <div class="vertical-space">
 
 </div>
-<p>The randomization approach approximates the null distribution by randomly shuffling the response and explanatory variables. This process ensures that each participant’s question class is paired with a randomly chosen disclosure or hiding of the problem with the iPod from the sample.</p>
-<p>The purpose is to disrupt any existing association between the two variables</p>
+<p>The randomization approach approximates the null distribution by randomly shuffling the response and explanatory variables. This process ensures that each participant’s question class is paired with a randomly chosen disclosure or hiding of the problem with the iPod from the sample. The purpose is to disrupt any existing association between the two variables</p>
 </section>
-<section id="section-20" class="slide level2">
+<section id="section-16" class="slide level2">
 <h2></h2>
 <div class="panel-tabset">
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Code</a></li><li><a href="#tabset-1-2">Output</a></li></ul>
@@ -1257,27 +1287,27 @@ Null Hypothesis: independence
 <div id="tabset-1-1">
 <p>First, generate the null distribution using randomization</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>null_dist_sim <span class="ot">&lt;-</span> openintro<span class="sc">::</span>ask <span class="sc">|&gt;</span> </span>
-<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">specify</span>(response <span class="sc">~</span> question_class) <span class="sc">|&gt;</span> </span>
-<span id="cb10-3"><a href="#cb10-3"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb10-4"><a href="#cb10-4"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb10-5"><a href="#cb10-5"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>null_dist_sim <span class="ot">&lt;-</span> openintro<span class="sc">::</span>ask <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">specify</span>(response <span class="sc">~</span> question_class) <span class="sc">|&gt;</span> </span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb16-4"><a href="#cb16-4"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb16-5"><a href="#cb16-5"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="vertical-space">
 
 </div>
 <p>To visualize both the randomization-based and theoretical null distribution, we can pipe the randomization-based null distribution into <code>visualize()</code>, and provide <code>method = "both"</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>null_dist_sim <span class="sc">|&gt;</span> </span>
-<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">visualize</span>(<span class="at">method =</span> <span class="st">"both"</span>) <span class="sc">+</span> </span>
-<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">shade_p_value</span>(observed_indep_statistic,</span>
-<span id="cb11-4"><a href="#cb11-4"></a>                <span class="at">direction =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>null_dist_sim <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">visualize</span>(<span class="at">method =</span> <span class="st">"both"</span>) <span class="sc">+</span> </span>
+<span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">shade_p_value</span>(observed_indep_statistic,</span>
+<span id="cb17-4"><a href="#cb17-4"></a>                <span class="at">direction =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-1-2">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-21-1.png" width="864"></p>
+<p><img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-23-1.png" width="864"></p>
 </div>
 </div>
 <p>None of the 1,000 simulations had a <span class="math inline">\(\chi^2\)</span> value of at least 40.13. In fact, none of the simulated <span class="math inline">\(\chi^2\)</span> statistics came anywhere close to the observed statistic</p>
@@ -1285,12 +1315,12 @@ Null Hypothesis: independence
 </div>
 </div>
 </section>
-<section id="section-21" class="slide level2">
+<section id="section-17" class="slide level2">
 <h2></h2>
 <p>Using the simulated null distribution, we can approximate the <span class="math inline">\(\,p\,\)</span>-value with <code>get_p_value</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>null_dist_sim <span class="sc">|&gt;</span> </span>
-<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> observed_indep_statistic, <span class="at">direction =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>null_dist_sim <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">get_p_value</span>(<span class="at">obs_stat =</span> observed_indep_statistic, <span class="at">direction =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
   p_value
@@ -1302,15 +1332,15 @@ Null Hypothesis: independence
 
 </div>
 <div style="font-size = 80%;">
-<p>Therefore, if there were really no relationship between the question class and the disclosure/hiding of the problem with the iPod, our approximation of the probability that we would see a statistic as or more extreme than 40.1 is approximately 0</p>
+<p>Therefore, if there were really no relationship between the question class and the disclosure/hiding of the problem with the iPod, our approximation of the probability that we would see a statistic as or more extreme than 40.1 is approximately 0.</p>
 </div>
 </section>
-<section id="section-22" class="slide level2">
+<section id="section-18" class="slide level2">
 <h2></h2>
-<p>Equivalently, the theory-based approach to calculate the <span class="math inline">\(\,p\,\)</span>-value using the true <span class="math inline">\(\chi^2\)</span> distribution can be obtained using the base R function <code>pchisq</code></p>
+<p>Equivalently, the theory-based approach to calculate the <span class="math inline">\(\,p\,\)</span>-value using the true <span class="math inline">\(\chi^2\)</span> distribution can be obtained using the base R function <code>pchisq</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">pchisq</span>(observed_indep_statistic<span class="sc">$</span>stat, </span>
-<span id="cb14-2"><a href="#cb14-2"></a>       <span class="at">df =</span> <span class="dv">2</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">pchisq</span>(observed_indep_statistic<span class="sc">$</span>stat, </span>
+<span id="cb20-2"><a href="#cb20-2"></a>       <span class="at">df =</span> <span class="dv">2</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   X-squared 
 1.933339e-09 </code></pre>
@@ -1319,9 +1349,9 @@ Null Hypothesis: independence
 <div class="vertical-space">
 
 </div>
-<p>The <code>infer</code> package provides a wrapper function <code>chisq_test</code>, to carry out <span class="math inline">\(\chi^2\)</span> test of independence on <code>tidy data</code></p>
+<p>The <code>infer</code> package provides a wrapper function <code>chisq_test</code>, to carry out <span class="math inline">\(\chi^2\)</span> test of independence on <code>tidy data</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">chisq_test</span>(openintro<span class="sc">::</span>ask, response <span class="sc">~</span> question_class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">chisq_test</span>(openintro<span class="sc">::</span>ask, response <span class="sc">~</span> question_class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   statistic chisq_df       p_value
@@ -1344,11 +1374,11 @@ Null Hypothesis: independence
 <div class="cell">
 <details>
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>crossing_peas <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">cross_result =</span> </span>
-<span id="cb18-2"><a href="#cb18-2"></a>                                  <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">'round yellow'</span>, <span class="st">'round green'</span>,</span>
-<span id="cb18-3"><a href="#cb18-3"></a>                                        <span class="st">'edged yellow'</span>,<span class="st">'edged green'</span>),</span>
-<span id="cb18-4"><a href="#cb18-4"></a>                                      <span class="fu">c</span>(<span class="dv">315</span>,<span class="dv">108</span>,<span class="dv">101</span>,<span class="dv">32</span>) )) <span class="sc">|&gt;</span> </span>
-<span id="cb18-5"><a href="#cb18-5"></a>  <span class="fu">mutate</span>(<span class="at">cross_result =</span> <span class="fu">as.factor</span>(cross_result))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>crossing_peas <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">cross_result =</span> </span>
+<span id="cb24-2"><a href="#cb24-2"></a>                                  <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">'round yellow'</span>, <span class="st">'round green'</span>,</span>
+<span id="cb24-3"><a href="#cb24-3"></a>                                        <span class="st">'edged yellow'</span>,<span class="st">'edged green'</span>),</span>
+<span id="cb24-4"><a href="#cb24-4"></a>                                      <span class="fu">c</span>(<span class="dv">315</span>,<span class="dv">108</span>,<span class="dv">101</span>,<span class="dv">32</span>) )) <span class="sc">|&gt;</span> </span>
+<span id="cb24-5"><a href="#cb24-5"></a>  <span class="fu">mutate</span>(<span class="at">cross_result =</span> <span class="fu">as.factor</span>(cross_result))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="vertical-space">
@@ -1385,33 +1415,33 @@ Null Hypothesis: independence
 </div>
 </div>
 </section>
-<section id="section-23" class="slide level2 smaller">
+<section id="section-19" class="slide level2 smaller">
 <h2></h2>
 <div class="cell" data-layout-align="center">
 <details>
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>positions <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'round yellow'</span>, <span class="st">'round green'</span>,<span class="st">'edged yellow'</span>,<span class="st">'edged green'</span>)</span>
-<span id="cb19-2"><a href="#cb19-2"></a></span>
-<span id="cb19-3"><a href="#cb19-3"></a>crossing_peas <span class="sc">|&gt;</span></span>
-<span id="cb19-4"><a href="#cb19-4"></a>  <span class="fu">count</span>(cross_result) <span class="sc">|&gt;</span> </span>
-<span id="cb19-5"><a href="#cb19-5"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">|&gt;</span> </span>
-<span id="cb19-6"><a href="#cb19-6"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb19-7"><a href="#cb19-7"></a>  <span class="fu">aes</span>(<span class="at">x =</span> cross_result, <span class="at">y=</span> proportion) <span class="sc">+</span></span>
-<span id="cb19-8"><a href="#cb19-8"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,<span class="at">fill =</span> <span class="st">'#8dc4b0'</span>) <span class="sc">+</span></span>
-<span id="cb19-9"><a href="#cb19-9"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> positions)<span class="sc">+</span></span>
-<span id="cb19-10"><a href="#cb19-10"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Crossing result"</span>,</span>
-<span id="cb19-11"><a href="#cb19-11"></a>       <span class="at">y =</span> <span class="st">"Proportion"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>positions <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'round yellow'</span>, <span class="st">'round green'</span>,<span class="st">'edged yellow'</span>,<span class="st">'edged green'</span>)</span>
+<span id="cb25-2"><a href="#cb25-2"></a></span>
+<span id="cb25-3"><a href="#cb25-3"></a>crossing_peas <span class="sc">|&gt;</span></span>
+<span id="cb25-4"><a href="#cb25-4"></a>  <span class="fu">count</span>(cross_result) <span class="sc">|&gt;</span> </span>
+<span id="cb25-5"><a href="#cb25-5"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">|&gt;</span> </span>
+<span id="cb25-6"><a href="#cb25-6"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb25-7"><a href="#cb25-7"></a>  <span class="fu">aes</span>(<span class="at">x =</span> cross_result, <span class="at">y=</span> proportion) <span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,<span class="at">fill =</span> <span class="st">'#8dc4b0'</span>) <span class="sc">+</span></span>
+<span id="cb25-9"><a href="#cb25-9"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> positions)<span class="sc">+</span></span>
+<span id="cb25-10"><a href="#cb25-10"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Crossing result"</span>,</span>
+<span id="cb25-11"><a href="#cb25-11"></a>       <span class="at">y =</span> <span class="st">"Proportion"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
-<img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" class="r-stretch quarto-figure-center"><p>Mendel had the hypothesis that the four different types occur in proportions of 9:3:3:1, that is <span class="math display">\[
+<img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-29-1.png" width="960" class="r-stretch quarto-figure-center"><p>Mendel had the hypothesis that the four different types occur in proportions of 9:3:3:1, that is <span class="math display">\[
 p_{\text{round-yellow}} = \frac{9}{16}, \,
 p_{\text{round-green}} = \frac{3}{16}, \,
 p_{\text{edged-yellow}} = \frac{3}{16}, \,
 p_{\text{edged-green}} = \frac{1}{16},
 \]</span></p>
 </section>
-<section id="section-24" class="slide level2 smaller">
+<section id="section-20" class="slide level2 smaller">
 <h2></h2>
 <p>Mendel’s hypothesis is then</p>
 <p><span class="math display">\[
@@ -1437,14 +1467,14 @@ p_{\text{edged-green}} \neq \frac{1}{16},
 <h2>Goodness of Fit: Using <code>Infer</code></h2>
 <p>First, to carry out this hypothesis test, we need to calculate out observed statistic</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>observed_gof_statistic <span class="ot">&lt;-</span> crossing_peas <span class="sc">|&gt;</span> </span>
-<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">specify</span>(<span class="at">response =</span> cross_result) <span class="sc">|&gt;</span> </span>
-<span id="cb20-3"><a href="#cb20-3"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"point"</span>,</span>
-<span id="cb20-4"><a href="#cb20-4"></a>              <span class="at">p =</span> <span class="fu">c</span>(<span class="st">"round yellow"</span> <span class="ot">=</span> <span class="dv">9</span><span class="sc">/</span><span class="dv">16</span>,</span>
-<span id="cb20-5"><a href="#cb20-5"></a>                    <span class="st">"round green"</span> <span class="ot">=</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>,</span>
-<span id="cb20-6"><a href="#cb20-6"></a>                    <span class="st">"edged yellow"</span> <span class="ot">=</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>,</span>
-<span id="cb20-7"><a href="#cb20-7"></a>                    <span class="st">"edged green"</span> <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">16</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb20-8"><a href="#cb20-8"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>observed_gof_statistic <span class="ot">&lt;-</span> crossing_peas <span class="sc">|&gt;</span> </span>
+<span id="cb26-2"><a href="#cb26-2"></a>  <span class="fu">specify</span>(<span class="at">response =</span> cross_result) <span class="sc">|&gt;</span> </span>
+<span id="cb26-3"><a href="#cb26-3"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"point"</span>,</span>
+<span id="cb26-4"><a href="#cb26-4"></a>              <span class="at">p =</span> <span class="fu">c</span>(<span class="st">"round yellow"</span> <span class="ot">=</span> <span class="dv">9</span><span class="sc">/</span><span class="dv">16</span>,</span>
+<span id="cb26-5"><a href="#cb26-5"></a>                    <span class="st">"round green"</span> <span class="ot">=</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>,</span>
+<span id="cb26-6"><a href="#cb26-6"></a>                    <span class="st">"edged yellow"</span> <span class="ot">=</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>,</span>
+<span id="cb26-7"><a href="#cb26-7"></a>                    <span class="st">"edged green"</span> <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">16</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb26-8"><a href="#cb26-8"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -1458,7 +1488,7 @@ Null Hypothesis: point
 </div>
 <p>Now we want to compare the observed <span class="math inline">\(\chi^2 =0.47\)</span> statistic to a null distribution, generated under the assumption that the proportions of the four different outcomes of a pea crossing experiment is 9:3:3:1</p>
 </section>
-<section id="section-25" class="slide level2">
+<section id="section-21" class="slide level2">
 <h2></h2>
 <div class="panel-tabset">
 <ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Code</a></li><li><a href="#tabset-2-2">Output</a></li></ul>
@@ -1466,31 +1496,31 @@ Null Hypothesis: point
 <div id="tabset-2-1">
 <p>First, generate the null distribution using simulation</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>null_dist_gof <span class="ot">&lt;-</span> crossing_peas <span class="sc">|&gt;</span> </span>
-<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">specify</span>(<span class="at">response =</span> cross_result) <span class="sc">|&gt;</span> </span>
-<span id="cb22-3"><a href="#cb22-3"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"point"</span>,</span>
-<span id="cb22-4"><a href="#cb22-4"></a>              <span class="at">p =</span> <span class="fu">c</span>(<span class="st">"round yellow"</span> <span class="ot">=</span> <span class="dv">9</span><span class="sc">/</span><span class="dv">16</span>,</span>
-<span id="cb22-5"><a href="#cb22-5"></a>                    <span class="st">"round green"</span> <span class="ot">=</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>,</span>
-<span id="cb22-6"><a href="#cb22-6"></a>                    <span class="st">"edged yellow"</span> <span class="ot">=</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>,</span>
-<span id="cb22-7"><a href="#cb22-7"></a>                    <span class="st">"edged green"</span> <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">16</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb22-8"><a href="#cb22-8"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"draw"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb22-9"><a href="#cb22-9"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>null_dist_gof <span class="ot">&lt;-</span> crossing_peas <span class="sc">|&gt;</span> </span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">specify</span>(<span class="at">response =</span> cross_result) <span class="sc">|&gt;</span> </span>
+<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"point"</span>,</span>
+<span id="cb28-4"><a href="#cb28-4"></a>              <span class="at">p =</span> <span class="fu">c</span>(<span class="st">"round yellow"</span> <span class="ot">=</span> <span class="dv">9</span><span class="sc">/</span><span class="dv">16</span>,</span>
+<span id="cb28-5"><a href="#cb28-5"></a>                    <span class="st">"round green"</span> <span class="ot">=</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>,</span>
+<span id="cb28-6"><a href="#cb28-6"></a>                    <span class="st">"edged yellow"</span> <span class="ot">=</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>,</span>
+<span id="cb28-7"><a href="#cb28-7"></a>                    <span class="st">"edged green"</span> <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">16</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb28-8"><a href="#cb28-8"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">1000</span>, <span class="at">type =</span> <span class="st">"draw"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb28-9"><a href="#cb28-9"></a>  <span class="fu">calculate</span>(<span class="at">stat =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="vertical-space">
 
 </div>
 <p>To get a sense for what these distributions look like, and where our observed statistic falls, we can use <code>visualize()</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>null_dist_gof <span class="sc">|&gt;</span> </span>
-<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">visualize</span>() <span class="sc">+</span> </span>
-<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">shade_p_value</span>(observed_gof_statistic,</span>
-<span id="cb23-4"><a href="#cb23-4"></a>                <span class="at">direction =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>null_dist_gof <span class="sc">|&gt;</span> </span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">visualize</span>() <span class="sc">+</span> </span>
+<span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">shade_p_value</span>(observed_gof_statistic,</span>
+<span id="cb29-4"><a href="#cb29-4"></a>                <span class="at">direction =</span> <span class="st">"greater"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-2-2">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-32-1.png" width="864"></p>
+<p><img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-34-1.png" width="864"></p>
 </div>
 </div>
 <p>The statistic seems like it would be quite likely if the proportions of the four different outcomes of a pea crossing experiment is 9:3:3:1.</p>
@@ -1498,7 +1528,7 @@ Null Hypothesis: point
 </div>
 </div>
 </section>
-<section id="section-26" class="slide level2">
+<section id="section-22" class="slide level2">
 <h2></h2>
 <p>Using the simulated null distribution, we can approximate the <span class="math inline">\(\,p\,\)</span>-value with <code>get_p_value</code></p>
 <div class="cell">
@@ -1518,27 +1548,27 @@ Null Hypothesis: point
 </div>
 <p>To calculate the <span class="math inline">\(p\)</span>-value using the true <span class="math inline">\(\chi^2\)</span> distribution, we can use the <code>pchisq</code> function from base R</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">pchisq</span>(observed_gof_statistic<span class="sc">$</span>stat, <span class="at">df =</span> <span class="dv">3</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">pchisq</span>(observed_gof_statistic<span class="sc">$</span>stat, <span class="at">df =</span> <span class="dv">3</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9254259</code></pre>
 </div>
 </div>
 </section>
-<section id="section-27" class="slide level2">
+<section id="section-23" class="slide level2">
 <h2></h2>
 <p>The <code>infer</code> package provides a wrapper function <code>chisq_test</code>, to carry out <span class="math inline">\(\chi^2\)</span> goodness of fit tests on <code>tidy data</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-15"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-15-1"><a href="#annotated-cell-15-1"></a><span class="fu">chisq_test</span>(crossing_peas, </span>
-<span id="annotated-cell-15-2"><a href="#annotated-cell-15-2"></a>           <span class="at">response =</span> cross_result, </span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-15" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-15-3" class="code-annotation-target"><a href="#annotated-cell-15-3"></a>           <span class="at">p =</span> <span class="fu">c</span>(<span class="st">"edged green"</span> <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">16</span>,</span>
-<span id="annotated-cell-15-4"><a href="#annotated-cell-15-4"></a>                 <span class="st">"edged yellow"</span> <span class="ot">=</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>,</span>
-<span id="annotated-cell-15-5"><a href="#annotated-cell-15-5"></a>                 <span class="st">"round green"</span> <span class="ot">=</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>,</span>
-<span id="annotated-cell-15-6"><a href="#annotated-cell-15-6"></a>                 <span class="st">"round yellow"</span> <span class="ot">=</span> <span class="dv">9</span><span class="sc">/</span><span class="dv">16</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-18"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-18-1"><a href="#annotated-cell-18-1"></a><span class="fu">chisq_test</span>(crossing_peas, </span>
+<span id="annotated-cell-18-2"><a href="#annotated-cell-18-2"></a>           <span class="at">response =</span> cross_result, </span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-18" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-18-3" class="code-annotation-target"><a href="#annotated-cell-18-3"></a>           <span class="at">p =</span> <span class="fu">c</span>(<span class="st">"edged green"</span> <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">16</span>,</span>
+<span id="annotated-cell-18-4"><a href="#annotated-cell-18-4"></a>                 <span class="st">"edged yellow"</span> <span class="ot">=</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>,</span>
+<span id="annotated-cell-18-5"><a href="#annotated-cell-18-5"></a>                 <span class="st">"round green"</span> <span class="ot">=</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>,</span>
+<span id="annotated-cell-18-6"><a href="#annotated-cell-18-6"></a>                 <span class="st">"round yellow"</span> <span class="ot">=</span> <span class="dv">9</span><span class="sc">/</span><span class="dv">16</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-15" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-18" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-annotation="1" data-code-cell="annotated-cell-15" data-code-lines="3">If <code>response</code> is a factor, then list the proportions of the levels in the order of <code>levels(response)</code></span>
+<span data-code-cell="annotated-cell-18" data-code-lines="3" data-code-annotation="1">If <code>response</code> is a factor, then list the proportions of the levels in the order of <code>levels(response)</code></span>
 </dd>
 </dl>
 </div>
