@@ -42,7 +42,7 @@ library(fontawesome)
 | Topic                         | Materials |
 |-------------------------------|-----------|
 | Simple Linear Regression   |[`r fontawesome::fa(name = "desktop")`](slides/day02-regression/02a-regression.html)           |
-
+|Regression Activity|`day02-regression-activity-username` repo on GitHub|
 
 ## Day 3 - Categorical Data Analysis
 
