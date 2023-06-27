@@ -1,6 +1,8 @@
 ---
 title: "Linear Regression"
-author: ""
+author: 
+  - "Author: Dr. Mine Dogucu"
+  - "Co-author: Dr. Jessica Jaynes"
 format: 
   revealjs:
     slide-number: true
@@ -11,14 +13,8 @@ format:
 
 
 
-
-
-
-
-
-
 ## Overview
-- Review Linear Regression Concepts from your Data Science Courses 
+- Review Linear Regression Concepts from your data science curses 
 - Conditions for Least Squares Regression
 - Multiple Linear Regression
 - Model Evaluation 
@@ -160,9 +156,9 @@ model_g <- lm(bwt ~ gestation, data = babies)
 broom::tidy(model_g)
 ```
 
-$\hat {\mu}_i = \hat \beta_0 + \hat \beta_1 x_i$
+$\hat{\mu_i} = \hat{\beta_0} + \hat{\beta_1} x_i$
 
-$\hat {\text{bwt}_i} = \hat \beta_0 + \hat \beta_1 \text{ gestation}_i$
+$\hat {\text{bwt}_i} = \hat{\beta_0} + \hat{\beta_1} \text{ gestation}_i$
 
 $\hat {\text{bwt}_i} = -10.1 + 0.464\text{ gestation}_i$
 
@@ -192,7 +188,7 @@ babies %>%
     
 ```
 
-$\hat \beta_1 = 0.464$ which means for one unit(day) increase in gestation period the expected increase in birth weight is 0.464 ounces.
+$\hat{\beta_1} = 0.464$ which means for one unit(day) increase in gestation period the expected increase in birth weight is 0.464 ounces.
 :::
 
 ::: {.column width="50%"}
@@ -209,7 +205,7 @@ babies %>%
   
 ```
 
-$\hat \beta_0 = -10.1$ which means for gestation period of 0 days the expected birth weight is -10.1 ounces!!!!!!!!
+$\hat{\beta_0} = -10.1$ which means for gestation period of 0 days the expected birth weight is -10.1 ounces!!!!!!!!
 (does NOT make sense)
 :::
 ::::
@@ -251,7 +247,7 @@ babies %>%
 ::: {.column width="50%"}
 **Expected**
 
-$\hat \mu_{148} = \hat \beta_0 + \hat \beta_1x_{148}$
+$\hat \mu_{148} = \hat{\beta_0} + \hat{\beta_1}x_{148}$
 
 $\hat \mu_{148} = -10.1 + 0.464\times300$
 
@@ -331,9 +327,9 @@ $i = 1, 2, ...n$ identifier for each point
 model_s <- lm(bwt ~ smoke, data = babies)
 tidy(model_s)
 ```
-$\hat {\mu}_i = \hat \beta_0 + \hat \beta_1 x_i$
+$\hat {\mu}_i = \hat{\beta_0} + \hat{\beta_1} x_i$
 
-$\hat {\text{bwt}_i} = \hat \beta_0 + \hat \beta_1 \text{ smoke}_i$
+$\hat {\text{bwt}_i} = \hat{\beta_0} + \hat{\beta_1} \text{ smoke}_i$
 
 $\hat {\text{bwt}_i} = 123 + (-8.94\text{ smoke}_i)$
 
@@ -349,7 +345,7 @@ $\hat {\text{bwt}_i} = 123 + (-8.94\times 0)$
 
 $\hat {\text{bwt}_i} = 123$
 
-$E[bwt_i | smoke_i = 0] = \hat \beta_0$
+$E[bwt_i | smoke_i = 0] = \hat{\beta_0}$
 :::
 
 ::: {.column width="50%"}
@@ -361,7 +357,7 @@ $\hat {\text{bwt}_i} = 123 + (-8.94\times 1)$
 
 $\hat {\text{bwt}_i} = 114.06$
 
-$E[bwt_i | smoke_i = 1] = \hat \beta_0 + \hat \beta_1$
+$E[bwt_i | smoke_i = 1] = \hat{\beta_0} + \hat{\beta_1}$
 :::
 ::::
 
