@@ -9,19 +9,9 @@ format:
     incremental: false
 ---
 
-<!--
-## Overview (To be removed)
-ISLR: https://www.statlearning.com/resources-second-edition
-- 2 hours of lecture (1 hour each)
-- 50 minutes of activity (2 25-mins each)
-- The first activity will be done right at the beginning
-- The second activity will be done through the lecture portion 
-- 2 5-min breaks
--->
 
-## Overview (To be removed)
-- Regression Activity based on Penguin data
-- Regression Lecture based on Babies data
+
+
 
 <!--
 ## Linear Regression Activity: Penguin Data (see Markdown file)
@@ -40,36 +30,19 @@ https://mdsr-book.github.io/mdsr2e/ch-foundations.html#sec:gooddesign
 - Prediction
 -->
 
-## Goals
+## Overview
 - Review Linear Regression Concepts from your Data Science Courses 
-- Conditions for Least Squares Regression and Diagnostics
+- Conditions for Least Squares Regression
 - Multiple Linear Regression
 - Model Evaluation 
 
 
 
-## Linear Regression Review: Babies Data
-<!--
-https://www.introdata.science/slides/week07/07a-linear-regression.html#1
--->
-- Scatterplot
-- Response and explanatory variables
-- Linear equation: Math vs stats class
-- Using R to fit a linear model
-- Equation of linear model
-- Interpretation of estimates
-- Extrapolation
-- Prediction
-- Residuals
-- Least squares regression
-<!--
-https://r4ds.had.co.nz/model-basics.html#model-basics
--->
-
 ```{r echo = FALSE, message = FALSE}
 library(tidyverse)
 library(openintro)
 library(broom)
+library(modelr)
 theme_set(theme_gray(base_size = 18))
 ```
 
@@ -177,7 +150,7 @@ $m$ is slope
 ::: {.column width="50%"}
 **Stats** class
 
-$y_i = \beta_0 +\beta_1x_i + \epsilon_i$
+$\mu_i = \beta_0 +\beta_1x_i + \epsilon_i$
 
 $\beta_0$ is y-intercept  
 $\beta_1$ is slope  
@@ -200,9 +173,9 @@ model_g <- lm(bwt ~ gestation, data = babies)
 broom::tidy(model_g)
 ```
 
-$\hat {y}_i = b_0 + b_1 x_i$
+$\hat {\mu}_i = \hat \beta_0 + \hat \beta_1 x_i$
 
-$\hat {\text{bwt}_i} = b_0 + b_1 \text{ gestation}_i$
+$\hat {\text{bwt}_i} = \hat \beta_0 + \hat \beta_1 \text{ gestation}_i$
 
 $\hat {\text{bwt}_i} = -10.1 + 0.464\text{ gestation}_i$
 
@@ -232,7 +205,7 @@ babies %>%
     
 ```
 
-$b_1 = 0.464$ which means for one unit(day) increase in gestation period the expected increase in birth weight is 0.464 ounces.
+$\hat \beta_1 = 0.464$ which means for one unit(day) increase in gestation period the expected increase in birth weight is 0.464 ounces.
 :::
 
 ::: {.column width="50%"}
@@ -249,7 +222,7 @@ babies %>%
   
 ```
 
-$b_0 = -10.1$ which means for gestation period of 0 days the expected birth weight is -10.1 ounces!!!!!!!!
+$\hat \beta_0 = -10.1$ which means for gestation period of 0 days the expected birth weight is -10.1 ounces!!!!!!!!
 (does NOT make sense)
 :::
 ::::
@@ -290,16 +263,18 @@ babies %>%
 :::: {.columns}
 ::: {.column width="50%"}
 **Expected**
-$\hat y_{148} = b_0 +b_1x_{148}$
 
-$\hat y_{148} = -10.1 + 0.464\times300$
+$\hat \mu_{148} = \hat \beta_0 + \hat \beta_1x_{148}$
 
-$\hat y_{148} = `r -10.1 + 0.464*300`$
+$\hat \mu_{148} = -10.1 + 0.464\times300$
+
+$\hat \mu_{148} = `r -10.1 + 0.464*300`$
 :::
 
 ::: {.column width="50%"}
 **Observed**
-$y_{148} = 160 $
+
+$$\mu_{148} = 160 $$
 :::
 ::::
 
@@ -321,9 +296,9 @@ babies %>%
 ::: {.column width="60%"}
 $y_{148} = 160$
 
-$\hat y_{148}$ = `r -10.1 + 0.464*300`
+$\hat \mu_{148}$ = `r -10.1 + 0.464*300`
 
-$e_{148} = y_{148} - \hat y_{148}$
+$e_{148} = y_{148} - \hat \mu_{148}$
 
 $e_{148} =$ `r 160 -(-10.1 + 0.464*300)`
 :::
@@ -369,9 +344,9 @@ $i = 1, 2, ...n$ identifier for each point
 model_s <- lm(bwt ~ smoke, data = babies)
 tidy(model_s)
 ```
-$\hat {y}_i = b_0 + b_1 x_i$
+$\hat {\mu}_i = \hat \beta_0 + \hat \beta_1 x_i$
 
-$\hat {\text{bwt}_i} = b_0 + b_1 \text{ smoke}_i$
+$\hat {\text{bwt}_i} = \hat \beta_0 + \hat \beta_1 \text{ smoke}_i$
 
 $\hat {\text{bwt}_i} = 123 + (-8.94\text{ smoke}_i)$
 
@@ -387,7 +362,7 @@ $\hat {\text{bwt}_i} = 123 + (-8.94\times 0)$
 
 $\hat {\text{bwt}_i} = 123$
 
-$E[bwt_i | smoke_i = 0] = b_0$
+$E[bwt_i | smoke_i = 0] = \hat \beta_0$
 :::
 
 ::: {.column width="50%"}
@@ -399,7 +374,7 @@ $\hat {\text{bwt}_i} = 123 + (-8.94\times 1)$
 
 $\hat {\text{bwt}_i} = 114.06$
 
-$E[bwt_i | smoke_i = 1] = b_0 + b_1$
+$E[bwt_i | smoke_i = 1] = \hat \beta_0 + \hat \beta_1$
 :::
 ::::
 
@@ -443,55 +418,255 @@ https://openintro-ims.netlify.app/inf-model-slr.html#tech-cond-linmod
 - The data should have a linear trend
 - If the data illustrate a non-linear trend, then more advanced regression methods could be considered
 
+```{r  echo = FALSE, message = FALSE, fig.height = 5}
+set.seed(84735)
+x <- seq(-2, 2, by = 0.01)
+y <- 4*x + 5 + rnorm(length(x), 0 , 1.5)
+
+data_good <- data.frame(x = x, y = y) %>%   sample_n(50)
+
+data_good %>% 
+  ggplot() +
+  aes(x = x, y = y) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+
+
+## Linearity
+A residual plot is one where the residuals are plotted against the explanatory variable. 
+ 
+- Points in the residual plot must be randomly scattered, with no pattern, and "close" to 0.
+```{r echo = FALSE, message = FALSE, fig.height = 4}
+
+model_good <- lm(y ~ x, data = data_good)
+
+data_good <- 
+  data_good %>%
+  sample_n(50) %>% 
+  modelr::add_residuals(model_good)
+
+data_good %>% 
+  ggplot(aes(x = x, y = resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0)
+```
+
+
+## Non-linear Trend
+```{r  echo = FALSE, message = FALSE, fig.height = 5}
+set.seed(84735)
+x <- seq(-2, 2, by = 0.01)
+y <- 3*x^2 + x + 5 + rnorm(length(x), 0 , 2)
+
+data_bad<- data.frame(x = x, y = y) %>% sample_n(50)
+
+data_bad %>% 
+  ggplot() +
+  aes(x = x, y = y) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  stat_function(fun = function(x)3*x^2 + x + 5 )
+```
+
+## Linear model not appropriate
+```{r echo = FALSE, message = FALSE, fig.height = 4}
+model_bad <- lm(y ~ x, data = data_bad)
+
+data_bad <- 
+  data_bad %>% 
+  modelr::add_residuals(model_bad) 
+
+data_bad %>% 
+  ggplot(aes(x = x, y = resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0)
+```
+
+
 ## Independent Observations
-- Be aware of data that come from sequential observations in time as they come with an underlying structure that needs to be considered when modeling 
-- Dependent data can bias results 
-- For example, stock prices
+- Cases must be independent of one-another
+- Individuals must not be related (associated) to other individuals
+- Harder to check because we need to know how the data were collected
+- Be aware of data that come from sequential observations in time as they come with an underlying structure that needs to be considered when modeling - dependent data can bias results 
+
+
 
 ## Nearly Normal Residuals
 - Residuals should be nearly normal 
 - This condition can often be influenced by outliers
 - While important, this condition can often be avoided through considering bootstrap procedures
 
+```{r echo = FALSE, message = FALSE, fig.height = 5}
+model_good <- lm(y ~ x, data = data_good)
+
+data_good <- 
+  data_good %>%
+  sample_n(50) %>% 
+  modelr::add_residuals(model_good) 
+
+data_good %>% 
+  ggplot(aes(x = resid)) +
+  geom_density()
+
+```
+
+
 ## Equal or Constant Variability
-- The variability of points are the least squares line should remain roughly constant
+- The variability (scattered-ness) of the residual plot must be about the same throughout the plot.
 - Data that do not satisfy this condition will potentially influence and mis-estimate the variability of the slope, impacting the inference
+- A change in the variability as the explanatory variable increases means that predictions may not be reliable
+
+```{r echo = FALSE, message = FALSE, fig.height = 4}
+data_good %>% 
+  ggplot(aes(x = x, y = resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0)
+```
+
+## Non-constant Variance
+```{r echo = FALSE, message = FALSE, fig.height = 4}
+data_bad %>% 
+  ggplot(aes(x = x, y = resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0)
+```
 
 ## When all technical conditions are met:
 - The least squares regression model (and related inference)  has important extensions (which are not trivial to implement with bootstrapping and randomization tests). 
 - In particular, random effects models, repeated measures, and interaction are all linear model extensions which require the above technical conditions.
 
 
+## Verifying Conditions for the Baby Weights Example
+
+## Linearity: Using scattered plot
+```{r}
+#| echo: true
+babies %>% 
+  ggplot (aes(x = gestation, y = bwt)) +
+  geom_point()
+```
+
+## Linearity and constant variance: Using residual plot
+- First, add residuals to your data. Next, plot the explanatory variable against the residuals and add a line through `y = 0`
+```{r}
+#| echo: true
+babies <- babies %>% 
+  modelr::add_residuals(model_g)
+
+ggplot(babies, aes(x = gestation, y = resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0)
+```
+
+
+
+## Normality of residuals
+```{r}
+#| echo: true
+model_g %>% 
+  ggplot(aes(x = .resid)) +
+  geom_density()
+```
+
+## Independence
+
+- In the description of the dataset it says a study considered all pregnancies between 1960 and 1967 among women in the Kaiser Foundation Health Plan in the San Francisco East Bay area.
+- It is possible that babies born in the same hospital may have similar birth weight. 
+- Correlated data examples: patients within hospitals, students within schools, people within neighborhoods, time-series data. 
+
 ## Multiple Linear Regression
-<!--
-https://www.introdata.science/slides/week07/07b-multiple-regression.html#1
--->
-- Numerical and categorical predictor (binary and multi-category); interaction between numerical and categorical
-- Interpretation
-- Prediction
+
+| Variable    | Variable Name | Type of Variable |
+|-------------|-----------------|---------|
+| Response (y)    | Birth weight | Numeric |
+| Explanatory (x1) | Smoke           | Categorical |
+| Explanatory (x2) | Gestation           | Numeric |
+
+## Notation for Multiple Linear Regression
+
+$y_i = \beta_0 +\beta_1x_{1i}  + \beta_2x_{2i} + \epsilon_i$
+
+$\beta_0$ is intercept  
+$\beta_1$ is the slope for gestation   
+$\beta_2$ is the slope for smoke 
+$\epsilon_i$ is error/residual  
+$i = 1, 2, ...n$ identifier for each point
+
+## Multiple Linear Regression in R
+```{r}
+model_gs <- lm(bwt ~ gestation + smoke, data = babies)
+tidy(model_gs)
+```
+
+Expected birth weight for a baby who had 280 days of gestation with a smoker mother
+
+$\hat {\text{bwt}_i} = b_0 + b_1 \text{ gestation}_i + b_2 \text{ smoke}_i$
+
+$\hat {\text{bwt}_i} = -0.932 + (0.443 \times 280) + (-8.09 \times 1)$
 
 
+## Model Evaluation: $R^2$
+
+```{r}
+#| echo: true
+glance(model_gs)$r.squared
+```
+
+21% of the variation in birth weight is explained by gestation. Higher values of R squared is preferred.
 
 
-## Multiple Linear Regression: Interaction terms
-<!--
-https://www.bayesrulesbook.com/chapter-11.html#optional-utilizing-interaction-terms
--->
+## Multiple Linear Regression with Three Predictors
+```{r}
+#| echo: true
+model_gsa <- lm(bwt ~ gestation + smoke + age, data = babies)
+```
 
-## Evaluating Models: How do you know if your model is a good one?
-<!--
-https://mdsr-book.github.io/mdsr2e/ch-modeling.html#evaluating-models
--->
-- Bias-variance trade-off
-- Cross-validation
-- Measuring prediction error for quantitative responses: RMSE, correlation, coefficienct of determination
+## Comparing Models: Single Predictor
+```{r}
+#| echo: true
+babies %>% 
+  add_predictions(model_g) %>% 
+  add_residuals(model_g) %>% 
+  select(bwt, pred, resid)
+```
 
-## Bias-variance Trade-off
-- Goals: models that minimize both bias and variance 
-- However, these are essentially mutually exclusive goals 
-- Complicated model: will have less bias, but will in general have higher variance
-- Simple model: can reduce variance but at the cost of increased bias
-- Optimal balance between bias and variance depends on the purpose for which the model is constructed (e.g., prediction vs. description of causal relationships) 
+## Comparing Models: Three Predictors
+```{r}
+#| echo: true
+babies %>% 
+  add_predictions(model_gsa) %>% 
+  add_residuals(model_gsa) %>% 
+  select(bwt, pred, resid)
+```
+
+## Root Mean Square Error
+
+$RMSE = \sqrt{\frac{\Sigma_{i=1}^n(y_i-\hat y_i)^2}{n}}$
+
+```{r}
+#| echo: true
+modelr::rmse(model_gsa, babies)
+```
+
+```{r}
+#| echo: true
+modelr::rmse(model_g, babies)
+```
+Can we keep adding all the variables and try to get an EXCELLENT model fit?
+
+## Overfitting
+
+- We are fitting the model to sample data.
+
+- Our goal is to understand the population data.
+
+- If we make our model too perfect for our sample data, the model may not perform as well with other sample data from the population.
+
+- In this case we would be overfitting the data.
+
+- We can use **model validation** techniques.
 
 ## Modeling Overfitting: Cross-validation
 Data sets are often divided into two sets:
@@ -501,12 +676,46 @@ Data sets are often divided into two sets:
 
 "Perhaps the most elementary mistake in predictive analytics is to overfit your model to the training data, only to see it later perform miserably on the testing set."
 
-## Measuring Prediction Error for Quantitative Responses 
-<!--
-RMSE, correlation, coefficienct of determination
--->
-<!--
+## Splitting the Data (Train vs. Test)
+
+```{r message=FALSE}
+#| echo: true
+set.seed(12345)
+babies_split <- rsample::initial_split(babies) ## 75% to 25% split
+```
+
+```{r}
+#| echo: true
+babies_train <- rsample::training(babies_split)
+dim(babies_train)
+```
 
 
+```{r}
+#| echo: true
+babies_test <- rsample::testing(babies_split)
+dim(babies_test)
+```
 
 
+## Train vs. Test
+```{r}
+#| echo: true
+model_gsa_train <- lm(bwt ~ gestation + smoke + age, data = babies_train)
+model_gsa_test <- lm(bwt ~ gestation + smoke + age, data = babies_test)
+```
+
+## Training Data
+```{r}
+#| echo: true
+glance(model_gsa_train)
+modelr::rmse(model_gsa_train, babies_train)
+
+```
+
+## Testing Data
+```{r}
+#| echo: true
+glance(model_gsa_test)
+modelr::rmse(model_gsa_test, babies_test)
+```
