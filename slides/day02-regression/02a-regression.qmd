@@ -277,11 +277,11 @@ babies %>%
 
 
 ::: {.column width="60%"}
-$y_{148} = 160$
+$\mu_{148} = 160$
 
 $\hat \mu_{148}$ = `r -10.1 + 0.464*300`
 
-$e_{148} = y_{148} - \hat \mu_{148}$
+$e_{148} = \mu_{148} - \hat \mu_{148}$
 
 $e_{148} =$ `r 160 -(-10.1 + 0.464*300)`
 :::
@@ -314,7 +314,7 @@ Note that the 95% confidence interval for the slope does not contain zero and al
 
 ## Notation
 
-$y_i = \beta_0 +\beta_1x_i + \epsilon_i$
+$\mu_i = \beta_0 +\beta_1x_i + \epsilon_i$
 
 $\beta_0$ is y-intercept  
 $\beta_1$ is slope  
@@ -569,7 +569,7 @@ model_g %>%
 
 ## Notation for Multiple Linear Regression
 
-$y_i = \beta_0 +\beta_1x_{1i}  + \beta_2x_{2i} + \epsilon_i$
+$\mu_i = \beta_0 +\beta_1x_{1i}  + \beta_2x_{2i} + \epsilon_i$
 
 $\beta_0$ is intercept  
 $\beta_1$ is the slope for gestation   
