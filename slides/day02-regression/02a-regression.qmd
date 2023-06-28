@@ -14,7 +14,7 @@ format:
 
 
 ## Overview
-- Review Linear Regression Concepts from your data science curses 
+- Review Linear Regression Concepts from your data science courses 
 - Conditions for Least Squares Regression
 - Multiple Linear Regression
 - Model Evaluation 
