@@ -97,7 +97,6 @@ For today's discussion we will only focus on *discrete* random variables
 
 A random variable $X$ is said to be discrete if it can assume only a finite or countably infinite number of *distinct* values </br>
 
-## 
 
 <!---
 ::: callout-tip

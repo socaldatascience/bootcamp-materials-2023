@@ -481,9 +481,6 @@ P(A) = \frac{|A|}{|S|} = \frac{3}{8}
 
 </div>
 <p>A random variable <span class="math inline">\(X\)</span> is said to be discrete if it can assume only a finite or countably infinite number of <em>distinct</em> values <br></p>
-</section>
-<section id="section" class="slide level2">
-<h2></h2>
 <!---
 ::: callout-tip
 ## Example
@@ -515,7 +512,7 @@ $$
 </ul>
 </div>
 </section>
-<section id="section-1" class="slide level2">
+<section id="section" class="slide level2">
 <h2></h2>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
@@ -554,7 +551,7 @@ P(X = k) =  p^k\,
 </div>
 <p><strong>Example:</strong> Choosing 3 desserts from a menu of 10 items <span class="math inline">\(\binom{10}{3} = \frac{10!}{3! (10-3)!} = 120\)</span></p>
 </section>
-<section id="section-2" class="slide level2">
+<section id="section-1" class="slide level2">
 <h2></h2>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
@@ -589,7 +586,7 @@ P(X = k) = \binom{n}{k} \, p^k\,
 <li><span class="math inline">\(Var(X) = np(1-p)\)</span></li>
 </ul>
 </section>
-<section id="section-3" class="slide level2">
+<section id="section-2" class="slide level2">
 <h2></h2>
 <div class="callout callout-tip no-icon callout-titled callout-style-default">
 <div class="callout-body">
@@ -615,7 +612,7 @@ S = \{HHH, HHT, HTH, THH, HTT, THT, TTH, TTT \}
 <p>we can model the number of heads obtained in three coin flips using a <strong>binomial distribution</strong></p>
 </div>
 </section>
-<section id="section-4" class="slide level2">
+<section id="section-3" class="slide level2">
 <h2></h2>
 <div style="font-size=75%;">
 <p>Let <span class="math inline">\(\, X=\)</span> number of heads in three fair coin tosses. Since the coin is fair, the probability of obtaining heads <em>(success)</em> is <span class="math inline">\(p = \frac{1}{2}\)</span>. Therefore, <span class="math inline">\(\,X\sim B\left(n=3,p=\frac{1}{2}\right)\)</span> and we are interested in observing two heads</p>
@@ -629,7 +626,7 @@ P(X=2) &amp;= \binom{3}{2} \left(\frac{1}{2} \right)^2 \left(\frac{1}{2} \right)
 \end{align*}
 \]</span></p>
 </section>
-<section id="section-5" class="slide level2">
+<section id="section-4" class="slide level2">
 <h2></h2>
 <p>While the previous example was simple, consider a scenario where you are flipping a coin ten times. In such cases, it becomes impractical and time-consuming to manually list out all the possible combinations of coin tosses <span class="math inline">\((|S| = 1024)\)</span></p>
 <p><span class="math inline">\(X \sim B(n=10,p=\frac{1}{2})\)</span>, and we are interested in calculating the probability of observing four heads. This can easily be done</p>
@@ -641,7 +638,7 @@ P(X = 4) &amp;= \binom{10}{4} \left(\frac{1}{2}\right)^{4} \left( \frac{1}{2} \r
 \end{align*}
 \]</span></p>
 </section>
-<section id="section-6" class="slide level2">
+<section id="section-5" class="slide level2">
 <h2></h2>
 <p>We can calculate the remaining probabilities of obtaining <span class="math inline">\(k\)</span> heads</p>
 <div class="cell" data-layout-align="center">
@@ -732,7 +729,7 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 </div>
 <p>If <span class="math inline">\(\,X \sim Pois(\lambda)\)</span>, then both expectation <span class="math inline">\(\mathbb{E}(X)\)</span> and <span class="math inline">\(Var(X)\)</span> are equal to <span class="math inline">\(\lambda\)</span>, i.e., the spread or variability of the Poisson distribution is directly determined by the average rate <span class="math inline">\((\lambda)\)</span> of an event occurrence.</p>
 </section>
-<section id="section-7" class="slide level2">
+<section id="section-6" class="slide level2">
 <h2></h2>
 <div class="cell" data-layout-align="center">
 <details>
@@ -757,7 +754,7 @@ P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}
 
 </div>
 <img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch quarto-figure-center"></section>
-<section id="section-8" class="slide level2">
+<section id="section-7" class="slide level2">
 <h2></h2>
 <div style="font-size: 85%;">
 <p>For Poisson distribution the following conditions must be considered:</p>
@@ -898,7 +895,7 @@ $ response       &lt;chr&gt; "hide", "hide", "disclose", "disclose", "hide", "di
 </div>
 <p>To perform the <span class="math inline">\(\chi^2\)</span> test of independence, the data is organized in a contingency table <em>(shown above)</em>. This table displays the frequencies of the different combinations of categories for the two variables</p>
 </section>
-<section id="section-9" class="slide level2">
+<section id="section-8" class="slide level2">
 <h2></h2>
 <div class="cell" data-layout-align="center">
 <details>
@@ -916,7 +913,7 @@ $ response       &lt;chr&gt; "hide", "hide", "disclose", "disclose", "hide", "di
 </div>
 <img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch quarto-figure-center"><p>If there were no relationship, we would expect to see the purple bars reaching to the same height, regardless of the question class</p>
 </section>
-<section id="section-10" class="slide level2 smaller">
+<section id="section-9" class="slide level2 smaller">
 <h2></h2>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
@@ -1055,7 +1052,7 @@ $ response       &lt;chr&gt; "hide", "hide", "disclose", "disclose", "hide", "di
 </div>
 </div>
 </section>
-<section id="section-11" class="slide level2">
+<section id="section-10" class="slide level2">
 <h2></h2>
 <p>The <span class="math inline">\(\chi^2\)</span> test statistic for a two-way table is found by finding the ratio of how far the observed counts are from the expected counts</p>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
@@ -1081,7 +1078,7 @@ $ response       &lt;chr&gt; "hide", "hide", "disclose", "disclose", "hide", "di
 <li>Large samples: At least 5 expected counts in each cell</li>
 </ul>
 </section>
-<section id="section-12" class="slide level2 smaller">
+<section id="section-11" class="slide level2 smaller">
 <h2></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -1214,13 +1211,13 @@ $ response       &lt;chr&gt; "hide", "hide", "disclose", "disclose", "hide", "di
 </div>
 <img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch"><p>The larger the degrees of freedom, the long the right tail extends. The smaller the degrees of freedom, the more peaked the mode on the left becomes</p>
 </section>
-<section id="section-13" class="slide level2 smaller">
+<section id="section-12" class="slide level2 smaller">
 <h2></h2>
 <p>We need to understand the variability in the values of the <span class="math inline">\(\chi^2\)</span> statistic we would expect to see if the null hypothesis was true <em>(i.e, <span class="math inline">\(\chi^2\)</span> distribution with <span class="math inline">\(df = (3-2) \times (2-1) = 2\)</span>)</em>.</p>
 
 <img data-src="03a-cda_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch"><p>The red vertical line is our observed <span class="math inline">\(\chi^2=40.13\)</span> test statistic.</p>
 </section>
-<section id="section-14" class="slide level2">
+<section id="section-13" class="slide level2">
 <h2></h2>
 <p>We can now compute the <span class="math inline">\(\,p\)</span>-value and draw a conclusion about whether the question affects the sellers likelihood of reporting the iPod problems:</p>
 <div class="cell">
@@ -1267,7 +1264,7 @@ Null Hypothesis: independence
 </div>
 <p>The observed <span class="math inline">\(\chi^2\)</span> statistic is 40.1.</p>
 </section>
-<section id="section-15" class="slide level2">
+<section id="section-14" class="slide level2">
 <h2></h2>
 <p>Now we want to compare the observed <span class="math inline">\(\chi^2 = 40.1\)</span> statistic to a null distribution, generated under the assumption that the question class and the disclosure/hiding of the problem with the iPod are not actually related.</p>
 <div class="vertical-space">
@@ -1279,7 +1276,7 @@ Null Hypothesis: independence
 </div>
 <p>The randomization approach approximates the null distribution by randomly shuffling the response and explanatory variables. This process ensures that each participant’s question class is paired with a randomly chosen disclosure or hiding of the problem with the iPod from the sample. The purpose is to disrupt any existing association between the two variables</p>
 </section>
-<section id="section-16" class="slide level2">
+<section id="section-15" class="slide level2">
 <h2></h2>
 <div class="panel-tabset">
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Code</a></li><li><a href="#tabset-1-2">Output</a></li></ul>
@@ -1315,7 +1312,7 @@ Null Hypothesis: independence
 </div>
 </div>
 </section>
-<section id="section-17" class="slide level2">
+<section id="section-16" class="slide level2">
 <h2></h2>
 <p>Using the simulated null distribution, we can approximate the <span class="math inline">\(\,p\,\)</span>-value with <code>get_p_value</code></p>
 <div class="cell">
@@ -1335,7 +1332,7 @@ Null Hypothesis: independence
 <p>Therefore, if there were really no relationship between the question class and the disclosure/hiding of the problem with the iPod, our approximation of the probability that we would see a statistic as or more extreme than 40.1 is approximately 0.</p>
 </div>
 </section>
-<section id="section-18" class="slide level2">
+<section id="section-17" class="slide level2">
 <h2></h2>
 <p>Equivalently, the theory-based approach to calculate the <span class="math inline">\(\,p\,\)</span>-value using the true <span class="math inline">\(\chi^2\)</span> distribution can be obtained using the base R function <code>pchisq</code>.</p>
 <div class="cell">
@@ -1415,7 +1412,7 @@ Null Hypothesis: independence
 </div>
 </div>
 </section>
-<section id="section-19" class="slide level2 smaller">
+<section id="section-18" class="slide level2 smaller">
 <h2></h2>
 <div class="cell" data-layout-align="center">
 <details>
@@ -1441,7 +1438,7 @@ p_{\text{edged-yellow}} = \frac{3}{16}, \,
 p_{\text{edged-green}} = \frac{1}{16},
 \]</span></p>
 </section>
-<section id="section-20" class="slide level2 smaller">
+<section id="section-19" class="slide level2 smaller">
 <h2></h2>
 <p>Mendel’s hypothesis is then</p>
 <p><span class="math display">\[
@@ -1488,7 +1485,7 @@ Null Hypothesis: point
 </div>
 <p>Now we want to compare the observed <span class="math inline">\(\chi^2 =0.47\)</span> statistic to a null distribution, generated under the assumption that the proportions of the four different outcomes of a pea crossing experiment is 9:3:3:1</p>
 </section>
-<section id="section-21" class="slide level2">
+<section id="section-20" class="slide level2">
 <h2></h2>
 <div class="panel-tabset">
 <ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Code</a></li><li><a href="#tabset-2-2">Output</a></li></ul>
@@ -1528,7 +1525,7 @@ Null Hypothesis: point
 </div>
 </div>
 </section>
-<section id="section-22" class="slide level2">
+<section id="section-21" class="slide level2">
 <h2></h2>
 <p>Using the simulated null distribution, we can approximate the <span class="math inline">\(\,p\,\)</span>-value with <code>get_p_value</code></p>
 <div class="cell">
@@ -1536,13 +1533,13 @@ Null Hypothesis: point
 <pre><code># A tibble: 1 × 1
   p_value
     &lt;dbl&gt;
-1   0.926</code></pre>
+1   0.908</code></pre>
 </div>
 </div>
 <div class="vertical-space">
 
 </div>
-<p>Thus, if the proportions of the four different outcomes of a pea crossing experiment is 9:3:3:1, our approximation of the probability that we would see a distribution like the one we did is approximately 0.926</p>
+<p>Thus, if the proportions of the four different outcomes of a pea crossing experiment is 9:3:3:1, our approximation of the probability that we would see a distribution like the one we did is approximately 0.908</p>
 <div class="vertical-space">
 
 </div>
@@ -1554,7 +1551,7 @@ Null Hypothesis: point
 </div>
 </div>
 </section>
-<section id="section-23" class="slide level2">
+<section id="section-22" class="slide level2">
 <h2></h2>
 <p>The <code>infer</code> package provides a wrapper function <code>chisq_test</code>, to carry out <span class="math inline">\(\chi^2\)</span> goodness of fit tests on <code>tidy data</code></p>
 <div class="cell">
@@ -1568,7 +1565,7 @@ Null Hypothesis: point
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-18" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-annotation="1" data-code-cell="annotated-cell-18" data-code-lines="3">If <code>response</code> is a factor, then list the proportions of the levels in the order of <code>levels(response)</code></span>
+<span data-code-cell="annotated-cell-18" data-code-annotation="1" data-code-lines="3">If <code>response</code> is a factor, then list the proportions of the levels in the order of <code>levels(response)</code></span>
 </dd>
 </dl>
 </div>
