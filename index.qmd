@@ -48,8 +48,8 @@ library(fontawesome)
 
 | Topic                         | Materials |
 |-------------------------------|-----------|
-| Categorical Data Analaysis |[`r fontawesome::fa(name = "desktop")`](slides/day03-cda/03a-cda.html)           |
-
+| Categorical Data Analysis |[`r fontawesome::fa(name = "desktop")`](slides/day03-cda/03a-cda.html)           |
+|Categorical Data Analysis Activity|`day03-cda-activity-username` repo on GitHub|
 
 
 ## Day 4 - Generalized Linear Models
