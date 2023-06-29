@@ -1,6 +1,8 @@
 ---
 title: "Logistic Regression"
 author: "Dr. Mine Dogucu"
+execute:
+  echo: true
 format: 
   revealjs:
     slide-number: true
@@ -15,4 +17,215 @@ format:
 Note that examples in this lecture a modified version of [Chapter 13 of Bayes Rules! book](https://www.bayesrulesbook.com/chapter-13.html).
 
 
+##
 
+$$Y = \begin{cases}
+\text{ Yes rain} & \\
+\text{ No rain} & \\
+\end{cases} \;$$
+
+. . .
+
+$$\begin{split}
+X_1 & = \text{ today's humidity at 9am (percent)} \\
+\end{split}$$
+
+
+## Packages
+
+```{r}
+#| message: false
+library(bayesrules)
+library(rstanarm)
+library(bayesplot)
+library(tidyverse)
+
+
+```
+
+
+## Data
+
+```{r}
+data(weather_perth)
+weather <- weather_perth %>%
+  select(day_of_year, raintomorrow, humidity9am,
+         humidity3pm, raintoday)
+glimpse(weather)
+```
+##
+
+```{r}
+count(weather, raintomorrow)
+```
+
+
+##
+
+```{r}
+#| echo: false
+#| fig.width: 15
+#| fig.height: 6
+#| message: false
+#| fig.align: center
+# Check out some relationships
+theme_set(theme_gray(base_size = 18))
+
+ggplot(weather, aes(x = humidity9am, fill = raintomorrow)) + 
+  geom_density(alpha = 0.5)
+g2 <- ggplot(weather, aes(x = humidity3pm, fill = raintomorrow)) + 
+  geom_density(alpha = 0.5)
+g3 <- ggplot(weather, aes(x = raintoday, fill = raintomorrow)) + 
+  geom_bar()
+g4 <- ggplot(weather, aes(x = humidity9am, y = humidity3pm, color = raintomorrow)) + 
+  geom_point()
+```
+
+## Odds and Probability
+
+$$\text{odds} = \frac{\pi}{1-\pi}$$
+
+. . .
+
+if prob of rain = $\frac{2}{3}$ then $\text{odds of rain } = \frac{2/3}{1-2/3} = 2$
+
+. . .
+
+if prob of rain = $\frac{1}{3}$ then $\text{odds of rain } = \frac{1/3}{1-1/3} = \frac{1}{2}$
+
+. . .
+
+if prob of rain = $\frac{1}{2}$ then  $\text{odds of rain } = \frac{1/2}{1-1/2} = 1$
+
+
+
+## Logistic regression model 
+
+likelihood: $Y_i | \pi_i \sim \text{Bern}(\pi_i)$
+
+. . .
+
+$E(Y_i|\pi_i) = \pi_i$
+
+. . .
+
+link function: $g(\pi_i) = \beta_0 + \beta_1 X_{i1}$
+
+. . .
+
+logit link function: $Y_i|\beta_0,\beta_1 \stackrel{ind}{\sim} \text{Bern}(\pi_i) \;\; \text{ with } \;\; \log\left(\frac{\pi_i}{1 - \pi_i}\right) = \beta_0 + \beta_1 X_{i1}$
+
+. . .
+
+$$\frac{\pi_i}{1-\pi_i} = e^{\beta_0 + \beta_1 X_{i1}}
+\;\;\;\; \text{ and } \;\;\;\;
+\pi_i = \frac{e^{\beta_0 + \beta_1 X_{i1}}}{1 + e^{\beta_0 + \beta_1 X_{i1}}}$$
+
+##
+
+$$\log(\text{odds}) = \log\left(\frac{\pi}{1-\pi}\right) = \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p \; . $$
+
+When $(X_1,X_2,\ldots,X_p)$ are all 0, $\beta_0$ is the __typical log odds__ of the event of interest and $e^{\beta_0}$ is the __typical odds__.
+
+When controlling for the other predictors $(X_2,\ldots,X_p)$, let $\text{odds}_x$ represent the typical odds of the event of interest when $X_1 = x$ and $\text{odds}_{x+1}$ the typical odds when $X_1 = x + 1$. Then when $X_1$ increases by 1, from $x$ to $x + 1$, $\beta_1$ is the typical __change in log odds__ and $e^{\beta_1}$ is the typical __multiplicative change in odds__:
+
+$$\beta_1 = \log(\text{odds}_{x+1}) - \log(\text{odds}_x)
+\;\;\; \text{ and } \;\;\; e^{\beta_1} = \frac{\text{odds}_{x+1}}{\text{odds}_x}$$
+
+
+##
+
+
+```{r}
+# Convert raintomorrow to 1s and 0s
+weather <- weather %>% 
+  mutate(raintomorrow = as.numeric(raintomorrow == "Yes"))
+
+# Simulate the model
+rain_model_1 <- lm(raintomorrow ~ humidity9am,
+                   data = weather,
+                   family = binomial)
+```
+
+## 
+
+```{r}
+broom::tidy(rain_model_1)
+```
+
+. . .
+
+$$\log\left(\frac{\pi}{1-\pi}\right) = \beta_0 + \beta_1 X_1$$
+. . . 
+
+$$\pi = \frac{e^{\beta_0 + \beta_1 X_1}}{1 + e^{\beta_0 + \beta_1 X_1}}$$
+
+## Prediction and Classification
+
+```{r}
+weather %>% 
+  mutate(log_odds = -0.220 + 0.00667 * humidity9am) %>% 
+  mutate(prob = log_odds/(1+log_odds)) %>% 
+  select(-humidity3pm)
+```
+
+## Prediction and Classification
+
+```{r}
+weather %>% 
+  mutate(log_odds = -0.220 + (0.00667 * humidity9am)) %>% 
+  mutate(prob = exp(log_odds)/(1+exp(log_odds))) %>% 
+  select(-humidity3pm)
+```
+
+## Prediction and Classification
+
+If we have values for $\pi$ then we can use these values to predict $\hat Y$. 
+For instance if $\pi$ is 0.128 then Y would be randomly sampled from $\text{Bern}(0.128)$.
+
+```{r}
+set.seed(20641)
+weather <- weather %>% 
+  mutate(log_odds = -0.220 + 0.00667 * humidity9am) %>% 
+  mutate(prob = exp(log_odds)/(1+exp(log_odds))) %>% 
+  select(-humidity3pm) %>% 
+  mutate(y_hat = rbinom(1000, size = 1, prob = prob))
+
+weather
+```
+
+##
+
+```{r}
+count(weather, y_hat)
+```
+
+
+##
+
+```{r}
+janitor::tabyl(weather,
+      raintomorrow, y_hat)
+```
+
+
+## Sensitivity, specificity, and overall accuracy
+
+A confusion matrix summarizes the results of these classifications relative to the actual observations where $a + b + c + d = n$:
+
+<div align="center">
+
+
+|         | $\hat{Y} = 0$ | $\hat{Y} = 1$ |
+|---------|---------------|---------------|
+| $Y = 0$ | $a$           | $b$           |
+| $Y = 1$ | $c$           | $d$           |
+
+
+ 
+
+$$\text{overall accuracy} = \frac{a + d}{a + b + c + d}$$    
+
+$$\text{sensitivity} = \frac{d}{c + d}
+\;\;\;\; \text{ and } \;\;\;\;
+\text{specificity} = \frac{a}{a + b}$$
