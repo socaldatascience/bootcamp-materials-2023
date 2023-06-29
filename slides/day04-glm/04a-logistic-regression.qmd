@@ -8,7 +8,6 @@ format:
     slide-number: true
     logo: "https://socaldatascience.github.io/bootcamp-materials-2022/img/socalds-logo.png"
     theme: ["slide-style.scss"]
-    css: "slide-style.css"
     incremental: false
 ---
 
