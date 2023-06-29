@@ -54,12 +54,17 @@ library(fontawesome)
 
 ## Day 4 - Generalized Linear Models
 
-<!--
+
 
 | Topic                         | Material |
 |-------------------------------|-----------|
-| Reproducible Workflow       |[`r fontawesome::fa(name = "desktop")`](slides/day04-workflow/04a-reproducible-workflow.html)           |
+| Logistics Regression     |[`r fontawesome::fa(name = "desktop")`](slides/day04-glm/04a-logistic-regression.html)           |
+| Logistics Regression Activity    |`day04-logistic-activity-username` repo on GitHub              |
+| Good Workflow Practices      |[`r fontawesome::fa(name = "desktop")`](slides/day04-glm/04b-workflow.html)           |
+| Learn to Collaborate on GitHub Activity       |`day04-collaborate-teamnumber` repo on GitHub           |
 
--->
+<!--
 
 ## Day 5 - Dependent Data Models
+
+-->
