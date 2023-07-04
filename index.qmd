@@ -63,8 +63,12 @@ library(fontawesome)
 | Good Workflow Practices      |[`r fontawesome::fa(name = "desktop")`](slides/day04-glm/04b-workflow.html)           |
 | Learn to Collaborate on GitHub Activity       |`day04-collaborate-teamnumber` repo on GitHub           |
 
-<!--
 
-## Day 5 - Dependent Data Models
 
--->
+## Day 5 - Hierarchical Linear Models
+
+| Topic                         | Material |
+|-------------------------------|-----------|
+| Hierarchical Linear Models without Predictors     |[`r fontawesome::fa(name = "desktop")`](slides/day05-lme/05a-hlm-nopred.html)           |
+| Hierarchical Linear Models Notes    |`day05-hlm-username` repo on GitHub              |
+| Hierarchical Linear Models with Predictors      |[`r fontawesome::fa(name = "desktop")`](slides/day05-lme/05a-hlm-pred.html)           |
