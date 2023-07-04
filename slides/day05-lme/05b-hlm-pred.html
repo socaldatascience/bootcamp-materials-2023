@@ -8,7 +8,7 @@
 <link href="05b-hlm-pred_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="05b-hlm-pred_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="05b-hlm-pred_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.340">
+  <meta name="generator" content="quarto-1.3.353">
 
   <meta name="author" content="Dr.&nbsp;Mine Dogucu">
   <title>(Normal) Hierarchical Models with Predictors</title>
@@ -95,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="05b-hlm-pred_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="05b-hlm-pred_files/libs/revealjs/dist/theme/quarto.css">
   <link href="05b-hlm-pred_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="05b-hlm-pred_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="05b-hlm-pred_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -480,7 +480,7 @@ Y_{ij} | \beta_{0j}, \beta_1, \sigma_y \sim N(\mu_{ij}, \sigma_y^2) \;\; \text{ 
 </section>
 <section id="normal-hierarchical-regression-assumptions" class="slide level2">
 <h2>Normal hierarchical regression assumptions</h2>
-<p>Let <span class="math inline">\(Y_{ij}\)</span> and <span class="math inline">\(X_{ij}\)</span> denote observations for the <span class="math inline">\(i\)</span>th observation in group <span class="math inline">\(j\)</span>. The appropriateness of the Bayesian Normal hierarchical regression model of <span class="math inline">\(Y_{ij}\)</span> by <span class="math inline">\(X_{ij}\)</span> depends upon the following assumptions.</p>
+<p>Let <span class="math inline">\(Y_{ij}\)</span> and <span class="math inline">\(X_{ij}\)</span> denote observations for the <span class="math inline">\(i\)</span>th observation in group <span class="math inline">\(j\)</span>. The appropriateness of the Normal hierarchical regression model of <span class="math inline">\(Y_{ij}\)</span> by <span class="math inline">\(X_{ij}\)</span> depends upon the following assumptions.</p>
 <ul>
 <li><strong>Structure of the data</strong><br>
 Conditioned on predictor <span class="math inline">\(X_{ij}\)</span>, the outcomes <span class="math inline">\(Y_{ij}\)</span> on any one group <span class="math inline">\(j\)</span> are <em>independent</em> of those on another group <span class="math inline">\(k\)</span>, <span class="math inline">\(Y_{ik}\)</span>. However, different data points <em>within</em> the same group <span class="math inline">\(j\)</span>, <span class="math inline">\(Y_{ij}\)</span> and <span class="math inline">\(Y_{hj}\)</span>, are <em>correlated</em>.</li>
@@ -567,7 +567,7 @@ Y_{ij} | \beta_{0j}, \beta_1, \sigma_y &amp; \sim N(\mu_{ij}, \sigma_y^2) \;\; \
 2 fixed  age             1.24     0.220      5.65</code></pre>
 </div>
 </div>
-<p>The <em>typical</em> runner tends to slow down about 1.24 minutes per year. Note that <span class="math inline">\(\hat \beta_1 = 21.8\)</span></p>
+<p>The <em>typical</em> runner tends to slow down about 1.24 minutes per year. Note that <span class="math inline">\(\hat \beta_0 = 21.8\)</span></p>
 </section>
 <section id="group-relationships" class="slide level2">
 <h2>Group Relationships</h2>

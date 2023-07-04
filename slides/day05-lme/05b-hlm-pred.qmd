@@ -144,7 +144,7 @@ variability in baseline speeds BETWEEN runners: $\beta_{0j} | \beta_0, \sigma_0 
 ## Normal hierarchical regression assumptions
 
 Let $Y_{ij}$ and $X_{ij}$ denote observations for the $i$th observation in group $j$. 
-The appropriateness of the Bayesian Normal hierarchical regression model of $Y_{ij}$ by $X_{ij}$ depends upon the following assumptions.
+The appropriateness of the Normal hierarchical regression model of $Y_{ij}$ by $X_{ij}$ depends upon the following assumptions.
 
 - __Structure of the data__    
     Conditioned on predictor $X_{ij}$, the outcomes $Y_{ij}$ on any one group $j$ are _independent_ of those on another group $k$, $Y_{ik}$. However, different data points _within_ the same group $j$, $Y_{ij}$ and $Y_{hj}$, are _correlated_.
@@ -252,7 +252,7 @@ broom.mixed::tidy(running_model_1, effects = "fixed")
 ```
 
 The _typical_ runner tends to slow down about 1.24 minutes per year.
-Note that $\hat \beta_1 = 21.8$
+Note that $\hat \beta_0 = 21.8$
 
 ## Group Relationships
 
