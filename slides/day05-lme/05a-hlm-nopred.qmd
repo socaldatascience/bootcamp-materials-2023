@@ -350,7 +350,15 @@ broom.mixed::tidy(spotify_hierarchical, effects = "ran_coefs") %>%
 ```
 
 
-It is expected that Camilo's mean popularity rating is about 78.44 above that of the average artist.
+For Camilo we have $$\mu_{44} = 78.4$$
 
+##
 
-$$\mu_{44} = \mu + b_{44} = 52.4 + 78.44.$$
+```{r}
+broom.mixed::tidy(spotify_hierarchical, effects = "ran_vals") %>% 
+  slice(1:2, 43:44)
+```
+
+For Camilo we have
+
+$$\mu_{44} = \mu + b_{44} = 52.4 + 26 = 78.4.$$

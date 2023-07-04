@@ -8,7 +8,7 @@
 <link href="05a-hlm-nopred_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="05a-hlm-nopred_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="05a-hlm-nopred_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.340">
+  <meta name="generator" content="quarto-1.3.353">
 
   <meta name="author" content="Dr.&nbsp;Mine Dogucu">
   <title>Hierarchical Linear Models with No Predictors</title>
@@ -95,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="05a-hlm-nopred_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="05a-hlm-nopred_files/libs/revealjs/dist/theme/quarto.css">
   <link href="05a-hlm-nopred_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="05a-hlm-nopred_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="05a-hlm-nopred_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -726,8 +726,25 @@ $ popularity &lt;dbl&gt; 79, 56, 75, 65, 52, 45, 79, 61, 61, 61, 56, 71, 61, 79,
 4 ran_coefs artist Camilo        (Intercept)     78.4</code></pre>
 </div>
 </div>
-<p>It is expected that Camilo’s mean popularity rating is about 78.44 above that of the average artist.</p>
-<p><span class="math display">\[\mu_{44} = \mu + b_{44} = 52.4 + 78.44.\]</span></p>
+<p>For Camilo we have <span class="math display">\[\mu_{44} = 78.4\]</span></p>
+</section>
+<section id="section-19" class="slide level2">
+<h2></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>broom.mixed<span class="sc">::</span><span class="fu">tidy</span>(spotify_hierarchical, <span class="at">effects =</span> <span class="st">"ran_vals"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">43</span><span class="sc">:</span><span class="dv">44</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 6
+  effect   group  level         term        estimate std.error
+  &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;         &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;
+1 ran_vals artist Mia X         (Intercept)    -32.1      6.32
+2 ran_vals artist Chris Goldarg (Intercept)    -33.1      4.24
+3 ran_vals artist Lil Skies     (Intercept)     20.8      7.09
+4 ran_vals artist Camilo        (Intercept)     26.0      4.45</code></pre>
+</div>
+</div>
+<p>For Camilo we have</p>
+<p><span class="math display">\[\mu_{44} = \mu + b_{44} = 52.4 + 26 = 78.4.\]</span></p>
 
 <img src="https://socaldatascience.github.io/bootcamp-materials-2022/img/socalds-logo.png" class="slide-logo r-stretch"><div class="footer footer-default">
 
